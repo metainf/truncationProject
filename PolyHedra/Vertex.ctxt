@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.params=a\ b\ c
+comment0.target=Vertex(int,\ int,\ int)
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Point\n
+comment1.params=
+comment1.target=int\ getX()
+comment2.params=
+comment2.target=int\ getY()
+comment3.params=
+comment3.target=int\ getZ()
+comment4.params=
+comment4.target=int[]\ getCoords()
+numComments=5
