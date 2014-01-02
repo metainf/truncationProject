@@ -26,10 +26,13 @@ public class Edge
         return points;
     }
     public boolean equals(Edge edge){
-        if((edge.getVertexes[0].equals(this.a)&& edge.getVertexes[1].equals(this.b))||(edge.getVertexes[1].equals(this.a)&& edge.getVertexes[0].equals(this.b)))
+        if((edge.getVertexes[0].equals(this.a)&& edge.getVertexes[1].equals(this.b))||
+            (edge.getVertexes[1].equals(this.a)&& edge.getVertexes[0].equals(this.b))){
             return true;
-    }
-    else{
-        return false;
+        }
+    
+        else{
+            return false;
+        }
     }
 }
