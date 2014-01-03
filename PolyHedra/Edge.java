@@ -35,4 +35,11 @@ public class Edge
             return false;
         }
     }
+	public boolean hasPoint(Vertex v){
+		if(edge.getVertexes[0].equals(v)||edge.getVertexes[1].equals(v)){
+			return true:
+		}
+		else{
+			return false:
+		}
 }

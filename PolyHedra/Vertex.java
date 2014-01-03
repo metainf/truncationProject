@@ -7,37 +7,37 @@
  */
 public class Vertex
 {
-    private int x;
-    private int y; 
-    private int z;
+    private	double x;
+    private double y; 
+    private double z;
     /**
      * Constructor for objects of class Point
      */
-    public Vertex(int a, int b, int c)
+    public Vertex(double a, double b, double c)
     {
         x = a;
         y = b;
         z = c;
     }
 
-    public int getX()
+    public double getX()
     {
         return x;
     }
 
-    public int getY()
+    public double getY()
     {
         return y;
     }
 
-    public int getZ()
+    public double getZ()
     {
         return z;
     }
     
-    public int[] getCoords()
+    public double[] getCoords()
     {
-        int[] coords = new int[3];
+        double[] coords = new double[3];
         coords[0] = x;
         coords[1] = y;
         coords[2] = z;

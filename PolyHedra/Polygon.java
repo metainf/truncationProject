@@ -10,8 +10,12 @@ public class Polygon
 		edges=inputedges;
 		sides=inputsides;
 }
-	public void pointTrun(Vertex point){
+	public void pointTrun(Vertex point, double distance){
 		ArrayList<Edge> tempEdges;
 		for(Edge e : edges){
-			if(e.
+			if(e.hasPoint(point)){
+				tempEdges.add(e):
+			}
+		}
+	}
 }
