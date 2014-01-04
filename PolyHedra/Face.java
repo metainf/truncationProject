@@ -5,29 +5,31 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
+ import java.util.ArrayList:
 public class Face
 {
     // instance variables - replace the example below with your own
-    private int x;
-    ?????????
+    private ArrayList<Edge> edges;
     /**
      * Constructor for objects of class Face
      */
-    public Face()
+    public Face(ArrayList<Edge> inputEdges)
     {
         // initialise instance variables
-        x = 0;
+        edges=inputEdges;
     }
+	/**
+	*returns all the edges of a face
+	*
+	*@return	ArrayList<Edges> edges of the face.
+	*/
+	public ArrayList<Edge> returnEdges(){
+		return edges;
+	}
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
-}
+    public boolean hasEdge(Edge e){
+		if(edges.contains(e)){
+			return true;
+		}
+		return false;
+	}

@@ -37,9 +37,9 @@ public class Edge
     }
 	public boolean hasPoint(Vertex v){
 		if(edge.getVertexes[0].equals(v)||edge.getVertexes[1].equals(v)){
-			return true:
+			return true;
 		}
 		else{
-			return false:
+			return false;
 		}
 }
