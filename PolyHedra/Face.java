@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Face here.
  * 
@@ -32,4 +31,15 @@ public class Face
 			return true;
 		}
 		return false;
-	}
+    }
+    public boolean equals(Face f){
+    	for (int i = 0; i < f.edges.size; i ++)
+    	{
+    		if (!this.edges.contains(f.edges.get(i))) return false;
+    	
+    		else return true;
+    	}
+    	}
+    }
+    
+    
