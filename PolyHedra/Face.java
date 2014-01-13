@@ -33,7 +33,7 @@ public class Face
 		return false;
     }
     public boolean equals(Face f){
-    	for (int i = 0; i < f.edges.size; i ++)
+    	for (Edge e: edges)
     	{
     		if (!this.edges.contains(f.edges.get(i))) return false;
     	
