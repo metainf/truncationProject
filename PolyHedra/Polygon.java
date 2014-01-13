@@ -5,7 +5,7 @@ public class Polygon
 	private ArrayList<Edge> edges;
 	private ArrayList<Face> sides;
 	
-	public Polygod(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides) {
+	public Polygon(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides) {
 		points=inputPoints;
 		edges=inputedges;
 		sides=inputsides;
