@@ -11,9 +11,11 @@ public class Polygon
 		sides=inputsides;
 }
 	public void pointTrun(Vertex point, double distance){
-		ArrayList<Edge> tempEdges; //used to store the edges before truncation
-		ArrayList<Face> tempFaces; //used to store the faces before truncation
-		
+		ArrayList<Edge> tempEdges=new ArrayList(); //used to store the edges before truncation
+		ArrayList<Face> tempFaces=new ArrayList(); //used to store the faces before truncation
+		ArrayList<Edge> newEdges=new ArrayList();
+		ArrayList<Vertex> newPoints=new ArrayList();
+		ArrayList<Face> newFaces=new ArrayList();
 		for(Edge e : edges){ //generates the list of edges that will be changed
 			if(e.hasPoint(point)){
 				tempEdges.add(e);
@@ -45,6 +47,8 @@ public class Polygon
 				edges.remove(e);
 			}
 		}
-		
+		for(Edge e: tempEdges){
+			
+		}
 	}
 }
