@@ -27,7 +27,7 @@ public class Polygon
 			}
 		}
 		for(int i=0;i<tempFaces.size();i+=0){ //supermessy way of getting rid of duplicates
-			if(tempFaces.indexOf(tempFaces.get(i))==tempFaces.lastIndexOf(tempFaces.get(i))){
+			if(tempFaces.indexOf(tempFaces.get(i)).equals(tempFaces.lastIndexOf(tempFaces.get(i)))){
 				i++;
 			}
 			else{
@@ -35,5 +35,16 @@ public class Polygon
 				i=0;
 			}
 		}
+		for(Face f: tempFaces){ //removes the faces that are going to be changed from the actual list
+			if(sides.contains(f)){
+				sides.remove(f);
+			}
+		}
+		for(Edge e: tempEdges){ //removes  the edges that are going to be changed from the actual list
+			if(edges.contains(e)){
+				edges.remove(e);
+			}
+		}
+		
 	}
 }
