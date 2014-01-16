@@ -18,11 +18,11 @@ public class Edge
         b = w;
     }
 
-    public Vertex[] getVertexes()
+    public ArrayList<Vertex> getVertexes()
     {
-        Vertex[] points = new Vertex[2];
-        points[0] = a;
-        points[1] = b;
+        Arraylist<Vertex> points;
+        points.add(a);
+        points.add(b);
         return points;
     }
     public boolean equals(Edge edge){
