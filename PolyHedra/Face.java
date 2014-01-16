@@ -33,13 +33,12 @@ public class Face
 		return false;
     }
     public boolean equals(Face f){
-    	for (Edge e: edges)
-    	{
-    		if (!this.edges.contains(f.edges.get(i))) return false;
+    	for (int i=0;i<this.edges.size();i++){
+    		if (!(f.edges.contains(this.edges.get(i)))) return false;
     	
-    		else return true;
     	}
-    	}
+    	return true;
     }
+}
     
     
