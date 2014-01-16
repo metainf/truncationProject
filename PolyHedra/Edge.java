@@ -20,7 +20,7 @@ public class Edge
 
     public ArrayList<Vertex> getVertexes()
     {
-        Arraylist<Vertex> points;
+        Arraylist<Vertex> points=new ArrayList();
         points.add(a);
         points.add(b);
         return points;
