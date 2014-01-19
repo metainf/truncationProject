@@ -1,4 +1,3 @@
-
 /**
  * A display and controller for a polyhedron
  * 
@@ -41,8 +40,8 @@ public class Display extends JPanel
         g2D.setColor(backgroundColor);
         g2D.fillRect(0, 0, width, height);
 
-        ArrayList faces = polyhedron.getFaces();
-        ArrayList orderedFaces = new ArrayList();
+        ArrayList<Face> faces = polyhedron.getFaces();
+        ArrayList<Face> orderedFaces = new ArrayList();
 
         //drains faces in order to populate orderedFaces with the faces from low to high z
         while (faces.size() > 0)
@@ -51,14 +50,14 @@ public class Display extends JPanel
             int minIndex = 0;
             for (int i = 0; i < faces.size(); i ++)
             {
-                currentZ = ((Face)faces.get(i)).getCentroid().getZ();
+                currentZ = faces.get(i).getCentroid().getZ();
                 if (currentZ < minZ)
                 {
                     minZ = currentZ;
                     minIndex = i;
                 }
             }
-            orderedFaces.add((Face)faces.get(minIndex));
+            orderedFaces.add(faces.get(minIndex));
             faces.remove(minIndex);
         }
 
@@ -67,19 +66,19 @@ public class Display extends JPanel
         //creates drawable shapes for all of the faces
         for (int i = 0; i < orderedFaces.size(); i ++)
         {
-            Face currentFace = (Face)orderedFaces.get(i);
+            Face currentFace = orderedFaces.get(i);
 
-            ArrayList orderedVertices = currentFace.getOrderedVertices();
+            ArrayList<Vertex> orderedVertices = currentFace.getOrderedVertices();
 
             faceShapes[i] = new GeneralPath(GeneralPath.WIND_EVEN_ODD,
                 currentFace.getNumVertices());
 
-            Vertex currentVertex = (Vertex)orderedVertices.get(0);
+            Vertex currentVertex = orderedVertices.get(0);
             faceShapes[i].moveTo(this.translateX(currentVertex.getX()),
                 this.translateY(currentVertex.getY()));
             for (int i = 1; i < orderedVertices.size(); i ++)
             {
-                currentVertex = (Vertex)orderedVertices.get(i);
+                currentVertex = orderedVertices.get(i);
                 faceShapes[i].lineTo(this.translateX(currentVertex.getX()),
                     this.translateY(currentVertex.getY()));
             }
