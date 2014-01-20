@@ -25,6 +25,13 @@ public class Edge
         points.add(b);
         return points;
     }
+    public Vertex[] getVertices()
+    {
+    	Vertex[] verticies = new Vertex[2];
+    	verticies[0] = a;
+    	verticies[1] = b;
+    	return verticies;
+    }
     public boolean equals(Edge edge){
         if((edge.getVertexes[0].equals(this.a)&& edge.getVertexes[1].equals(this.b))||
             (edge.getVertexes[1].equals(this.a)&& edge.getVertexes[0].equals(this.b))){
