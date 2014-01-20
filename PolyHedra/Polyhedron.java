@@ -85,6 +85,7 @@ public class Polyhedron
 	{
 		return sides;
 	}
-	 
+	
+	public 
 		
 }
