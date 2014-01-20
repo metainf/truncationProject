@@ -81,11 +81,29 @@ public class Polyhedron
 		}
 		return closest;
 	}
-	public ArrayList<Faces> getFaces()
+	public ArrayList<Face> getFaces()
 	{
 		return sides;
 	}
 	
-	public 
+	public ArrayList<Edge> initiateEdges(ArrayList<Vertex> points)
+	{
+		ArrayList tempPoints = new ArrayList<Vertex>();
+		tempPoints = points
+		ArrayList edges = new ArrayList<Edge>
+	
+		do
+		{
+			for (int i = 0; i < tempPoints.size; i ++)
+			{
+				if (tempPoints.get(0).distance() = 1)
+				{
+					edges.add(new Edge(tempPoints.get(0), tempPoints.get(i));
+				}
+			}
+			tempPoints.remove(0);
+		}
+		while (tempPoints.size > 0);
+	}
 		
 }
