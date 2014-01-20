@@ -172,6 +172,9 @@ public class Polyhedron
 			newFaces.add(i,currentFace);
 		}
 		newFaces.add(newFace);
+		points.add(newPoints);
+		edges.add(newEdges);
+		sides.add(newFaces);
 	}
 	public boolean hasVertexAtXY(double x, double y)
 	{
