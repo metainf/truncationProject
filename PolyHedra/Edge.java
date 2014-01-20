@@ -49,4 +49,10 @@ public class Edge
 		else{
 			return false;
 		}
+	}
+	public double distance()
+	{
+		return	a.distance(b);
+	}
+	
 }
