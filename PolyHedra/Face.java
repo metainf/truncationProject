@@ -4,19 +4,17 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
- import java.util.ArrayList:
+import java.util.ArrayList:
 public class Face
 {
-    // instance variables - replace the example below with your own
-    private ArrayList<Edge> edges;
-    /**
-     * Constructor for objects of class Face
-     */
-    public Face(ArrayList<Edge> inputEdges)
-    {
-        // initialise instance variables
-        edges=inputEdges;
-    }
+	// instance variables - replace the example below with your own
+	private ArrayList<Edge> edges;
+	/**
+	* Constructor for objects of class Face
+	*/
+	public Face(ArrayList<Edge> inputEdges){
+        	edges=inputEdges;
+        }
 	/**
 	*returns all the edges of a face
 	*
@@ -25,6 +23,13 @@ public class Face
 	public ArrayList<Edge> returnEdges(){
 		return edges;
 	}
+	public boolean removeEdge(Edge e){
+		return edges.remove(e);
+	}
+	public void addEdge(Edge e){
+		edges.add(e);
+	}
+
 
     public boolean hasEdge(Edge e){
 		if(edges.contains(e)){
