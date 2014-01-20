@@ -11,6 +11,8 @@ public class Polyhedron
 		edges=inputedges;
 		sides=inputsides;
 }
+	//This requires that the length that we are going to truncate things by is less than the length of the shortest
+	//edge. There is no full truncation
 	public void pointTrun(Vertex point, double chop){
 		ArrayList<Edge> tempEdges=new ArrayList(); //used to store the edges before truncation
 		ArrayList<Edge> newEdges=new ArrayList();
@@ -91,6 +93,44 @@ public class Polyhedron
 		/* This will create the face that is created by truncating the point
 		*It does so by going through the list of new points, and creating the new face from that
 		*/
+		boolean isdone=false;
+		Vertex firstPoint=newPoints.get(0);
+		Vertex currentPoint=firstPoint;
+		Vertex lastPoint=firstPoint;
+		Vertex nextPoint;
+		double smallestDistance=Double.MAX_VALUE;
+		while(!isdone){
+			//finds the next point
+			for(Vertex comparePoint: newPoints){
+				if(currentPoint.equals(comparePoint)){
+				}
+				else if(comparePoint.equals(lastPoint){
+				}
+				else{
+					if(currentPoint.distance(comparePoint)<smallestDistance){
+						smallestDistance=currentPoint.distance(comparePoint);
+						nextPoint=comparePoint;
+					}
+				}
+				
+			}
+			//creates and edds the edge made from the current point and the next point
+			newFace.add(new Edge(currentPoint,nextPoint));
+			newEdges.add(new Edge(currentPoint,nextPOint));
+			//moves to the next point
+			lastPoint=currentPoint;
+			currentPoint=nextPoint;
+			smallestDistance=Double.MAX_VALUE;
+			//checks if the loop is done
+			if(nextPoint.equals(firstPoint)){
+				newFace.add(new Edge(lastPoint,nextPoint));
+				newEdges.add(new Edge(lastPoint,nextPoint));
+				isdone=true;
+			}
+		}
+		newFaces.add(newFace);
+		//adds the edges of the new face created by truncation to the faces choped by truncation
+		
 		
 	}
 	public boolean hasVertexAtXY(double x, double y)
