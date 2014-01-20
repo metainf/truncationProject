@@ -1,11 +1,12 @@
 import java.util.ArrayList;
-public class Polygon
+public class Polyhedron
 {
 	private ArrayList<Vertex> points;
 	private ArrayList<Edge> edges;
 	private ArrayList<Face> sides;
+
 	
-	public Polygon(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides) {
+	public Polyhedron(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides) {
 		points=inputPoints;
 		edges=inputedges;
 		sides=inputsides;
@@ -51,4 +52,39 @@ public class Polygon
 			
 		}
 	}
+	public boolean hasVertexAtXY(double x, double y)
+	{
+		for (Vertex v: points)
+		{
+			if (v.getX == x && v.getX == y)
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasEdgeAtXY(double x, double y)
+	{
+		
+	}
+	
+	public Vertex getVertexAtXY(double x, double y)
+	{
+		Vertex closest;	
+		points.get(0).getZ = z		//gets a z coordinate to check against
+		for (Vertex v: points)
+		{
+			if (v.getX == x && v.getX == y && v.getZ > z)	
+			{
+				closest = v;
+				z = v.getZ;
+			}
+		}
+		return closest;
+	}
+	public ArrayList<Faces> getFaces()
+	{
+		return sides;
+	}
+	 
+		
 }
