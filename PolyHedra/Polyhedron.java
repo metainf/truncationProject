@@ -62,9 +62,45 @@ public class Polyhedron
 		return false;
 	}
 	
-	public boolean hasEdgeAtXY(double x, double y)
+	public boolean hasEdgeAtXY(double x3, double y3)
 	{
-		
+		double x1,x2,y1,y2;
+		Vertex[] verticies = new Vertex[2];
+		for (Edge e: edges)
+		{
+			verticies = e.getVerticies();
+			x1 = verticies[0].getX;
+			x2 = verticies[1].getX;
+			y1 = verticies[0].getY;
+			y2 = verticies[1].getY;
+			if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
+			{ 
+				return true;
+			}
+		}
+		return false;
+			
+	}
+	
+	public Edge getEdgeAtXY(double x3, double y3)
+	{
+		double x1,x2,y1,y2;
+		Vertex[] verticies = new Vertex[2];
+		currentEdge
+		for (Edge e: edges)
+		{
+			verticies = e.getVerticies();
+			x1 = verticies[0].getX;
+			x2 = verticies[1].getX;
+			y1 = verticies[0].getY;
+			y2 = verticies[1].getY;
+			if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
+			{ 
+				currentEdge = e;
+			}
+		}
+		return currentEdge;
+			
 	}
 	
 	public Vertex getVertexAtXY(double x, double y)
