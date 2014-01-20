@@ -50,8 +50,8 @@ public class Vertex
             return false;
         }
     }
-    public double distance(Vertex a, Vertex b)
+    public double distance(Vertex a)
     {
-        return Math.sqrt(Math.pow(b.getX - a.getX) + Math.pow(b.getY - a.getY) + Math.pow(b.getZ - a.getZ));
+        return Math.sqrt(Math.pow(a.getX - this.getX) + Math.pow(a.getY - this.getY) + Math.pow(a.getZ - this.getZ));
     }
 }
