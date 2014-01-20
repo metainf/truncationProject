@@ -63,9 +63,7 @@ public class Face
     }
     public int getNumVerticies()
     {
-    	int n; 
-    	n = edges.size * 2;
-    	return n;
+    	return edges.size();
     }
 }
     
