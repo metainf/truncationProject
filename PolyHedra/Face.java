@@ -39,6 +39,34 @@ public class Face
     	}
     	return true;
     }
+    public Vertex getCentroid()
+    {
+    	double x, y, z;
+    	int n;
+    	for (int i = 0; i < edges.size; i ++)
+    	{
+    		for (int k = 0 k < 2; k ++)
+    		{
+    			x = x + edges.get(i).getVerticies()[k].getCoords()[0];
+    			y = y + edges.get(i).getVerticies()[k].getCoords()[1];
+    			z = z + edges.get(i).getVerticies()[k].getCoords()[2];
+    			n ++
+    			
+    		}
+    		
+    	}
+    	x = x / n;
+    	y = y / n;
+    	z = z / n;
+    	Vertex centroid = new Vertex(x, y, z);
+    	return centroid;
+    }
+    public int getNumVerticies()
+    {
+    	int n; 
+    	n = edges.size * 2;
+    	return n;
+    }
 }
     
     
