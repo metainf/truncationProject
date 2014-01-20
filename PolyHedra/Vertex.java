@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Point here.
  * 
@@ -51,5 +50,8 @@ public class Vertex
             return false;
         }
     }
-    
+    public double distance(Vertex a, Vertex b)
+    {
+        return Math.sqrt(Math.pow(b.getX - a.getX) + Math.pow(b.getY - a.getY) + Math.pow(b.getZ - a.getZ));
+    }
 }
