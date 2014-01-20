@@ -12,7 +12,7 @@ public class Polyhedron
 		sides=inputsides;
 }
 	//This requires that the length that we are going to truncate things by is less than the length of the shortest
-	//edge. There is no full truncation
+	//edge. There is full truncation;
 	public void pointTrun(Vertex point, double chop){
 		ArrayList<Edge> tempEdges=new ArrayList(); //used to store the edges before truncation
 		ArrayList<Edge> newEdges=new ArrayList();
@@ -60,35 +60,56 @@ public class Polyhedron
 		*At the end, the only left is to make the new face created by the truncation
 		*/
 		for(Edge e: tempEdges){
-			//finds the point that does not change in the edge
-			if(e.getVertices()[0].equals(point)){
-				Vertex notTrunPt=e.getVertices()[1];
+			//if the truncation goes to a point
+			if(e.distance()==chop){
+				if(e.getVertices()[0].equals(point)){
+					Vertex notTrunPt=e.getVertices()[1];
+				}
+				else{
+					Vertex notTrunPt=e.getVertices()[0];
+				}
+				Vertex newVertex= notTrunPt;
+				for(int i=0;i<newFaces.size();i++){
+					Face f=newFaces.get(i);
+					if(f.hasEdge(e)){
+						newFaces.remove(f);
+						f.remove(e);
+						newFaces.add(i,f);
+					}
+				}
+				newPoints.add(newVertex);
 			}
 			else{
-				Vertex notTrunPt=e.getVertices()[0];
-			}
-			//creates the vector to get the new point
-			double[] vector={notTrunPt.getX()-point.getX(),
-					 notTrunPt.getY()-point.getY(),
-					 notTrunPt.getZ()-point.getZ()};
-			//creates the new point
-			Vertex newVertex= new Vertex(point.getX()-(vector[0]/e.distance()*chop),
-			                             point.getX()-(vector[1]/e.distance()*chop),
-			                             point.getX()-(vector[2]/e.distance()*chop))
-			//creates the new edge
-			Edge newEdge= new Edge(notTrunpt,newVertex);
-			//adds the new edge to the faces that had the old edge
-			for(int i=0;i<newFaces.size();i++){
-				Face f=newFaces.get(i);
-				if(f.hasEdge(e)){
-					newFaces.remove(f);
-					f.remove(e);
-					f.add(newEdge);
-					newFaces.add(i,f);
+				//finds the point that does not change in the edge
+				if(e.getVertices()[0].equals(point)){
+					Vertex notTrunPt=e.getVertices()[1];
 				}
+				else{
+					Vertex notTrunPt=e.getVertices()[0];
+				}
+				//creates the vector to get the new point
+				double[] vector={notTrunPt.getX()-point.getX(),
+						 notTrunPt.getY()-point.getY(),
+						 notTrunPt.getZ()-point.getZ()};
+				//creates the new point
+				Vertex newVertex= new Vertex(point.getX()-(vector[0]/e.distance()*chop),
+				                             point.getX()-(vector[1]/e.distance()*chop),
+				                             point.getX()-(vector[2]/e.distance()*chop))
+				//creates the new edge
+				Edge newEdge= new Edge(notTrunpt,newVertex);
+				//adds the new edge to the faces that had the old edge
+				for(int i=0;i<newFaces.size();i++){
+					Face f=newFaces.get(i);
+					if(f.hasEdge(e)){
+						newFaces.remove(f);
+						f.remove(e);
+						f.add(newEdge);
+						newFaces.add(i,f);
+					}
+				}
+				newEdges.add(e);
+				newPoints.add(newVertex);
 			}
-			newEdges.add(e);
-			newPoints.add(newVertex);
 		}
 		/* This will create the face that is created by truncating the point
 		*It does so by going through the list of new points, and creating the new face from that
@@ -128,10 +149,29 @@ public class Polyhedron
 				isdone=true;
 			}
 		}
-		newFaces.add(newFace);
 		//adds the edges of the new face created by truncation to the faces choped by truncation
-		
-		
+		for(int i=0;i<newFaces.size();i++){
+			Face currentFace=newFaces.get(i);
+			ArrayList<Edge> edgesInCurrentFace=currentFace.returnEdges();
+			ArrayList<Edge> edgesInNewFace=newFace.returnEdges();
+			ArrayList<Vertex> pointsInCurrentFace= new ArrayList();
+			for(Edge e:edgesInCurrentFace){
+				if(pointsInCurrentFace.indexOf(e.getVertices()[0])==-1){
+					pointsInCurrentFace.add(e.getVertices()[0]);
+				}
+				if(pointsInCurrentFace.indexOf(e.getVertices()[1])==-1){
+					pointsInCurrentFace.add(e.getVertices()[1]);
+				}
+			}
+			for(Edge e:edgesInNewFace){
+				if(pointsInCurrentFace.indexOf(e.getVertices()[0])!=-1 && pointsInCurrentFace.indexOf(e.getVertices()[1])!=-1){
+					currentFace.add(e);
+				}
+			}
+			newFaces.remove(i);
+			newFaces.add(i,currentFace);
+		}
+		newFaces.add(newFace);
 	}
 	public boolean hasVertexAtXY(double x, double y)
 	{
