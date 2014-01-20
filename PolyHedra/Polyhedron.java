@@ -265,5 +265,127 @@ public class Polyhedron
 		}
 		while (tempPoints.size > 0);
 	}
+	public static ArrayList<Vertex> readVerticesTetrahedron(String fileName) {
+		ArrayList<Vertex> output = new ArrayList<Vertex>();
+ 
+		try {
+			Scanner scan = new Scanner(new FileReader(fileName));
+			int lineCounter = 0;
+			while (scan.hasNextLine()) {
+				String nextVertex = scan.nextLine();
+				if(lineCounter >= 3 && lineCounter <=6) {
+				StringTokenizer lineN = new StringTokenizer(nextVertex);
+				double x = Double.parseDouble(lineN.nextToken());
+				double y = Double.parseDouble(lineN.nextToken());
+				double z = Double.parseDouble(lineN.nextToken());
+				output.add(new Vertex(x,y,z));
+				}
+			}
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+ 
+		return output;
+	}
+ 
+ 
+	public static ArrayList<Vertex> readVerticesCube(String fileName) {
+		ArrayList<Vertex> output = new ArrayList<Vertex>();
+ 
+		try {
+			Scanner scan = new Scanner(new FileReader(fileName));
+			int lineCounter = 0;
+			while (scan.hasNextLine()) {
+				String nextVertex = scan.nextLine();
+				if(lineCounter>=9 && lineCounter <=16) {
+				StringTokenizer lineN = new StringTokenizer(nextVertex);
+				double x = Double.parseDouble(lineN.nextToken());
+				double y = Double.parseDouble(lineN.nextToken());
+				double z = Double.parseDouble(lineN.nextToken());
+				output.add(new Vertex(x,y,z));
+				}
+			}
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+ 
+		return output;
+	}
+ 
+ 
+	public static ArrayList<Vertex> readVerticesOctahedron(String fileName) {
+		ArrayList<Vertex> output = new ArrayList<Vertex>();
+ 
+		try {
+			Scanner scan = new Scanner(new FileReader(fileName));
+			int lineCounter = 0;
+			while (scan.hasNextLine()) {
+				String nextVertex = scan.nextLine();
+				if(lineCounter>=19 && lineCounter <=24) {
+				StringTokenizer lineN = new StringTokenizer(nextVertex);
+				double x = Double.parseDouble(lineN.nextToken());
+				double y = Double.parseDouble(lineN.nextToken());
+				double z = Double.parseDouble(lineN.nextToken());
+				output.add(new Vertex(x,y,z));
+				}
+			}
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+ 
+		return output;
+	}
+ 
+ 
+	public static ArrayList<Vertex> readVerticesDodecahedron(String fileName) {
+		ArrayList<Vertex> output = new ArrayList<Vertex>();
+ 
+		try {
+			Scanner scan = new Scanner(new FileReader(fileName));
+			int lineCounter = 0;
+			while (scan.hasNextLine()) {
+				String nextVertex = scan.nextLine();
+				if(lineCounter>=30 && lineCounter <=41) {
+				StringTokenizer lineN = new StringTokenizer(nextVertex);
+				double x = Double.parseDouble(lineN.nextToken());
+				double y = Double.parseDouble(lineN.nextToken());
+				double z = Double.parseDouble(lineN.nextToken());
+				output.add(new Vertex(x,y,z));
+				}
+			}
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+ 
+		return output;
+	}
+ 
+	public static ArrayList<Vertex> readVerticesIcosahedron(String fileName) {
+		ArrayList<Vertex> output = new ArrayList<Vertex>();
+ 
+		try {
+			Scanner scan = new Scanner(new FileReader(fileName));
+			int linelineCounter = 0;
+			while (scan.hasNextLine()) {
+				String nextVertex = scan.nextLine();
+				if(lineCounter>=47 && lineCounter <= 66) {
+				StringTokenizer lineN = new StringTokenizer(nextVertex);
+				double x = Double.parseDouble(lineN.nextToken());
+				double y = Double.parseDouble(lineN.nextToken());
+				double z = Double.parseDouble(lineN.nextToken());
+				output.add(new Vertex(x,y,z));
+				}
+			}
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+ 
+		return output;
+	}
 		
 }
