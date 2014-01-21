@@ -77,32 +77,40 @@ public class Face
     
     public ArrayList<Vertex> getOrderedVerticies()
     {
-    	ArrayList<Edge> tempEdges = new ArrayList();
-    	tempEdges = edges;
-    	ArrayList orderedVerticies = new ArrayList<Vertex>();
-    	
-    	orderedVerticies.add(tempEdges.get(0).getVerticies()[0]);
-    	orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
-    	
-    	do
-    	{
-    		for (Edge e: tempEdges)
-    		{
-    			if (e.getVerticies().contains(orderedVerticies.get(i - 1)))
-    			{
-    				if (orderedVerticies.get(i - 1).equals(e.getVerticies()[0]))
-    				{
-    					orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
-    				}
-    				else if (orderedVerticies.get(i - 1).equals(e.getVerticies()[1]))
-    				{
-    					orderedVerticies.add(tempEdges.remove(0).getVerticies()[0]);
-    				}
-    			}
-    		}
-    	}
-    	while (tempEdges.size() > 0);
-    	return orderedVerticies;
+        ArrayList<Edge> tempEdges = new ArrayList();
+        tempEdges = edges;
+        Edge e;
+        Vertex a, b;
+        int numVert = 2;
+        ArrayList orderedVerticies = new ArrayList<Vertex>();
+        orderedVerticies.add(tempEdges.get(0).getVertices()[0]);
+        orderedVerticies.add(tempEdges.remove(0).getVertices()[1]);
+
+        do
+        {
+            for (int i = 0; i < tempEdges.size(); i ++)
+            {
+                e = tempEdges.get(i);
+                a = e.getVerticies()[0];
+                b = e.getVerticies()[1];
+                n = orderedVerticies.size() - 1;
+                if (orderedVerticies.get(n).equals(a))
+                {
+                    orderedVertices.add(b);
+                    tempEdges.remove(i);
+                    break;
+                }
+                else if (orderedVerticies.get(n).equals(b))
+                {
+                    orderedVerticies.add(a);
+                    tempEdges.remove(i);
+                    break;
+                }
+            }
+        }
+        while (tempEdges.size() > 0);
+        
+        return orderedVerticies;
     }
 }
     
