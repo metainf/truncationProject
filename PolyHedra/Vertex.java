@@ -52,6 +52,6 @@ public class Vertex
     }
     public double distance(Vertex a)
     {
-        return Math.sqrt(Math.pow(a.getX - this.getX) + Math.pow(a.getY - this.getY) + Math.pow(a.getZ - this.getZ));
+        return Math.sqrt(Math.pow((a.getX() - this.getX()), 2) + Math.pow((a.getY() - this.getY()), 2) + Math.pow((a.getZ() - this.getZ()), 2));
     }
 }
