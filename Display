@@ -301,7 +301,7 @@ public class Display extends JPanel
      */
     public void selectVertexAtXY(int x, int y)
     {
-        selectedVertex = polyhedron.getVertexAtXY((this.untranslateX(x), this.untranslateY(y));
+        selectedVertex = polyhedron.getVertexAtXY(this.untranslateX(x), this.untranslateY(y));
     }
 
     /**
@@ -312,7 +312,7 @@ public class Display extends JPanel
      */
     public void selectEdgeAtXY(int x, int y)
     {
-        selectedEdge = polyhedron.getEdgeAtXY((this.untranslateX(x), this.untranslateY(y));
+        selectedEdge = polyhedron.getEdgeAtXY(this.untranslateX(x), this.untranslateY(y));
     }
 
 }
