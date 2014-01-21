@@ -176,7 +176,7 @@ public class UI
                             for (int dy = -2; dy <= 2; dy ++)
                             {
                                 if (! display.hasSelected()
-                                && display.hasVertexAtXY(mouseEvent.getX() + dx, mouseEvent.getY() + dy)
+                                && display.hasVertexAtXY(mouseEvent.getX() + dx, mouseEvent.getY() + dy))
                                 {
                                     display.selectVertexAtXY(mouseEvent.getX() + dx,
                                         mouseEvent.getY() + dy);
@@ -196,7 +196,7 @@ public class UI
                             for (int dy = -2; dy <= 2; dy ++)
                             {
                                 if (! display.hasSelected()
-                                && display.hasEdgeAtXY(mouseEvent.getX() + dx, mouseEvent.getY() + dy)
+                                && display.hasEdgeAtXY(mouseEvent.getX() + dx, mouseEvent.getY() + dy))
                                 {
                                     display.selectEdgeAtXY(mouseEvent.getX() + dx,
                                         mouseEvent.getY() + dy);
