@@ -55,9 +55,9 @@ public class Face
     	{
     		for (int k = 0; k < 2; k ++)
     		{
-    			x = x + edges.get(i).getVerticies()[k].getCoords()[0];
-    			y = y + edges.get(i).getVerticies()[k].getCoords()[1];
-    			z = z + edges.get(i).getVerticies()[k].getCoords()[2];
+    			x = x + edges.get(i).getVertices()[k].getCoords()[0];
+    			y = y + edges.get(i).getVertices()[k].getCoords()[1];
+    			z = z + edges.get(i).getVertices()[k].getCoords()[2];
     			n++;
     			
     		}
@@ -70,39 +70,39 @@ public class Face
     	return centroid;
     }
     
-    public int getNumVerticies()
+    public int getNumVertices()
     {
     	return edges.size();
     }
     
-    public ArrayList<Vertex> getOrderedVerticies()
+    public ArrayList<Vertex> getOrderedVertices()
     {
         ArrayList<Edge> tempEdges = new ArrayList();
         tempEdges = edges;
         Edge e;
         Vertex a, b;
         int n = 2;
-        ArrayList orderedVerticies = new ArrayList<Vertex>();
-        orderedVerticies.add(tempEdges.get(0).getVerticies()[0]);
-        orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
+        ArrayList orderedVertices = new ArrayList<Vertex>();
+        orderedVertices.add(tempEdges.get(0).getVertices()[0]);
+        orderedVertices.add(tempEdges.remove(0).getVertices()[1]);
 
         do
         {
             for (int i = 0; i < tempEdges.size(); i ++)
             {
                 e = tempEdges.get(i);
-                a = e.getVerticies()[0];
-                b = e.getVerticies()[1];
-                n = orderedVerticies.size() - 1;
-                if (orderedVerticies.get(n).equals(a))
+                a = e.getVertices()[0];
+                b = e.getVertices()[1];
+                n = orderedVertices.size() - 1;
+                if (orderedVertices.get(n).equals(a))
                 {
-                    orderedVerticies.add(b);
+                    orderedVertices.add(b);
                     tempEdges.remove(i);
                     break;
                 }
-                else if (orderedVerticies.get(n).equals(b))
+                else if (orderedVertices.get(n).equals(b))
                 {
-                    orderedVerticies.add(a);
+                    orderedVertices.add(a);
                     tempEdges.remove(i);
                     break;
                 }
@@ -110,7 +110,7 @@ public class Face
         }
         while (tempEdges.size() > 0);
         
-        return orderedVerticies;
+        return orderedVertices;
     }
 }
     
