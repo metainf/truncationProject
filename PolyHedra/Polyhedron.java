@@ -44,9 +44,37 @@ public class Polyhedron
 			}
 			for(int i=0;i<pairs.size();i++){
 				ArrayList <Edge> pair=pairs.get(i);
-				ArrayList <Edge> face=
+				ArrayList <Edge> face= new ArrayList();
+				face.add(pair.get(0));
+				face.add(pair.get(1));
+				for(Edge e:copyEdge){
+					boolean inPlane=true;
+					for(Vertex v:e.getVertices()){
+						double[] v1={pair.get(0).getX()-currentPoint.getX(),
+								  pair.get(0).getY()-currentPoint.getY(),
+								  pair.get(0).getZ()-currentPoint.getZ()};
+						double[] v2={pair.get(1).getX()-currentPoint.getX(),
+								  pair.get(1).getY()-currentPoint.getY(),
+								  pair.get(1).getZ()-currentPoint.getZ()};
+						double[] v3={v.getX()-currentPoint.getX(),
+								  v.getY()-currentPoint.getY(),
+								  v.getZ()-currentPoint.getZ()};
+						double[] cross={v1[1]*v2[2]-v1[2]*v2[1],
+							        v1[2]*v2[0]-v1[0]*v2[2],
+							        v1[0]*v2[1]-v1[1]*v2[0],}
+						if(v3[0]*cross[0]+v3[1]*cross[1]+v3[2]*cross[2]<0.0){
+							inPlane=false;
+						}
+					}
+					if(inPlane){
+						face.add(e);
+					}
+				}
+				faces.add(face);
 			}
+			copyPoints.remove(0);
 		}
+		return faces;
 	}
 	//This requires that the length that we are going to truncate things by is less than the length of the shortest
 	//edge. There is full truncation;
