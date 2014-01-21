@@ -1,3 +1,4 @@
+
 /**
  * A display and controller for a polyhedron
  * 
@@ -12,6 +13,8 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Container;
 import java.util.ArrayList;
+import java.awt.Point;
+import java.awt.geom.GeneralPath;
 
 public class Display extends JPanel
 {
@@ -46,11 +49,11 @@ public class Display extends JPanel
         //drains faces in order to populate orderedFaces with the faces from low to high z
         while (faces.size() > 0)
         {
-            int minZ = Integer.MIN_VALUE;
+            double minZ = -Double.MAX_VALUE;
             int minIndex = 0;
             for (int i = 0; i < faces.size(); i ++)
             {
-                currentZ = faces.get(i).getCentroid().getZ();
+                double currentZ = faces.get(i).getCentroid().getZ();
                 if (currentZ < minZ)
                 {
                     minZ = currentZ;
@@ -68,18 +71,18 @@ public class Display extends JPanel
         {
             Face currentFace = orderedFaces.get(i);
 
-            ArrayList<Vertex> orderedVertices = currentFace.getOrderedVertices();
+            ArrayList<Vertex> orderedVertices = currentFace.getOrderedVerticies();
 
             faceShapes[i] = new GeneralPath(GeneralPath.WIND_EVEN_ODD,
-                currentFace.getNumVertices());
+                currentFace.getNumVerticies());
 
             Vertex currentVertex = orderedVertices.get(0);
             faceShapes[i].moveTo(this.translateX(currentVertex.getX()),
                 this.translateY(currentVertex.getY()));
-            for (int i = 1; i < orderedVertices.size(); i ++)
+            for (int j = 1; j < orderedVertices.size(); j ++)
             {
-                currentVertex = orderedVertices.get(i);
-                faceShapes[i].lineTo(this.translateX(currentVertex.getX()),
+                currentVertex = orderedVertices.get(j);
+                faceShapes[j].lineTo(this.translateX(currentVertex.getX()),
                     this.translateY(currentVertex.getY()));
             }
             faceShapes[i].closePath();
@@ -107,7 +110,7 @@ public class Display extends JPanel
         }
         else if (selectedEdge != null)
         {
-            Vertex[] endVertices = selectedEdge.getVertices();
+            Vertex[] endVertices = selectedEdge.getVerticies();
 
             g2D.setColor(highlightColor);
             g2D.drawLine(this.translateX(endVertices[0].getX()),
@@ -127,11 +130,11 @@ public class Display extends JPanel
     {
         switch (newShape)
         {
-            case "Tetrahedron": polyhedron = new Polyhedron(Polyhedron.TETRAHEDRON);
-            case "Cube": polyhedron = new Polyhedron(Polyhedron.CUBE);
-            case "Octahedron": polyhedron = new Polyhedron(Polyhedron.OCTAHEDRON);
-            case "Dodecahedron": polyhedron = new Polyhedron(Polyhedron.DODECAHEDRON);
-            case "Icosahedron": polyhedron = new Polyhedron(Polyhedron.ICOSAHEDRON);
+            case "Tetrahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Tetrahedron");
+            case "Cube": polyhedron = new Polyhedron("PolyhedraVertices.txt","Cube");
+            case "Octahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Octahedron");
+            case "Dodecahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Dodecahedron");
+            case "Icosahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Icosahedron");
         }
     }
 
@@ -143,7 +146,7 @@ public class Display extends JPanel
      */
     private int translateX(double cartesianX)
     {
-        return Math.round((width / 4.0) * cartesianX * zoom + (width / 2.0));
+        return (int)Math.round((width / 4.0) * cartesianX * zoom + (width / 2.0));
     }
 
     /**
@@ -154,7 +157,7 @@ public class Display extends JPanel
      */
     private int translateY(double cartesianY)
     {
-        return Math.round(-1 * (height / 4.0) * cartesianY * zoom + (height / 2.0));
+        return (int)Math.round(-1 * (height / 4.0) * cartesianY * zoom + (height / 2.0));
     }
 
     /**
@@ -188,11 +191,12 @@ public class Display extends JPanel
     {
         switch (newShape)
         {
-            case "Tetrahedron": polyhedron = new Polyhedron(Polyhedron.TETRAHEDRON);
-            case "Cube": polyhedron = new Polyhedron(Polyhedron.CUBE);
-            case "Octahedron": polyhedron = new Polyhedron(Polyhedron.OCTAHEDRON);
-            case "Dodecahedron": polyhedron = new Polyhedron(Polyhedron.DODECAHEDRON);
-            case "Icosahedron": polyhedron = new Polyhedron(Polyhedron.ICOSAHEDRON);
+            case "Tetrahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Tetrahedron");
+            case "Cube": polyhedron = new Polyhedron("PolyhedraVertices.txt","Cube");
+            case "Octahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Octahedron");
+            case "Dodecahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Dodecahedron");
+            case "Icosahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Icosahedron");
+
         }
     }
 
@@ -224,8 +228,8 @@ public class Display extends JPanel
      */
     public void rotate(Point point1, Point point2)
     {
-        polyhedron.rotate(this.untranslateX(point1.getX()), this.untranslateY(point1.getY()),
-            this.untranslateX(point2.getX()), this.untranslateY(point2.getY()));
+        polyhedron.rotate(new Point((int)this.untranslateX((int)point1.getX()), (int)this.untranslateY((int)point1.getY())),
+            new Point((int)this.untranslateX((int)point2.getX()), (int)this.untranslateY((int)point2.getY())));
     }
 
     /**
@@ -265,7 +269,6 @@ public class Display extends JPanel
             return false;
         }
     }
-
 
     /**
      * Deselects everything that is currently selected
