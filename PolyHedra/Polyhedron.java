@@ -36,7 +36,16 @@ public class Polyhedron
 					shortestDistance=pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint));
 				}
 			}
-			for(int i=0)
+			for(int i=0;i<pairs.size();i++){
+				if(pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint))>shortestDistance){
+					pairs.remove(i);
+					i=0;
+				}
+			}
+			for(int i=0;i<pairs.size();i++){
+				ArrayList <Edge> pair=pairs.get(i);
+				ArrayList <Edge> face=
+			}
 		}
 	}
 	//This requires that the length that we are going to truncate things by is less than the length of the shortest
@@ -199,7 +208,7 @@ public class Polyhedron
 			newFaces.remove(i);
 			newFaces.add(i,currentFace);
 		}
-		newFaces.add(newFace);
+		newFaces.add( new Face(newFace));
 		points.add(newPoints);
 		edges.add(newEdges);
 		sides.add(newFaces);
