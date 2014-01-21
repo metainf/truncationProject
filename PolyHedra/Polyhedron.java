@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.*;
 import java.io.File;
@@ -74,7 +73,7 @@ public class Polyhedron
                 face.add(pair.get(1));
                 for(Edge e:copyEdge){
                     boolean inPlane=true;
-                    for(Vertex v:e.getVerticies()){
+                    for(Vertex v:e.getVertices()){
                         double[] v1={pair.get(0).otherVert(currentPoint).getX()-currentPoint.getX(),
                                 pair.get(0).otherVert(currentPoint).getY()-currentPoint.getY(),
                                 pair.get(0).otherVert(currentPoint).getZ()-currentPoint.getZ()};
@@ -153,11 +152,11 @@ public class Polyhedron
             //if the truncation goes to a point
             if(e.distance()==chop){
                 Vertex notTrunPt;
-                if(e.getVerticies()[0].equals(point)){
-                    notTrunPt=e.getVerticies()[1];
+                if(e.getVertices()[0].equals(point)){
+                    notTrunPt=e.getVertices()[1];
                 }
                 else{
-                    notTrunPt=e.getVerticies()[0];
+                    notTrunPt=e.getVertices()[0];
                 }
                 Vertex newVertex= notTrunPt;
                 for(int i=0;i<newFaces.size();i++){
@@ -173,11 +172,11 @@ public class Polyhedron
             else{
                 Vertex notTrunPt;
                 //finds the point that does not change in the edge
-                if(e.getVerticies()[0].equals(point)){
-                    notTrunPt=e.getVerticies()[1];
+                if(e.getVertices()[0].equals(point)){
+                    notTrunPt=e.getVertices()[1];
                 }
                 else{
-                    notTrunPt=e.getVerticies()[0];
+                    notTrunPt=e.getVertices()[0];
                 }
                 //creates the vector to get the new point
                 double[] vector={notTrunPt.getX()-point.getX(),
@@ -248,15 +247,15 @@ public class Polyhedron
             ArrayList<Edge> edgesInNewFace=newFace;
             ArrayList<Vertex> pointsInCurrentFace= new ArrayList();
             for(Edge e:edgesInCurrentFace){
-                if(pointsInCurrentFace.indexOf(e.getVerticies()[0])==-1){
-                    pointsInCurrentFace.add(e.getVerticies()[0]);
+                if(pointsInCurrentFace.indexOf(e.getVertices()[0])==-1){
+                    pointsInCurrentFace.add(e.getVertices()[0]);
                 }
-                if(pointsInCurrentFace.indexOf(e.getVerticies()[1])==-1){
-                    pointsInCurrentFace.add(e.getVerticies()[1]);
+                if(pointsInCurrentFace.indexOf(e.getVertices()[1])==-1){
+                    pointsInCurrentFace.add(e.getVertices()[1]);
                 }
             }
             for(Edge e:edgesInNewFace){
-                if(pointsInCurrentFace.indexOf(e.getVerticies()[0])!=-1 && pointsInCurrentFace.indexOf(e.getVerticies()[1])!=-1){
+                if(pointsInCurrentFace.indexOf(e.getVertices()[0])!=-1 && pointsInCurrentFace.indexOf(e.getVertices()[1])!=-1){
                     currentFace.add(e);
                 }
             }
@@ -288,14 +287,14 @@ public class Polyhedron
     public boolean hasEdgeAtXY(double x3, double y3)
     {
         double x1,x2,y1,y2;
-        Vertex[] verticies = new Vertex[2];
+        Vertex[] vertices = new Vertex[2];
         for (Edge e: edges)
         {
-            verticies = e.getVerticies();
-            x1 = verticies[0].getX();
-            x2 = verticies[1].getX();
-            y1 = verticies[0].getY();
-            y2 = verticies[1].getY();
+            vertices = e.getVertices();
+            x1 = vertices[0].getX();
+            x2 = vertices[1].getX();
+            y1 = vertices[0].getY();
+            y2 = vertices[1].getY();
             if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
             { 
                 return true;
@@ -308,15 +307,15 @@ public class Polyhedron
     public Edge getEdgeAtXY(double x3, double y3)
     {
         double x1,x2,y1,y2;
-        Vertex[] verticies = new Vertex[2];
+        Vertex[] vertices = new Vertex[2];
         Edge currentEdge=new Edge();
         for (Edge e: edges)
         {
-            verticies = e.getVerticies();
-            x1 = verticies[0].getX();
-            x2 = verticies[1].getX();
-            y1 = verticies[0].getY();
-            y2 = verticies[1].getY();
+            vertices = e.getVertices();
+            x1 = vertices[0].getX();
+            x2 = vertices[1].getX();
+            y1 = vertices[0].getY();
+            y2 = vertices[1].getY();
             if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
             { 
                 currentEdge = e;
