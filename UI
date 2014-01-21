@@ -1,3 +1,4 @@
+
 /**
  * The User Interface for a truncation program
  * 
@@ -12,6 +13,7 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+import javax.swing.JSlider;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -21,6 +23,7 @@ import javax.swing.KeyStroke;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -169,7 +172,7 @@ public class UI
                     if (selectRB.isSelected())
                     {
                         display.clearSelected();
-                        
+
                         //checks for and selects a vertex within 2 pixels
                         for (int dx = -2; dx <= 2; dx ++)
                         {
@@ -182,14 +185,14 @@ public class UI
                                         mouseEvent.getY() + dy);
 
                                     //show a truncation-controlling component
-                                        //slider? (would need ability to reverse truncate)
-                                        //button? (while depressed, truncate) (can't fully trucate?)
-                                        //popup with a percentage chooser?
-                                            //change would not be visible until committed
+                                    //slider? (would need ability to reverse truncate)
+                                    //button? (while depressed, truncate) (can't fully trucate?)
+                                    //popup with a percentage chooser?
+                                    //change would not be visible until committed
                                 }
                             }
                         }
-                        
+
                         //checks for and selects an edge within 2 pixels (if vertex not selected)
                         for (int dx = -2; dx <= 2; dx ++)
                         {
@@ -202,10 +205,10 @@ public class UI
                                         mouseEvent.getY() + dy);
 
                                     //show a truncation-controlling component
-                                        //slider? (would need ability to reverse truncate)
-                                        //button? (while depressed, truncate) (can't fully trucate?)
-                                        //popup with a percentage chooser?
-                                            //change would not be visible until committed
+                                    //slider? (would need ability to reverse truncate)
+                                    //button? (while depressed, truncate) (can't fully trucate?)
+                                    //popup with a percentage chooser?
+                                    //change would not be visible until committed
                                 }
                             }
                         }
@@ -263,11 +266,11 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(new Point(display.getSize().getWidth() / 8, 0), new Point());
+                            display.rotate(new Point((int)(display.getSize().getWidth() / 8), 0), new Point());
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(new Point(display.getSize().getWidth() / 8, 0), new Point());
+                            display.rotate(new Point((int)(display.getSize().getWidth() / 8), 0), new Point());
                         }
                     }
                 }
@@ -282,11 +285,11 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(new Point(), new Point(display.getSize().getWidth() / 8, 0));
+                            display.rotate(new Point(), new Point((int)(display.getSize().getWidth() / 8), 0));
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(new Point(), new Point(display.getSize().getWidth() / 8, 0));
+                            display.rotate(new Point(), new Point((int)(display.getSize().getWidth() / 8), 0));
                         }
                     }
                 }
@@ -301,11 +304,11 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(new Point(0, display.getSize().getHeight() / 8), new Point());
+                            display.rotate(new Point(0, (int)(display.getSize().getHeight() / 8)), new Point());
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(new Point(0, display.getSize().getHeight() / 8), new Point());
+                            display.rotate(new Point(0, (int)(display.getSize().getHeight() / 8)), new Point());
                         }
                     }
                 }
@@ -320,11 +323,11 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(new Point(), new Point(0, display.getSize().getHeight() / 8));
+                            display.rotate(new Point(), new Point(0, (int)(display.getSize().getHeight() / 8)));
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(new Point(), new Point(0, display.getSize().getHeight() / 8));
+                            display.rotate(new Point(), new Point(0, (int)(display.getSize().getHeight() / 8)));
                         }
                     }
                 }
