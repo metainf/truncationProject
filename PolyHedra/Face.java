@@ -4,7 +4,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-import java.util.ArrayList:
+import java.util.ArrayList;
 public class Face
 {
 	// instance variables - replace the example below with your own
@@ -46,16 +46,16 @@ public class Face
     }
     public Vertex getCentroid()
     {
-    	double x, y, z;
+    	double x=0, y=0, z=0;
     	int n;
-    	for (int i = 0; i < edges.size; i ++)
+    	for (int i = 0; i < edges.size(); i ++)
     	{
-    		for (int k = 0 k < 2; k ++)
+    		for (int k = 0; k < 2; k ++)
     		{
-    			x = x + edges.get(i).getVerticies()[k].getCoords()[0];
-    			y = y + edges.get(i).getVerticies()[k].getCoords()[1];
-    			z = z + edges.get(i).getVerticies()[k].getCoords()[2];
-    			n ++
+    			x = x + edges.get(i).getVertices()[k].getCoords()[0];
+    			y = y + edges.get(i).getVertices()[k].getCoords()[1];
+    			z = z + edges.get(i).getVertices()[k].getCoords()[2];
+    			n++;
     			
     		}
     		
@@ -74,31 +74,31 @@ public class Face
     
     public ArrayList<Vertex> getOrderedVerticies()
     {
-    	ArrayList tempEdges = new ArrayList<Edges>
-    	tempEdges = edges
+    	ArrayList<Edge> tempEdges = new ArrayList();
+    	tempEdges = edges;
     	ArrayList orderedVerticies = new ArrayList<Vertex>();
     	
-    	orderedVerticies.add(tempEdges.get(0).getVerticies()[0]);
-    	orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
+    	orderedVerticies.add(tempEdges.get(0).getVertices()[0]);
+    	orderedVerticies.add(tempEdges.remove(0).getVertices()[1]);
     	
     	do
     	{
     		for (Edge e: tempEdges)
     		{
-    			if (e.getVertexes().contains(orderedVerticies.get[i - 1])
+    			if (e.getVertices().contains(orderedVerticies.get(i - 1)))
     			{
-    				if (orderedVerticies.get[i - 1].equals(e.getVerticies[0])
+    				if (orderedVerticies.get(i - 1).equals(e.getVertices()[0]))
     				{
-    					orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
+    					orderedVerticies.add(tempEdges.remove(0).getVertices()[1]);
     				}
-    				else if (orderedVerticies.get[i - 1].equals(e.getVerticies[1])
+    				else if (orderedVerticies.get(i - 1).equals(e.getVertices()[1]))
     				{
-    					orderedVerticies.add(tempEdges.remove(0).getVerticies()[0]);
+    					orderedVerticies.add(tempEdges.remove(0).getVertices()[0]);
     				}
     			}
     		}
     	}
-    	while (tempEdges.size > 0);
+    	while (tempEdges.size() > 0);
     	return orderedVerticies;
     }
 }

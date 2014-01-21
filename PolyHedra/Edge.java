@@ -4,6 +4,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
+import java.util.ArrayList;
 public class Edge
 {
     private Vertex a;
@@ -25,7 +26,7 @@ public class Edge
 	}
     public ArrayList<Vertex> getVertexes()
     {
-        Arraylist<Vertex> points=new ArrayList();
+        ArrayList<Vertex> points=new ArrayList();
         points.add(a);
         points.add(b);
         return points;
@@ -38,8 +39,8 @@ public class Edge
     	return verticies;
     }
     public boolean equals(Edge edge){
-        if((edge.getVertexes[0].equals(this.a)&& edge.getVertexes[1].equals(this.b))||
-            (edge.getVertexes[1].equals(this.a)&& edge.getVertexes[0].equals(this.b))){
+        if((edge.getVertices()[0].equals(this.a)&& edge.getVertices()[1].equals(this.b))||
+            (edge.getVertices()[1].equals(this.a)&& edge.getVertices()[0].equals(this.b))){
             return true;
         }
     
@@ -48,7 +49,7 @@ public class Edge
         }
     }
 	public boolean hasPoint(Vertex v){
-		if(edge.getVertexes[0].equals(v)||edge.getVertexes[1].equals(v)){
+		if(this.getVertices()[0].equals(v)||this.getVertices()[1].equals(v)){
 			return true;
 		}
 		else{

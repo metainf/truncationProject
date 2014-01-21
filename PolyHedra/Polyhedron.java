@@ -1,3 +1,6 @@
+package PolyHedra;
+
+
 import java.util.ArrayList;
 public class Polyhedron
 {
@@ -7,30 +10,30 @@ public class Polyhedron
 
 	
 	public Polyhedron(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides) {
-		points=inputPoints;
-		edges=inputedges;
-		sides=inputsides;
+		points= new ArrayList<Vertex>(inputPoints);
+		edges= new ArrayList<Edge>(inputEdges);
+		sides= new ArrayList<Face>(inputSides);
 }
-	public static ArrayList<Face> makePolyhedronFaces(ArrayLst<Vertex> inputPoints, ArrayList<Edge> inputEdges){
+	public static ArrayList<Face> makePolyhedronFaces(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges){
 		ArrayList<Vertex> copyPoints=inputPoints;
 		ArrayList<Edge> copyEdge=inputEdges;
-		ArrayList<Face> faces=new ArrayList();
+		ArrayList<Face> faces=new ArrayList<Face>();
 		while(copyPoints.size()<0){
-			Vertex currentPoint=copyPoints.get(0);
-			ArrayList<Edge> edgesHasCurrentPoint= new ArrayList();
+			Vertex currentPoint=(Vertex) copyPoints.get();
+			ArrayList<Edge> edgesHasCurrentPoint= new ArrayList<Edge>();
 			for(Edge e:copyEdge){
 				if(e.hasPoint(currentPoint)) edgesHasCurrentPoint.add(e);
 			}
-			ArrayList<ArrayList<Edge>> pairs=new ArrayList();
+			ArrayList<ArrayList<Edge>> pairs=new ArrayList<ArrayList<Edge>>();
 			for(int i=0;i<edgesHasCurrentPoint.size();i++){
 				for(int j=i+1;j<edgesHasCurrentPoint.size();j++){
-					ArrayList <Edge> pair=new ArrayList();
+					ArrayList <Edge> pair=new ArrayList<Edge>();
 					pair.add(edgesHasCurrentPoint.get(i));
 					pair.add(edgesHasCurrentPoint.get(j));
 					pairs.add(pair);
 				}
 			}
-			double shortestDistance=Double.MAX_VALUE
+			double shortestDistance=Double.MAX_VALUE;
 			for(int i=0;i<pairs.size();i++){
 				if(pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint))<shortestDistance){
 					shortestDistance=pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint));
@@ -61,7 +64,7 @@ public class Polyhedron
 								  v.getZ()-currentPoint.getZ()};
 						double[] cross={v1[1]*v2[2]-v1[2]*v2[1],
 							        v1[2]*v2[0]-v1[0]*v2[2],
-							        v1[0]*v2[1]-v1[1]*v2[0],}
+							        v1[0]*v2[1]-v1[1]*v2[0],};
 						if(v3[0]*cross[0]+v3[1]*cross[1]+v3[2]*cross[2]<0.0){
 							inPlane=false;
 						}
@@ -127,11 +130,12 @@ public class Polyhedron
 		for(Edge e: tempEdges){
 			//if the truncation goes to a point
 			if(e.distance()==chop){
+                            Vertex notTrunPt;
 				if(e.getVertices()[0].equals(point)){
-					Vertex notTrunPt=e.getVertices()[1];
+					 notTrunPt=e.getVertices()[1];
 				}
 				else{
-					Vertex notTrunPt=e.getVertices()[0];
+					 notTrunPt=e.getVertices()[0];
 				}
 				Vertex newVertex= notTrunPt;
 				for(int i=0;i<newFaces.size();i++){
@@ -145,12 +149,13 @@ public class Polyhedron
 				newPoints.add(newVertex);
 			}
 			else{
+                            Vertex notTrunPt;
 				//finds the point that does not change in the edge
 				if(e.getVertices()[0].equals(point)){
-					Vertex notTrunPt=e.getVertices()[1];
+					 notTrunPt=e.getVertices()[1];
 				}
 				else{
-					Vertex notTrunPt=e.getVertices()[0];
+					 notTrunPt=e.getVertices()[0];
 				}
 				//creates the vector to get the new point
 				double[] vector={notTrunPt.getX()-point.getX(),
@@ -159,9 +164,9 @@ public class Polyhedron
 				//creates the new point
 				Vertex newVertex= new Vertex(point.getX()-(vector[0]/e.distance()*chop),
 				                             point.getX()-(vector[1]/e.distance()*chop),
-				                             point.getX()-(vector[2]/e.distance()*chop))
+				                             point.getX()-(vector[2]/e.distance()*chop));
 				//creates the new edge
-				Edge newEdge= new Edge(notTrunpt,newVertex);
+				Edge newEdge= new Edge(notTrunPt,newVertex);
 				//adds the new edge to the faces that had the old edge
 				for(int i=0;i<newFaces.size();i++){
 					Face f=newFaces.get(i);
@@ -190,7 +195,7 @@ public class Polyhedron
 			for(Vertex comparePoint: newPoints){
 				if(currentPoint.equals(comparePoint)){
 				}
-				else if(comparePoint.equals(lastPoint){
+				else if(comparePoint.equals(lastPoint)){
 				}
 				else{
 					if(currentPoint.distance(comparePoint)<smallestDistance){
@@ -202,7 +207,7 @@ public class Polyhedron
 			}
 			//creates and edds the edge made from the current point and the next point
 			newFace.add(new Edge(currentPoint,nextPoint));
-			newEdges.add(new Edge(currentPoint,nextPOint));
+			newEdges.add(new Edge(currentPoint,nextPoint));
 			//moves to the next point
 			lastPoint=currentPoint;
 			currentPoint=nextPoint;
@@ -295,7 +300,7 @@ public class Polyhedron
 	public Vertex getVertexAtXY(double x, double y)
 	{
 		Vertex closest;	
-		points.get(0).getZ = z		//gets a z coordinate to check against
+		points.get(0).getZ = z;		//gets a z coordinate to check against
 		for (Vertex v: points)
 		{
 			if (v.getX == x && v.getX == y && v.getZ > z)	
@@ -313,9 +318,9 @@ public class Polyhedron
 	
 	public ArrayList<Edge> initiateEdges(ArrayList<Vertex> points)
 	{
-		ArrayList tempPoints = new ArrayList<Vertex>();
-		tempPoints = points
-		ArrayList edges = new ArrayList<Edge>
+		ArrayList<Vertex> tempPoints = new ArrayList<Vertex>();
+		tempPoints = points;
+		ArrayList<Edge> edges = new ArrayList<Edge>();
 	
 		do
 		{
