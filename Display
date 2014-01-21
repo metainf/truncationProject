@@ -70,10 +70,10 @@ public class Display extends JPanel
         {
             Face currentFace = orderedFaces.get(i);
 
-            ArrayList<Vertex> orderedVertices = currentFace.getOrderedVerticies();
+            ArrayList<Vertex> orderedVertices = currentFace.getOrderedVertices();
 
             faceShapes[i] = new GeneralPath(GeneralPath.WIND_EVEN_ODD,
-                currentFace.getNumVerticies());
+                currentFace.getNumVertices());
 
             Vertex currentVertex = orderedVertices.get(0);
             faceShapes[i].moveTo(this.translateX(currentVertex.getX()),
@@ -109,7 +109,7 @@ public class Display extends JPanel
         }
         else if (selectedEdge != null)
         {
-            Vertex[] endVertices = selectedEdge.getVerticies();
+            Vertex[] endVertices = selectedEdge.getVertices();
 
             g2D.setColor(highlightColor);
             g2D.drawLine(this.translateX(endVertices[0].getX()),
