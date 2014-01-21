@@ -1,4 +1,3 @@
-
 /**
  * The User Interface for a truncation program
  * 
@@ -259,14 +258,17 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    //if the polyhedron isn't currently spinning
-                    if (rotator[0] == null)
+                    if (rotateRB.isSelected())
                     {
-                        display.rotate(new Point(display.getSize().getWidth() / 8, 0), new Point());
-                    }
-                    else if (! rotator[0].isRunning())
-                    {
-                        display.rotate(new Point(display.getSize().getWidth() / 8, 0), new Point());
+                        //if the polyhedron isn't currently spinning
+                        if (rotator[0] == null)
+                        {
+                            display.rotate(new Point(display.getSize().getWidth() / 8, 0), new Point());
+                        }
+                        else if (! rotator[0].isRunning())
+                        {
+                            display.rotate(new Point(display.getSize().getWidth() / 8, 0), new Point());
+                        }
                     }
                 }
             }
@@ -275,14 +277,17 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    //if the polyhedron isn't currently spinning
-                    if (rotator[0] == null)
+                    if (rotateRB.isSelected())
                     {
-                        display.rotate(new Point(), new Point(display.getSize().getWidth() / 8, 0));
-                    }
-                    else if (! rotator[0].isRunning())
-                    {
-                        display.rotate(new Point(), new Point(display.getSize().getWidth() / 8, 0));
+                        //if the polyhedron isn't currently spinning
+                        if (rotator[0] == null)
+                        {
+                            display.rotate(new Point(), new Point(display.getSize().getWidth() / 8, 0));
+                        }
+                        else if (! rotator[0].isRunning())
+                        {
+                            display.rotate(new Point(), new Point(display.getSize().getWidth() / 8, 0));
+                        }
                     }
                 }
             }
@@ -291,14 +296,17 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    //if the polyhedron isn't currently spinning
-                    if (rotator[0] == null)
+                    if (rotateRB.isSelected())
                     {
-                        display.rotate(new Point(0, display.getSize().getHeight() / 8), new Point());
-                    }
-                    else if (! rotator[0].isRunning())
-                    {
-                        display.rotate(new Point(0, display.getSize().getHeight() / 8), new Point());
+                        //if the polyhedron isn't currently spinning
+                        if (rotator[0] == null)
+                        {
+                            display.rotate(new Point(0, display.getSize().getHeight() / 8), new Point());
+                        }
+                        else if (! rotator[0].isRunning())
+                        {
+                            display.rotate(new Point(0, display.getSize().getHeight() / 8), new Point());
+                        }
                     }
                 }
             }
@@ -307,14 +315,17 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    //if the polyhedron isn't currently spinning
-                    if (rotator[0] == null)
+                    if (rotateRB.isSelected())
                     {
-                        display.rotate(new Point(), new Point(0, display.getSize().getHeight() / 8));
-                    }
-                    else if (! rotator[0].isRunning())
-                    {
-                        display.rotate(new Point(), new Point(0, display.getSize().getHeight() / 8));
+                        //if the polyhedron isn't currently spinning
+                        if (rotator[0] == null)
+                        {
+                            display.rotate(new Point(), new Point(0, display.getSize().getHeight() / 8));
+                        }
+                        else if (! rotator[0].isRunning())
+                        {
+                            display.rotate(new Point(), new Point(0, display.getSize().getHeight() / 8));
+                        }
                     }
                 }
             }
