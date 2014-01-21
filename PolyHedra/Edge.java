@@ -1,4 +1,4 @@
-package PolyHedra;
+ 
 
 /**
  * Write a description of class Edge here.
