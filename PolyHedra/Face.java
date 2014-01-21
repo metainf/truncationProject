@@ -16,7 +16,7 @@ public class Face
 	* Constructor for objects of class Face
 	*/
 	public Face(ArrayList<Edge> inputEdges){
-        	edges=inputEdges;
+        	edges=new ArrayList<>(inputEdges);
         }
 	/**
 	*returns all the edges of a face
@@ -24,12 +24,12 @@ public class Face
 	*@return	ArrayList<Edges> edges of the face.
 	*/
 	public ArrayList<Edge> returnEdges(){
-		return edges;
+		return new ArrayList<>(edges);
 	}
-	public boolean removeEdge(Edge e){
+	public boolean remove(Edge e){
 		return edges.remove(e);
 	}
-	public void addEdge(Edge e){
+	public void add(Edge e){
 		edges.add(e);
 	}
 
@@ -50,14 +50,14 @@ public class Face
     public Vertex getCentroid()
     {
     	double x=0, y=0, z=0;
-    	int n;
+    	int n=0;
     	for (int i = 0; i < edges.size(); i ++)
     	{
     		for (int k = 0; k < 2; k ++)
     		{
-    			x = x + edges.get(i).getVertices()[k].getCoords()[0];
-    			y = y + edges.get(i).getVertices()[k].getCoords()[1];
-    			z = z + edges.get(i).getVertices()[k].getCoords()[2];
+    			x = x + edges.get(i).getVerticies()[k].getCoords()[0];
+    			y = y + edges.get(i).getVerticies()[k].getCoords()[1];
+    			z = z + edges.get(i).getVerticies()[k].getCoords()[2];
     			n++;
     			
     		}
@@ -81,22 +81,22 @@ public class Face
     	tempEdges = edges;
     	ArrayList orderedVerticies = new ArrayList<Vertex>();
     	
-    	orderedVerticies.add(tempEdges.get(0).getVertices()[0]);
-    	orderedVerticies.add(tempEdges.remove(0).getVertices()[1]);
+    	orderedVerticies.add(tempEdges.get(0).getVerticies()[0]);
+    	orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
     	
     	do
     	{
     		for (Edge e: tempEdges)
     		{
-    			if (e.getVertices().contains(orderedVerticies.get(i - 1)))
+    			if (e.getVerticies().contains(orderedVerticies.get(i - 1)))
     			{
-    				if (orderedVerticies.get(i - 1).equals(e.getVertices()[0]))
+    				if (orderedVerticies.get(i - 1).equals(e.getVerticies()[0]))
     				{
-    					orderedVerticies.add(tempEdges.remove(0).getVertices()[1]);
+    					orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
     				}
-    				else if (orderedVerticies.get(i - 1).equals(e.getVertices()[1]))
+    				else if (orderedVerticies.get(i - 1).equals(e.getVerticies()[1]))
     				{
-    					orderedVerticies.add(tempEdges.remove(0).getVertices()[0]);
+    					orderedVerticies.add(tempEdges.remove(0).getVerticies()[0]);
     				}
     			}
     		}

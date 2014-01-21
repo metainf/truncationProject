@@ -2,6 +2,8 @@ package PolyHedra;
 
 
 import java.util.ArrayList;
+import java.util.*;
+import java.io.FileReader;
 public class Polyhedron
 {
 	private ArrayList<Vertex> points;
@@ -16,10 +18,10 @@ public class Polyhedron
 }
 	public static ArrayList<Face> makePolyhedronFaces(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges){
 		ArrayList<Vertex> copyPoints=new ArrayList<Vertex>(inputPoints);
-		ArrayList<Edge> copyEdge=new ArrayList<Vertex>(inputEdges);
+		ArrayList<Edge> copyEdge=new ArrayList<Edge>(inputEdges);
 		ArrayList<Face> faces=new ArrayList<Face>();
 		while(copyPoints.size()<0){
-			Vertex currentPoint=(Vertex) copyPoints.get();
+			Vertex currentPoint=(Vertex) copyPoints.get(0);
 			ArrayList<Edge> edgesHasCurrentPoint= new ArrayList<Edge>();
 			for(Edge e:copyEdge){
 				if(e.hasPoint(currentPoint)) edgesHasCurrentPoint.add(e);
@@ -52,13 +54,13 @@ public class Polyhedron
 				face.add(pair.get(1));
 				for(Edge e:copyEdge){
 					boolean inPlane=true;
-					for(Vertex v:e.getVertices()){
-						double[] v1={pair.get(0).getX()-currentPoint.getX(),
-								  pair.get(0).getY()-currentPoint.getY(),
-								  pair.get(0).getZ()-currentPoint.getZ()};
-						double[] v2={pair.get(1).getX()-currentPoint.getX(),
-								  pair.get(1).getY()-currentPoint.getY(),
-								  pair.get(1).getZ()-currentPoint.getZ()};
+					for(Vertex v:e.getVerticies()){
+						double[] v1={pair.get(0).otherVert(currentPoint).getX()-currentPoint.getX(),
+								  pair.get(0).otherVert(currentPoint).getY()-currentPoint.getY(),
+								  pair.get(0).otherVert(currentPoint).getZ()-currentPoint.getZ()};
+						double[] v2={pair.get(1).otherVert(currentPoint).getX()-currentPoint.getX(),
+								  pair.get(1).otherVert(currentPoint).getY()-currentPoint.getY(),
+								  pair.get(1).otherVert(currentPoint).getZ()-currentPoint.getZ()};
 						double[] v3={v.getX()-currentPoint.getX(),
 								  v.getY()-currentPoint.getY(),
 								  v.getZ()-currentPoint.getZ()};
@@ -73,7 +75,7 @@ public class Polyhedron
 						face.add(e);
 					}
 				}
-				faces.add(face);
+				faces.add(new Face(face));
 			}
 			copyPoints.remove(0);
 		}
@@ -103,7 +105,7 @@ public class Polyhedron
 		}
 		//supermessy way of getting rid of duplicates faces
 		for(int i=0;i<newFaces.size();i+=0){
-			if(newFaces.indexOf(newFaces.get(i)).equals(newFaces.lastIndexOf(newFaces.get(i)))){
+			if(newFaces.indexOf(newFaces.get(i))==(newFaces.lastIndexOf(newFaces.get(i)))){
 				i++;
 			}
 			else{
@@ -131,11 +133,11 @@ public class Polyhedron
 			//if the truncation goes to a point
 			if(e.distance()==chop){
                             Vertex notTrunPt;
-				if(e.getVertices()[0].equals(point)){
-					 notTrunPt=e.getVertices()[1];
+				if(e.getVerticies()[0].equals(point)){
+					 notTrunPt=e.getVerticies()[1];
 				}
 				else{
-					 notTrunPt=e.getVertices()[0];
+					 notTrunPt=e.getVerticies()[0];
 				}
 				Vertex newVertex= notTrunPt;
 				for(int i=0;i<newFaces.size();i++){
@@ -151,11 +153,11 @@ public class Polyhedron
 			else{
                             Vertex notTrunPt;
 				//finds the point that does not change in the edge
-				if(e.getVertices()[0].equals(point)){
-					 notTrunPt=e.getVertices()[1];
+				if(e.getVerticies()[0].equals(point)){
+					 notTrunPt=e.getVerticies()[1];
 				}
 				else{
-					 notTrunPt=e.getVertices()[0];
+					 notTrunPt=e.getVerticies()[0];
 				}
 				//creates the vector to get the new point
 				double[] vector={notTrunPt.getX()-point.getX(),
@@ -188,7 +190,7 @@ public class Polyhedron
 		Vertex firstPoint=newPoints.get(0);
 		Vertex currentPoint=firstPoint;
 		Vertex lastPoint=firstPoint;
-		Vertex nextPoint;
+		Vertex nextPoint=firstPoint;
 		double smallestDistance=Double.MAX_VALUE;
 		while(!isdone){
 			//finds the next point
@@ -223,18 +225,18 @@ public class Polyhedron
 		for(int i=0;i<newFaces.size();i++){
 			Face currentFace=newFaces.get(i);
 			ArrayList<Edge> edgesInCurrentFace=currentFace.returnEdges();
-			ArrayList<Edge> edgesInNewFace=newFace.returnEdges();
+			ArrayList<Edge> edgesInNewFace=newFace;
 			ArrayList<Vertex> pointsInCurrentFace= new ArrayList();
 			for(Edge e:edgesInCurrentFace){
-				if(pointsInCurrentFace.indexOf(e.getVertices()[0])==-1){
-					pointsInCurrentFace.add(e.getVertices()[0]);
+				if(pointsInCurrentFace.indexOf(e.getVerticies()[0])==-1){
+					pointsInCurrentFace.add(e.getVerticies()[0]);
 				}
-				if(pointsInCurrentFace.indexOf(e.getVertices()[1])==-1){
-					pointsInCurrentFace.add(e.getVertices()[1]);
+				if(pointsInCurrentFace.indexOf(e.getVerticies()[1])==-1){
+					pointsInCurrentFace.add(e.getVerticies()[1]);
 				}
 			}
 			for(Edge e:edgesInNewFace){
-				if(pointsInCurrentFace.indexOf(e.getVertices()[0])!=-1 && pointsInCurrentFace.indexOf(e.getVertices()[1])!=-1){
+				if(pointsInCurrentFace.indexOf(e.getVerticies()[0])!=-1 && pointsInCurrentFace.indexOf(e.getVerticies()[1])!=-1){
 					currentFace.add(e);
 				}
 			}
@@ -242,15 +244,21 @@ public class Polyhedron
 			newFaces.add(i,currentFace);
 		}
 		newFaces.add( new Face(newFace));
-		points.add(newPoints);
-		edges.add(newEdges);
-		sides.add(newFaces);
+		for(Vertex p:newPoints){
+                    points.add(p);
+                }
+                for(Edge e:newEdges){
+                    edges.add(e);
+                }
+                for(Face f:newFaces){
+                    sides.add(f);
+                }
 	}
 	public boolean hasVertexAtXY(double x, double y)
 	{
 		for (Vertex v: points)
 		{
-			if (v.getX == x && v.getX == y)
+			if (v.getX() == x && v.getX() == y)
 			return true;
 		}
 		return false;
@@ -263,10 +271,10 @@ public class Polyhedron
 		for (Edge e: edges)
 		{
 			verticies = e.getVerticies();
-			x1 = verticies[0].getX;
-			x2 = verticies[1].getX;
-			y1 = verticies[0].getY;
-			y2 = verticies[1].getY;
+			x1 = verticies[0].getX();
+			x2 = verticies[1].getX();
+			y1 = verticies[0].getY();
+			y2 = verticies[1].getY();
 			if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
 			{ 
 				return true;
@@ -284,10 +292,10 @@ public class Polyhedron
 		for (Edge e: edges)
 		{
 			verticies = e.getVerticies();
-			x1 = verticies[0].getX;
-			x2 = verticies[1].getX;
-			y1 = verticies[0].getY;
-			y2 = verticies[1].getY;
+			x1 = verticies[0].getX();
+			x2 = verticies[1].getX();
+			y1 = verticies[0].getY();
+			y2 = verticies[1].getY();
 			if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
 			{ 
 				currentEdge = e;
@@ -300,13 +308,13 @@ public class Polyhedron
 	public Vertex getVertexAtXY(double x, double y)
 	{
 		Vertex closest;	
-		points.get(0).getZ = z;		//gets a z coordinate to check against
+		double  z=points.get(0).getZ();		//gets a z coordinate to check against
 		for (Vertex v: points)
 		{
-			if (v.getX == x && v.getX == y && v.getZ > z)	
+			if (v.getX() == x && v.getX() == y && v.getZ() > z)	
 			{
 				closest = v;
-				z = v.getZ;
+				z = v.getZ();
 			}
 		}
 		return closest;
@@ -324,16 +332,17 @@ public class Polyhedron
 	
 		do
 		{
-			for (int i = 0; i < tempPoints.size; i ++)
+			for (int i = 0; i < tempPoints.size(); i ++)
 			{
-				if (tempPoints.get(0).distance() = 1)
+				if (tempPoints.get(0).distance(tempPoints.get(i)) == 1)
 				{
-					edges.add(new Edge(tempPoints.get(0), tempPoints.get(i));
+					edges.add(new Edge(tempPoints.get(0), tempPoints.get(i)));
 				}
 			}
 			tempPoints.remove(0);
 		}
-		while (tempPoints.size > 0);
+		while (tempPoints.size() > 0);
+                return edges;
 	}
 	public static ArrayList<Vertex> readVerticesTetrahedron(String fileName) {
 		ArrayList<Vertex> output = new ArrayList<Vertex>();
@@ -439,7 +448,7 @@ public class Polyhedron
  
 		try {
 			Scanner scan = new Scanner(new FileReader(fileName));
-			int linelineCounter = 0;
+			int lineCounter = 0;
 			while (scan.hasNextLine()) {
 				String nextVertex = scan.nextLine();
 				if(lineCounter>=47 && lineCounter <= 66) {
@@ -459,18 +468,17 @@ public class Polyhedron
 	}
 	public void rotate(double a, double b, double c)
 	{
-		double  x, y,z 
-		double a,b,c
+		double x, y,z;
 		Vertex oldVertex;
 		Vertex newVertex;
-		double [] oldCoords = new double [3]
+		double [] oldCoords = new double[3];
 		int m,n;
 		n = 0; 
 		m = 0;
 		
-		for (int i = 0; i < sides.size; i++)
+		for (int i = 0; i < sides.size(); i++)
 		{
-			for (int v = 0; v < sides.get(i).returnEdges().size; v ++)
+			for (int v = 0; v < sides.get(i).returnEdges().size(); v ++)
 			{
 				for (int k = 0; k < 2; k ++)
 				{
@@ -481,9 +489,10 @@ public class Polyhedron
 					newVertex = new Vertex(x * Math.cos(b) * Math.cos(c) + y * (Math.cos(a) * Math.sin(c) - Math.cos(c)  * Math.sin(a) *  Math.sin(b)) + z * (Math.cos(a) *  Math.cos(c) *  Math.sin(b) + Math.sin(a) * Math.sin(c)), 
 					-x * Math.cos(b) * Math.sin(c) + z  * (Math.cos(c)  * Math.sin(a) - Math.cos(a) * Math.sin(b) *  Math.sin(c)) + y * (Math.cos(a)  * Math.cos(c) + Math.sin(a) * Math.sin(b) * Math.sin(c)),
 					z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
-					sides.get(i).getVertexes().set(k, newVertex);
+					sides.get(i).returnEdges().get(n).getVertexes().set(k, newVertex);
 					edges.get(n).getVertexes().set(k, newVertex);
 					points.set(m, newVertex);
+                                        m++;
 				}
 				n ++;
 			}

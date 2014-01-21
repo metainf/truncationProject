@@ -1,3 +1,5 @@
+package PolyHedra;
+
 /**
  * Write a description of class Point here.
  * 
@@ -6,7 +8,7 @@
  */
 public class Vertex
 {
-    private	double x;
+    private double x;
     private double y; 
     private double z;
     /**

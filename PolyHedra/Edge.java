@@ -33,16 +33,16 @@ public class Edge
         points.add(b);
         return points;
     }
-    public Vertex[] getVertices()
+    public Vertex[] getVerticies()
     {
     	Vertex[] verticies = new Vertex[2];
-    	verticies[0] = a;
-    	verticies[1] = b;
+    	verticies[0] = this.a;
+    	verticies[1] = this.b;
     	return verticies;
     }
     public boolean equals(Edge edge){
-        if((edge.getVertices()[0].equals(this.a)&& edge.getVertices()[1].equals(this.b))||
-            (edge.getVertices()[1].equals(this.a)&& edge.getVertices()[0].equals(this.b))){
+        if((edge.getVerticies()[0].equals(this.a)&& edge.getVerticies()[1].equals(this.b))||
+            (edge.getVerticies()[1].equals(this.a)&& edge.getVerticies()[0].equals(this.b))){
             return true;
         }
     
@@ -51,7 +51,7 @@ public class Edge
         }
     }
 	public boolean hasPoint(Vertex v){
-		if(this.getVertices()[0].equals(v)||this.getVertices()[1].equals(v)){
+		if(this.getVerticies()[0].equals(v)||this.getVerticies()[1].equals(v)){
 			return true;
 		}
 		else{
