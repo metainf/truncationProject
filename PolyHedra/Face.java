@@ -81,10 +81,10 @@ public class Face
         tempEdges = edges;
         Edge e;
         Vertex a, b;
-        int numVert = 2;
+        int n = 2;
         ArrayList orderedVerticies = new ArrayList<Vertex>();
-        orderedVerticies.add(tempEdges.get(0).getVertices()[0]);
-        orderedVerticies.add(tempEdges.remove(0).getVertices()[1]);
+        orderedVerticies.add(tempEdges.get(0).getVerticies()[0]);
+        orderedVerticies.add(tempEdges.remove(0).getVerticies()[1]);
 
         do
         {
@@ -96,7 +96,7 @@ public class Face
                 n = orderedVerticies.size() - 1;
                 if (orderedVerticies.get(n).equals(a))
                 {
-                    orderedVertices.add(b);
+                    orderedVerticies.add(b);
                     tempEdges.remove(i);
                     break;
                 }

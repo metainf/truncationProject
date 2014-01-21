@@ -15,6 +15,9 @@ public class Edge
     /**
      * Constructor for objects of class Edge
      */
+    public Edge(){
+        
+    }
     public Edge(Vertex q, Vertex w)
     {
         a = q;

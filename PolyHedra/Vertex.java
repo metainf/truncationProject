@@ -14,6 +14,9 @@ public class Vertex
     /**
      * Constructor for objects of class Point
      */
+    public Vertex(){
+        
+    }
     public Vertex(double a, double b, double c)
     {
         x = a;

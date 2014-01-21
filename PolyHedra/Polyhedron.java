@@ -288,7 +288,7 @@ public class Polyhedron
 	{
 		double x1,x2,y1,y2;
 		Vertex[] verticies = new Vertex[2];
-		Edge currentEdge;
+		Edge currentEdge=new Edge();
 		for (Edge e: edges)
 		{
 			verticies = e.getVerticies();
@@ -307,7 +307,7 @@ public class Polyhedron
 	
 	public Vertex getVertexAtXY(double x, double y)
 	{
-		Vertex closest;	
+		Vertex closest= new Vertex();	
 		double  z=points.get(0).getZ();		//gets a z coordinate to check against
 		for (Vertex v: points)
 		{
