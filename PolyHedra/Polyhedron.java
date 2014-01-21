@@ -375,13 +375,13 @@ public class Polyhedron
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
                 if(lineCounter >= 3 && lineCounter <=6) {
-                    System.out.println("derp");
                     StringTokenizer lineN = new StringTokenizer(nextVertex);
                     double x = Double.parseDouble(lineN.nextToken());
                     double y = Double.parseDouble(lineN.nextToken());
                     double z = Double.parseDouble(lineN.nextToken());
                     output.add(new Vertex(x,y,z));
                 }
+                lineCounter ++;
             }
 
         } catch (Exception e) {
@@ -397,18 +397,16 @@ public class Polyhedron
         try {
             Scanner scan = new Scanner(new File(fileName));
             int lineCounter = 0;
-            System.out.println("derp3");
             while (scan.hasNextLine()) {
-                System.out.println("derp2");
                 String nextVertex = scan.nextLine();
                 if(lineCounter>=9 && lineCounter <=16) {
-                    System.out.println("derp");
                     StringTokenizer lineN = new StringTokenizer(nextVertex);
                     double x = Double.parseDouble(lineN.nextToken());
                     double y = Double.parseDouble(lineN.nextToken());
                     double z = Double.parseDouble(lineN.nextToken());
                     output.add(new Vertex(x,y,z));
                 }
+                lineCounter ++;
             }
 
         } catch (Exception e) {
@@ -433,6 +431,7 @@ public class Polyhedron
                     double z = Double.parseDouble(lineN.nextToken());
                     output.add(new Vertex(x,y,z));
                 }
+                lineCounter ++;
             }
 
         } catch (Exception e) {
@@ -457,6 +456,7 @@ public class Polyhedron
                     double z = Double.parseDouble(lineN.nextToken());
                     output.add(new Vertex(x,y,z));
                 }
+                lineCounter ++;
             }
 
         } catch (Exception e) {
@@ -481,6 +481,7 @@ public class Polyhedron
                     double z = Double.parseDouble(lineN.nextToken());
                     output.add(new Vertex(x,y,z));
                 }
+                lineCounter ++;
             }
 
         } catch (Exception e) {
