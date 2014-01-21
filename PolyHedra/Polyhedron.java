@@ -11,6 +11,34 @@ public class Polyhedron
 		edges=inputedges;
 		sides=inputsides;
 }
+	public static ArrayList<Face> makePolyhedronFaces(ArrayLst<Vertex> inputPoints, ArrayList<Edge> inputEdges){
+		ArrayList<Vertex> copyPoints=inputPoints;
+		ArrayList<Edge> copyEdge=inputEdges;
+		ArrayList<Face> faces=new ArrayList();
+		while(copyPoints.size()<0){
+			Vertex currentPoint=copyPoints.get(0);
+			ArrayList<Edge> edgesHasCurrentPoint= new ArrayList();
+			for(Edge e:copyEdge){
+				if(e.hasPoint(currentPoint)) edgesHasCurrentPoint.add(e);
+			}
+			ArrayList<ArrayList<Edge>> pairs=new ArrayList();
+			for(int i=0;i<edgesHasCurrentPoint.size();i++){
+				for(int j=i+1;j<edgesHasCurrentPoint.size();j++){
+					ArrayList <Edge> pair=new ArrayList();
+					pair.add(edgesHasCurrentPoint.get(i));
+					pair.add(edgesHasCurrentPoint.get(j));
+					pairs.add(pair);
+				}
+			}
+			double shortestDistance=Double.MAX_VALUE
+			for(int i=0;i<pairs.size();i++){
+				if(pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint))<shortestDistance){
+					shortestDistance=pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint));
+				}
+			}
+			for(int i=0)
+		}
+	}
 	//This requires that the length that we are going to truncate things by is less than the length of the shortest
 	//edge. There is full truncation;
 	public void pointTrun(Vertex point, double chop){
@@ -387,5 +415,4 @@ public class Polyhedron
  
 		return output;
 	}
-		
 }
