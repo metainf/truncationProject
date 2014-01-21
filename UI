@@ -1,4 +1,3 @@
-
 /**
  * The User Interface for a truncation program
  * 
@@ -15,14 +14,14 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JSlider;
 import javax.swing.BoxLayout;
+import javax.swing.Box;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
+import javax.swing.JLabel;
 import javax.swing.Action;
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -46,8 +45,8 @@ public class UI
         mainFrame = new JFrame("Shrinking Elephants"); //the frame for the program's GUI
         //ends the program when the main window is closed
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(new Dimension(400, 400));
-        mainFrame.setMinimumSize(new Dimension(400, 300));
+        mainFrame.setSize(new Dimension(575, 400));
+        mainFrame.setMinimumSize(new Dimension(575, 400));
         mainFrame.setLocationRelativeTo(null);  //centers the window
         //maximizes the program's main window
         mainFrame.setExtendedState( mainFrame.getExtendedState()|JFrame.MAXIMIZED_BOTH );
@@ -60,6 +59,8 @@ public class UI
 
         JPanel controlPanel = new JPanel(); //the panel for the user'c controls
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
+        controlPanel.setMaximumSize(new Dimension(175, 400));
+        controlPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         display.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -151,16 +152,21 @@ public class UI
         ButtonGroup rBGroup = new ButtonGroup();    //allows only one to be selected at a time
         rBGroup.add(selectRB);
         rBGroup.add(rotateRB);
+        
+        JLabel zoomLabel = new JLabel("-     Zoom:     +");
+        zoomLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JSlider zoomSlider = new JSlider(10, 30);
         zoomSlider.setMinorTickSpacing(1);
         zoomSlider.setPaintTicks(true);
+        zoomSlider.setMaximumSize(new Dimension(160, 40));
         zoomSlider.setAlignmentX(Component.CENTER_ALIGNMENT);
         zoomSlider.addChangeListener(new ChangeListener()
             {
                 public void stateChanged(ChangeEvent changeEvent)
                 {
                     display.setZoom(zoomSlider.getValue() / 20.0); //sets between 0.5 and 1.5, inclusive
+                    display.requestFocusInWindow();
                 }
             }
         );
@@ -368,11 +374,17 @@ public class UI
         display.getActionMap().put("pressed R", reset);
 
         //populates the user's control panel
+        controlPanel.add(Box.createVerticalStrut(20));
         controlPanel.add(helpButton);
+        controlPanel.add(Box.createVerticalStrut(20));
         controlPanel.add(selectRB);
         controlPanel.add(rotateRB);
+        controlPanel.add(Box.createVerticalStrut(20));
         controlPanel.add(shapeComboBox);
+        controlPanel.add(Box.createVerticalStrut(20));
         controlPanel.add(facesCheckBox);
+        controlPanel.add(Box.createVerticalStrut(20));
+        controlPanel.add(zoomLabel);
         controlPanel.add(zoomSlider);
 
         //populates the main panel with the user's controls and the diaplay
