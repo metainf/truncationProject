@@ -1,4 +1,3 @@
-
 /**
  * Rotates the polyhedron based upon mouse positions
  * 
@@ -43,6 +42,8 @@ public class Rotator extends SwingWorker<String, String>
 
         while (running)
         {
+            long oldTime = System.currentTimeMillis();
+            
             if (takingInput)
             {
                 mouseP = MouseInfo.getPointerInfo().getLocation();
@@ -50,13 +51,14 @@ public class Rotator extends SwingWorker<String, String>
                 newP.setLocation(mouseP.getX() - UI.getDisplay().getLocationOnScreen().getX(),
                     mouseP.getY() - UI.getDisplay().getLocationOnScreen().getY());
             }
+            
+            UI.getDisplay().rotate(oldP, newP);
 
             try {
-                Thread.sleep(10);
+                //waits a tenth of a second, minus the computation and rotation time
+                Thread.sleep((100000 - (System.currentTimeMillis() - oldTime))/ 1000);
             } catch (InterruptedException e) {
             }
-
-            UI.getDisplay().rotate(oldP, newP);
         }
 
         return "";
