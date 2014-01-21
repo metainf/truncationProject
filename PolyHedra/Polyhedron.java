@@ -280,7 +280,7 @@ public class Polyhedron
 	{
 		double x1,x2,y1,y2;
 		Vertex[] verticies = new Vertex[2];
-		currentEdge
+		Edge currentEdge;
 		for (Edge e: edges)
 		{
 			verticies = e.getVerticies();
@@ -457,7 +457,7 @@ public class Polyhedron
  
 		return output;
 	}
-	public void rotate(double x, double y, double z)
+	public void rotate(double a, double b, double c)
 	{
 		double  x, y,z 
 		double a,b,c
