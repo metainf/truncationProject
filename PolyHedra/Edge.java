@@ -17,7 +17,12 @@ public class Edge
         a = q;
         b = w;
     }
-
+	public Vertex otherVert(Vertex point){
+		if(point.equals(this.a)){
+			return b;
+		}
+		return a;
+	}
     public ArrayList<Vertex> getVertexes()
     {
         Arraylist<Vertex> points=new ArrayList();
