@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.*;
 import java.io.File;
@@ -491,11 +490,12 @@ public class Polyhedron
 
         return output;
     }
-public void rotate (Point p1, Point p2)
+public void rotate (double p1X, double p1Y, double p2X, double p2Y)
     {
-        this.rotate(Math.asin((p2.getY() - p1.getY()) / Math.sqrt(1 + Math.pow(p2.getY(), 2))),
-        Math.asin((p2.getX() - p1.getX()) / Math.sqrt(1 + Math.pow(p2.getX(), 2))),
-        Math.asin((p2.getX() - p1.getX()) / Math.sqrt(Math.pow(p2.getX(), 2) + Math.pow(p2.getY(), 2))));
+        this.rotate(Math.asin((p2Y - p1Y) / Math.sqrt(1 + Math.pow(p2Y, 2))),
+        Math.asin((p2X - p1X) / Math.sqrt(1 + Math.pow(p2X, 2))),
+        Math.asin((p2X - p1X) / Math.sqrt(Math.pow(p2X, 2) + Math.pow(p2Y, 2))));
+    }
     }
     public void rotate(double a, double b, double c)
     {
