@@ -349,7 +349,6 @@ public class Polyhedron
     {
         ArrayList<Vertex> tempPoints = new ArrayList<Vertex>(points);
         ArrayList<Edge> edges = new ArrayList<Edge>();
-        System.out.println(points);
 
         do
         {
