@@ -15,8 +15,8 @@ public class Polyhedron
 		sides= new ArrayList<Face>(inputSides);
 }
 	public static ArrayList<Face> makePolyhedronFaces(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges){
-		ArrayList<Vertex> copyPoints=inputPoints;
-		ArrayList<Edge> copyEdge=inputEdges;
+		ArrayList<Vertex> copyPoints=new ArrayList<Vertex>(inputPoints);
+		ArrayList<Edge> copyEdge=new ArrayList<Vertex>(inputEdges);
 		ArrayList<Face> faces=new ArrayList<Face>();
 		while(copyPoints.size()<0){
 			Vertex currentPoint=(Vertex) copyPoints.get();
@@ -28,8 +28,8 @@ public class Polyhedron
 			for(int i=0;i<edgesHasCurrentPoint.size();i++){
 				for(int j=i+1;j<edgesHasCurrentPoint.size();j++){
 					ArrayList <Edge> pair=new ArrayList<Edge>();
-					pair.add(edgesHasCurrentPoint.get(i));
-					pair.add(edgesHasCurrentPoint.get(j));
+					pair.add((Edge)edgesHasCurrentPoint.get(i));
+					pair.add((Edge)edgesHasCurrentPoint.get(j));
 					pairs.add(pair);
 				}
 			}
@@ -82,11 +82,11 @@ public class Polyhedron
 	//This requires that the length that we are going to truncate things by is less than the length of the shortest
 	//edge. There is full truncation;
 	public void pointTrun(Vertex point, double chop){
-		ArrayList<Edge> tempEdges=new ArrayList(); //used to store the edges before truncation
-		ArrayList<Edge> newEdges=new ArrayList();
-		ArrayList<Vertex> newPoints=new ArrayList();
-		ArrayList<Face> newFaces=new ArrayList();
-		ArrayList<Edge> newFace=new ArrayList();// used to make the new face created from truncating.
+		ArrayList<Edge> tempEdges=new ArrayList<Edge>(); //used to store the edges before truncation
+		ArrayList<Edge> newEdges=new ArrayList<Edge>();
+		ArrayList<Vertex> newPoints=new ArrayList<Vertex>();
+		ArrayList<Face> newFaces=new ArrayList<Face>();
+		ArrayList<Edge> newFace=new ArrayList<Edge>();// used to make the new face created from truncating.
 		//generates the list of edges that will be changed
 		for(Edge e : edges){
 			if(e.hasPoint(point)){
