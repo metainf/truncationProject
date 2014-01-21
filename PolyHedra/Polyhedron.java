@@ -424,4 +424,37 @@ public class Polyhedron
  
 		return output;
 	}
+	public void rotate(double x, double y, double z)
+	{
+		double  x, y,z 
+		double a,b,c
+		Vertex oldVertex;
+		Vertex newVertex;
+		double [] oldCoords = new double [3]
+		int m,n;
+		n = 0; 
+		m = 0;
+		
+		for (int i = 0; i < sides.size; i++)
+		{
+			for (int v = 0; v < sides.get(i).returnEdges().size; v ++)
+			{
+				for (int k = 0; k < 2; k ++)
+				{
+					oldCoords = sides.get(i).returnEdges().get(v).getVertexes().get(k).getCoords();
+					x = oldCoords[0];
+					y = oldCoords[1];
+					z = oldCoords[2];
+					newVertex = new Vertex(x * Math.cos(b) * Math.cos(c) + y * (Math.cos(a) * Math.sin(c) - Math.cos(c)  * Math.sin(a) *  Math.sin(b)) + z * (Math.cos(a) *  Math.cos(c) *  Math.sin(b) + Math.sin(a) * Math.sin(c)), 
+					-x * Math.cos(b) * Math.sin(c) + z  * (Math.cos(c)  * Math.sin(a) - Math.cos(a) * Math.sin(b) *  Math.sin(c)) + y * (Math.cos(a)  * Math.cos(c) + Math.sin(a) * Math.sin(b) * Math.sin(c)),
+					z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
+					sides.get(i).getVertexes().set(k, newVertex);
+					edges.get(n).getVertexes().set(k, newVertex);
+					points.set(m, newVertex);
+				}
+				n ++;
+			}
+
+		}
+	}
 }
