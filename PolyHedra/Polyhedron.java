@@ -1,4 +1,3 @@
-
 package PolyHedra;
 
 
@@ -373,7 +372,7 @@ public class Polyhedron
         double  z=points.get(0).getZ();                //gets a z coordinate to check against
         for (Vertex v: points)
         {
-            if (v.getX() == x && v.getX() == y && v.getZ() > z)        
+            if (v.getX() == x && v.getY() == y && v.getZ() > z)        
             {
                 closest = v;
                 z = v.getZ();
