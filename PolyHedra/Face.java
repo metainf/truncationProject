@@ -18,7 +18,7 @@ public class Face
 	* Constructor for objects of class Face
 	*/
 	public Face(ArrayList<Edge> inputEdges){
-        	edges=new ArrayList<>(inputEdges);
+        	edges=new ArrayList<Edge>(inputEdges);
         }
 	/**
 	*returns all the edges of a face
@@ -26,7 +26,7 @@ public class Face
 	*@return	ArrayList<Edges> edges of the face.
 	*/
 	public ArrayList<Edge> returnEdges(){
-		return new ArrayList<>(edges);
+		return new ArrayList<Edge>(edges);
 	}
 	public boolean remove(Edge e){
 		return edges.remove(e);
