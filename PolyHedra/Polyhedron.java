@@ -12,34 +12,40 @@ public class Polyhedron
     private ArrayList<Vertex> points;
     private ArrayList<Edge> edges;
     private ArrayList<Face> sides;
+    
+    public static final int TETRAHEDRON = 0;
+    public static final int CUBE = 1;
+    public static final int OCTAHEDRON = 2;
+    public static final int DODECAHEDRON = 3;
+    public static final int ICOSAHEDRON = 4;
 
     public Polyhedron(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides) {
-        points= new ArrayList<>(inputPoints);
-        edges= new ArrayList<>(inputEdges);
-        sides= new ArrayList<>(inputSides);
+        points= new ArrayList<Vertex>(inputPoints);
+        edges= new ArrayList<Edge>(inputEdges);
+        sides= new ArrayList<Face>(inputSides);
     }
     public Polyhedron(String fileName,String shape){
         switch(shape)
         {
-            case "Tetrahedron": points=new ArrayList(readVerticesTetrahedron(fileName));
+            case TETRAHEDRON: points=new ArrayList(readVerticesTetrahedron(fileName));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides= new ArrayList(makePolyhedronFaces(points,edges));
                                 
             break;
-            case "Cube": points=new ArrayList(readVerticesCube(fileName));
+            case CUBE: points=new ArrayList(readVerticesCube(fileName));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
                                 System.out.println(sides);
             break;
-            case "Octahedron": points=new ArrayList(readVerticesOctahedron(fileName));
+            case OCTAHEDRON: points=new ArrayList(readVerticesOctahedron(fileName));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case "Dodecahedron": points=new ArrayList(readVerticesDodecahedron(fileName));
+            case DODECAHEDRON: points=new ArrayList(readVerticesDodecahedron(fileName));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case "Icosahedron": points=new ArrayList(readVerticesIcosahedron(fileName));
+            case ICOSAHEDRON: points=new ArrayList(readVerticesIcosahedron(fileName));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
@@ -47,20 +53,20 @@ public class Polyhedron
     }
 
     public static ArrayList<Face> makePolyhedronFaces(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges){
-        ArrayList<Vertex> copyPoints=new ArrayList<>(inputPoints);
-        ArrayList<Edge> copyEdge=new ArrayList<>(inputEdges);
-        ArrayList<Face> faces=new ArrayList<>();
-        ArrayList<Face> facesOut=new ArrayList<>();
+        ArrayList<Vertex> copyPoints=new ArrayList<Vertex>(inputPoints);
+        ArrayList<Edge> copyEdge=new ArrayList<Edge>(inputEdges);
+        ArrayList<Face> faces=new ArrayList<Face>();
+        ArrayList<Face> facesOut=new ArrayList<Face>();
         while(copyPoints.size()>0){
             Vertex currentPoint=(Vertex)copyPoints.get(0);
-            ArrayList<Edge> edgesHasCurrentPoint= new ArrayList<>();
+            ArrayList<Edge> edgesHasCurrentPoint= new ArrayList<Edge>();
             for(Edge e:copyEdge){
                 if(e.hasPoint(currentPoint)) edgesHasCurrentPoint.add(e);
             }
-            ArrayList<ArrayList<Edge>> pairs=new ArrayList<>();
+            ArrayList<ArrayList<Edge>> pairs=new ArrayList<ArrayList<Edge>>();
             for(int i=0;i<edgesHasCurrentPoint.size();i++){
                 for(int j=i+1;j<edgesHasCurrentPoint.size();j++){
-                    ArrayList <Edge> pair=new ArrayList<>();
+                    ArrayList <Edge> pair=new ArrayList<Edge>();
                     pair.add((Edge)edgesHasCurrentPoint.get(i));
                     pair.add((Edge)edgesHasCurrentPoint.get(j));
                     pairs.add(pair);
