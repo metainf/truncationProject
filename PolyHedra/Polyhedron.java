@@ -1,3 +1,8 @@
+
+package PolyHedra;
+
+
+
 import java.util.ArrayList;
 import java.util.*;
 import java.io.File;
@@ -10,45 +15,53 @@ public class Polyhedron
     private ArrayList<Face> sides;
 
     public Polyhedron(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides) {
-        points= new ArrayList<Vertex>(inputPoints);
-        edges= new ArrayList<Edge>(inputEdges);
-        sides= new ArrayList<Face>(inputSides);
+        points= new ArrayList<>(inputPoints);
+        edges= new ArrayList<>(inputEdges);
+        sides= new ArrayList<>(inputSides);
     }
     public Polyhedron(String fileName,String shape){
         switch(shape)
         {
             case "Tetrahedron": points=new ArrayList(readVerticesTetrahedron(fileName));
-                                edges=initiateEdges(points);
-                                sides=makePolyhedronFaces(points,edges);
-            case "Cube": points=readVerticesCube(fileName);
-                                edges=initiateEdges(points);
-                                sides=makePolyhedronFaces(points,edges);
-            case "Octahedron": points=readVerticesOctahedron(fileName);
-                                edges=initiateEdges(points);
-                                sides=makePolyhedronFaces(points,edges);
-            case "Dodecahedron": points=readVerticesDodecahedron(fileName);
-                                edges=initiateEdges(points);
-                                sides=makePolyhedronFaces(points,edges);
-            case "Icosahedron": points=readVerticesIcosahedron(fileName);
-                                edges=initiateEdges(points);
-                                sides=makePolyhedronFaces(points,edges);
-    }
+                                edges=new ArrayList(initiateEdges(points));
+                                sides= new ArrayList(makePolyhedronFaces(points,edges));
+                                
+            break;
+            case "Cube": points=new ArrayList(readVerticesCube(fileName));
+                                edges=new ArrayList(initiateEdges(points));
+                                sides=new ArrayList(makePolyhedronFaces(points,edges));
+                                System.out.println(sides);
+            break;
+            case "Octahedron": points=new ArrayList(readVerticesOctahedron(fileName));
+                                edges=new ArrayList(initiateEdges(points));
+                                sides=new ArrayList(makePolyhedronFaces(points,edges));
+            break;
+            case "Dodecahedron": points=new ArrayList(readVerticesDodecahedron(fileName));
+                                edges=new ArrayList(initiateEdges(points));
+                                sides=new ArrayList(makePolyhedronFaces(points,edges));
+            break;
+            case "Icosahedron": points=new ArrayList(readVerticesIcosahedron(fileName));
+                                edges=new ArrayList(initiateEdges(points));
+                                sides=new ArrayList(makePolyhedronFaces(points,edges));
+            break;
+        }
     }
 
     public static ArrayList<Face> makePolyhedronFaces(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges){
-        ArrayList<Vertex> copyPoints=new ArrayList<Vertex>(inputPoints);
-        ArrayList<Edge> copyEdge=new ArrayList<Edge>(inputEdges);
-        ArrayList<Face> faces=new ArrayList<Face>();
-        while(copyPoints.size()<0){
-            Vertex currentPoint=(Vertex) copyPoints.get(0);
-            ArrayList<Edge> edgesHasCurrentPoint= new ArrayList<Edge>();
+        ArrayList<Vertex> copyPoints=new ArrayList<>(inputPoints);
+        ArrayList<Edge> copyEdge=new ArrayList<>(inputEdges);
+        ArrayList<Face> faces=new ArrayList<>();
+        ArrayList<Face> facesOut=new ArrayList<>();
+        while(copyPoints.size()>0){
+            Vertex currentPoint=(Vertex)copyPoints.get(0);
+            ArrayList<Edge> edgesHasCurrentPoint= new ArrayList<>();
             for(Edge e:copyEdge){
                 if(e.hasPoint(currentPoint)) edgesHasCurrentPoint.add(e);
             }
-            ArrayList<ArrayList<Edge>> pairs=new ArrayList<ArrayList<Edge>>();
+            ArrayList<ArrayList<Edge>> pairs=new ArrayList<>();
             for(int i=0;i<edgesHasCurrentPoint.size();i++){
                 for(int j=i+1;j<edgesHasCurrentPoint.size();j++){
-                    ArrayList <Edge> pair=new ArrayList<Edge>();
+                    ArrayList <Edge> pair=new ArrayList<>();
                     pair.add((Edge)edgesHasCurrentPoint.get(i));
                     pair.add((Edge)edgesHasCurrentPoint.get(j));
                     pairs.add(pair);
@@ -66,11 +79,10 @@ public class Polyhedron
                     i=0;
                 }
             }
+
             for(int i=0;i<pairs.size();i++){
-                ArrayList <Edge> pair=pairs.get(i);
+                ArrayList <Edge> pair=new ArrayList(pairs.get(i));
                 ArrayList <Edge> face= new ArrayList();
-                face.add(pair.get(0));
-                face.add(pair.get(1));
                 for(Edge e:copyEdge){
                     boolean inPlane=true;
                     for(Vertex v:e.getVertices()){
@@ -86,7 +98,7 @@ public class Polyhedron
                         double[] cross={v1[1]*v2[2]-v1[2]*v2[1],
                                 v1[2]*v2[0]-v1[0]*v2[2],
                                 v1[0]*v2[1]-v1[1]*v2[0],};
-                        if(v3[0]*cross[0]+v3[1]*cross[1]+v3[2]*cross[2]<0.0){
+                        if(v3[0]*cross[0]+v3[1]*cross[1]+v3[2]*cross[2]!=0.0){
                             inPlane=false;
                         }
                     }
@@ -95,8 +107,21 @@ public class Polyhedron
                     }
                 }
                 faces.add(new Face(face));
+                System.out.println(face+""+currentPoint);
             }
+            System.out.println();
             copyPoints.remove(0);
+        }
+        for(int i=0;i<faces.size();i++){
+            for(int j=i+1;j<faces.size();j+=0){
+                if(faces.get(j).equals(faces.get(i))){
+                    faces.remove(j);
+                    j=i+1;
+                }
+                else{
+                    j++;
+                }
+            }
         }
         return faces;
     }
@@ -144,6 +169,7 @@ public class Polyhedron
                 edges.remove(e);
             }
         }
+
         /*This for loop does the truncation, aka, delete the old point, and creates the new point and edges
          *It will also add the new points and edges to the faces that get chopped.
          *At the end, the only left is to make the new face created by the truncation
@@ -272,6 +298,22 @@ public class Polyhedron
         for(Face f:newFaces){
             sides.add(f);
         }
+        for(int i=0;i<points.size();i++){
+            if(points.get(i).equals(point)){
+                points.remove(i);
+            }
+        }
+        for(int i=0;i<points.size();i++){
+            for(int j=i+1;j<points.size();j+=0){
+                if(points.get(j).equals(points.get(i))){
+                    points.remove(j);
+                    j=i+1;
+                }
+                else{
+                    j++;
+                }
+            }
+        }
     }
 
     public boolean hasVertexAtXY(double x, double y)
@@ -380,7 +422,8 @@ public class Polyhedron
                     double z = Double.parseDouble(lineN.nextToken());
                     output.add(new Vertex(x,y,z));
                 }
-                lineCounter ++;
+                lineCounter++;
+
             }
 
         } catch (Exception e) {
@@ -405,7 +448,9 @@ public class Polyhedron
                     double z = Double.parseDouble(lineN.nextToken());
                     output.add(new Vertex(x,y,z));
                 }
-                lineCounter ++;
+
+                lineCounter++;
+
             }
 
         } catch (Exception e) {
@@ -495,7 +540,7 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
         Math.asin((p2X - p1X) / Math.sqrt(1 + Math.pow(p2X, 2))),
         Math.asin((p2X - p1X) / Math.sqrt(Math.pow(p2X, 2) + Math.pow(p2Y, 2))));
     }
-    }
+    
     public void rotate(double a, double b, double c)
     {
         double x, y,z;
@@ -520,7 +565,7 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                         -x * Math.cos(b) * Math.sin(c) + z  * (Math.cos(c)  * Math.sin(a) - Math.cos(a) * Math.sin(b) *  Math.sin(c)) + y * (Math.cos(a)  * Math.cos(c) + Math.sin(a) * Math.sin(b) * Math.sin(c)),
                         z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
                     sides.get(i).returnEdges().get(n).getVertexes().set(k, newVertex);
-                    edges.get(n).getVertexes().set(k, newVertex);
+                    (edges.get(n)).getVertexes().set(k, newVertex);
                     points.set(m, newVertex);
                     m++;
                 }
@@ -528,5 +573,8 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
             }
 
         }
+    }
+    public ArrayList<Vertex> getVerts(){
+        return points;
     }
 }

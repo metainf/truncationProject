@@ -1,3 +1,5 @@
+package PolyHedra;
+
  
 
 /**
@@ -44,8 +46,7 @@ public class Edge
     	return vertices;
     }
     public boolean equals(Edge edge){
-        if((edge.getVertices()[0].equals(this.a)&& edge.getVertices()[1].equals(this.b))||
-            (edge.getVertices()[1].equals(this.a)&& edge.getVertices()[0].equals(this.b))){
+            if(edge.hasPoint(a)&&edge.hasPoint(b)){
             return true;
         }
     
@@ -65,5 +66,8 @@ public class Edge
 	{
 		return	a.distance(b);
 	}
-	
+	public String toString(){
+            String out=""+(a.getX()+b.getX())/2+" "+(a.getY()+b.getY())/2+" "+(a.getZ()+b.getZ())/2;
+            return out;
+        }
 }
