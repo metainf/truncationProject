@@ -24,28 +24,28 @@ public class Polyhedron
         edges= new ArrayList<Edge>(inputEdges);
         sides= new ArrayList<Face>(inputSides);
     }
-    public Polyhedron(String fileName,String shape){
+    public Polyhedron(int shape){
         switch(shape)
         {
-            case TETRAHEDRON: points=new ArrayList(readVerticesTetrahedron(fileName));
+            case TETRAHEDRON: points=new ArrayList(readVerticesTetrahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides= new ArrayList(makePolyhedronFaces(points,edges));
                                 
             break;
-            case CUBE: points=new ArrayList(readVerticesCube(fileName));
+            case CUBE: points=new ArrayList(readVerticesCube("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
                                 System.out.println(sides);
             break;
-            case OCTAHEDRON: points=new ArrayList(readVerticesOctahedron(fileName));
+            case OCTAHEDRON: points=new ArrayList(readVerticesOctahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case DODECAHEDRON: points=new ArrayList(readVerticesDodecahedron(fileName));
+            case DODECAHEDRON: points=new ArrayList(readVerticesDodecahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case ICOSAHEDRON: points=new ArrayList(readVerticesIcosahedron(fileName));
+            case ICOSAHEDRON: points=new ArrayList(readVerticesIcosahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
