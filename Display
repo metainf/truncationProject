@@ -127,13 +127,25 @@ public class Display extends JPanel
      */
     public Display(String newShape)
     {
-        switch (newShape)
+        if (newShape.equals("Tetrahedron"))
         {
-            case "Tetrahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Tetrahedron");
-            case "Cube": polyhedron = new Polyhedron("PolyhedraVertices.txt","Cube");
-            case "Octahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Octahedron");
-            case "Dodecahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Dodecahedron");
-            case "Icosahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Icosahedron");
+            polyhedron = new Polyhedron(Polyhedron.TETRAHEDRON);
+        }
+        else if (newShape.equals("Cube"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.CUBE);
+        }
+        else if (newShape.equals("Octahedron"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.OCTAHEDRON);
+        }
+        else if (newShape.equals("Dodecahedron"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.DODECAHEDRON);
+        }
+        else if (newShape.equals("Icosahedron"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.ICOSAHEDRON);
         }
     }
 
@@ -188,14 +200,25 @@ public class Display extends JPanel
      */
     public void setShape(String newShape)
     {
-        switch (newShape)
+        if (newShape.equals("Tetrahedron"))
         {
-            case "Tetrahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Tetrahedron");
-            case "Cube": polyhedron = new Polyhedron("PolyhedraVertices.txt","Cube");
-            case "Octahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Octahedron");
-            case "Dodecahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Dodecahedron");
-            case "Icosahedron": polyhedron = new Polyhedron("PolyhedraVertices.txt","Icosahedron");
-
+            polyhedron = new Polyhedron(Polyhedron.TETRAHEDRON);
+        }
+        else if (newShape.equals("Cube"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.CUBE);
+        }
+        else if (newShape.equals("Octahedron"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.OCTAHEDRON);
+        }
+        else if (newShape.equals("Dodecahedron"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.DODECAHEDRON);
+        }
+        else if (newShape.equals("Icosahedron"))
+        {
+            polyhedron = new Polyhedron(Polyhedron.ICOSAHEDRON);
         }
     }
 
