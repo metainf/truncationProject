@@ -34,11 +34,6 @@ public class Display extends JPanel
     @Override
     protected void paintComponent(Graphics g)
     {
-        int size = Math.min(this.getParent().getHeight(), this.getParent().getWidth());
-        this.setSize(size, size);
-
-        super.paintComponent(g);
-
         g2D.setColor(backgroundColor);
         g2D.fillRect(0, 0, width, height);
 
@@ -117,9 +112,20 @@ public class Display extends JPanel
                 this.translateY(endVertices[1].getY()));
         }
 
-        //copies the image to the screen
-        g.drawImage(buffImage, 0, 0, (int)this.getSize().getWidth(),
-            (int)this.getSize().getHeight(), null);
+        int panelWidth = this.getParent().getWidth();
+        int panelHeight = this.getParent().getHeight();
+        double scale = Math.min((double)panelWidth / width, (double)panelHeight / height);
+        int drawWidth = (int)Math.round(width * scale);
+        int drawHeight = (int)Math.round(height * scale);
+        int edgeWidth = (panelWidth - drawWidth) / 2;
+        int edgeHeight = (panelHeight - drawHeight) / 2;
+        
+        this.setSize(panelWidth, panelHeight);
+        
+        super.paintComponent(g);
+
+        //copies the image to the screen, scaled and centered
+        g.drawImage(buffImage, edgeWidth, edgeHeight, drawWidth, drawHeight, null);
     }
 
     /**
