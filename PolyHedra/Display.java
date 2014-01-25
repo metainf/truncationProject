@@ -36,6 +36,7 @@ public class Display extends JPanel
     @Override
     protected void paintComponent(Graphics g)
     {
+        System.out.println("paint");
         g2D.setColor(backgroundColor);
         g2D.fillRect(0, 0, width, height);
 

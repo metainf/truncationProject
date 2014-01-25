@@ -27,25 +27,25 @@ public class Polyhedron
     public Polyhedron(int shape){
         switch(shape)
         {
-            case TETRAHEDRON: points=new ArrayList(readVerticesTetrahedron("PolyhedraVertices.txt"));
+            case TETRAHEDRON: points=new ArrayList(readVerticesTetrahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides= new ArrayList(makePolyhedronFaces(points,edges));
                                 
             break;
-            case CUBE: points=new ArrayList(readVerticesCube("PolyhedraVertices.txt"));
+            case CUBE: points=new ArrayList(readVerticesCube("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
                                 System.out.println(sides);
             break;
-            case OCTAHEDRON: points=new ArrayList(readVerticesOctahedron("PolyhedraVertices.txt"));
+            case OCTAHEDRON: points=new ArrayList(readVerticesOctahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case DODECAHEDRON: points=new ArrayList(readVerticesDodecahedron("PolyhedraVertices.txt"));
+            case DODECAHEDRON: points=new ArrayList(readVerticesDodecahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case ICOSAHEDRON: points=new ArrayList(readVerticesIcosahedron("PolyhedraVertices.txt"));
+            case ICOSAHEDRON: points=new ArrayList(readVerticesIcosahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
@@ -401,7 +401,8 @@ public class Polyhedron
         {
             for (int i = 0; i < tempPoints.size(); i ++)
             {
-                if (tempPoints.get(0).distance(tempPoints.get(i)) == 1)
+                double length=tempPoints.get(0).distance(tempPoints.get(i));
+                if (length<1.01 && length>.99)
                 {
                     edges.add(new Edge(tempPoints.get(0), tempPoints.get(i)));
                 }
