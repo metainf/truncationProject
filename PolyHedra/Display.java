@@ -1,3 +1,5 @@
+package PolyHedra;
+
 /**
  * A display and controller for a polyhedron
  * 
@@ -259,7 +261,7 @@ public class Display extends JPanel
         polyhedron.rotate(this.untranslateX((int)point1.getX()), (int)this.untranslateY((int)point1.getY()),
             this.untranslateX((int)point2.getX()), this.untranslateY((int)point2.getY()));
     }
-    }
+    
 
     /**
      * Returns whether there is a vertex at the given display coordinates
