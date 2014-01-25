@@ -27,25 +27,25 @@ public class Polyhedron
     public Polyhedron(int shape){
         switch(shape)
         {
-            case TETRAHEDRON: points=new ArrayList(readVerticesTetrahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
+            case TETRAHEDRON: points=new ArrayList(this.readVerticesTetrahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides= new ArrayList(makePolyhedronFaces(points,edges));
                                 
             break;
-            case CUBE: points=new ArrayList(readVerticesCube("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
+            case CUBE: points=new ArrayList(this.readVerticesCube("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
                                 System.out.println(sides);
             break;
-            case OCTAHEDRON: points=new ArrayList(readVerticesOctahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
+            case OCTAHEDRON: points=new ArrayList(this.readVerticesOctahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case DODECAHEDRON: points=new ArrayList(readVerticesDodecahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
+            case DODECAHEDRON: points=new ArrayList(this.readVerticesDodecahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
-            case ICOSAHEDRON: points=new ArrayList(readVerticesIcosahedron("C:\\Users\\bobby\\Documents\\GitHub\\truncationProject\\PolyHedra\\PolyhedraVertices.txt"));
+            case ICOSAHEDRON: points=new ArrayList(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
@@ -351,7 +351,7 @@ public class Polyhedron
 
     }
 
-    public Edge getEdgeAtXY(double x3, double y3)
+    public Edge getEdgeAtXY(double x3, double y3)   //NEEDS TO RETURN THE CLOSEST ONE
     {
         double x1,x2,y1,y2;
         Vertex[] vertices = new Vertex[2];
@@ -375,7 +375,7 @@ public class Polyhedron
     public Vertex getVertexAtXY(double x, double y)
     {
         Vertex closest= new Vertex();        
-        double  z=points.get(0).getZ();                //gets a z coordinate to check against
+        double  z=-Double.MAX_VALUE;                //gets a z coordinate to check against
         for (Vertex v: points)
         {
             if (v.getX() == x && v.getY() == y && v.getZ() > z)        
@@ -413,11 +413,11 @@ public class Polyhedron
         return edges;
     }
 
-    public static ArrayList<Vertex> readVerticesTetrahedron(String fileName) {
+    public ArrayList<Vertex> readVerticesTetrahedron(String fileName) {
         ArrayList<Vertex> output = new ArrayList<Vertex>();
 
         try {
-            Scanner scan = new Scanner(new File(fileName));
+            Scanner scan = new Scanner(new File(this.getClass().getClassLoader().getResource(fileName).toURI()));
             int lineCounter = 0;
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
@@ -439,11 +439,11 @@ public class Polyhedron
         return output;
     }
 
-    public static ArrayList<Vertex> readVerticesCube(String fileName) {
+    public ArrayList<Vertex> readVerticesCube(String fileName) {
         ArrayList<Vertex> output = new ArrayList<Vertex>();
 
         try {
-            Scanner scan = new Scanner(new File(fileName));
+            Scanner scan = new Scanner(new File(this.getClass().getClassLoader().getResource(fileName).toURI()));
             int lineCounter = 0;
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
@@ -466,11 +466,11 @@ public class Polyhedron
         return output;
     }
 
-    public static ArrayList<Vertex> readVerticesOctahedron(String fileName) {
+    public ArrayList<Vertex> readVerticesOctahedron(String fileName) {
         ArrayList<Vertex> output = new ArrayList<Vertex>();
 
         try {
-            Scanner scan = new Scanner(new FileReader(fileName));
+            Scanner scan = new Scanner(new File(this.getClass().getClassLoader().getResource(fileName).toURI()));
             int lineCounter = 0;
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
@@ -491,11 +491,11 @@ public class Polyhedron
         return output;
     }
 
-    public static ArrayList<Vertex> readVerticesDodecahedron(String fileName) {
+    public ArrayList<Vertex> readVerticesDodecahedron(String fileName) {
         ArrayList<Vertex> output = new ArrayList<Vertex>();
 
         try {
-            Scanner scan = new Scanner(new FileReader(fileName));
+            Scanner scan = new Scanner(new File(this.getClass().getClassLoader().getResource(fileName).toURI()));
             int lineCounter = 0;
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
@@ -516,11 +516,11 @@ public class Polyhedron
         return output;
     }
 
-    public static ArrayList<Vertex> readVerticesIcosahedron(String fileName) {
+    public ArrayList<Vertex> readVerticesIcosahedron(String fileName) {
         ArrayList<Vertex> output = new ArrayList<Vertex>();
 
         try {
-            Scanner scan = new Scanner(new FileReader(fileName));
+            Scanner scan = new Scanner(new File(this.getClass().getClassLoader().getResource(fileName).toURI()));
             int lineCounter = 0;
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
