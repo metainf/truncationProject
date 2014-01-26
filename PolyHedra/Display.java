@@ -40,7 +40,7 @@ public class Display extends JPanel
         g2D.setColor(backgroundColor);
         g2D.fillRect(0, 0, width, height);
 
-        ArrayList<Face> faces = polyhedron.getFaces();
+        ArrayList<Face> faces = new ArrayList<Face>(polyhedron.getFaces());
         ArrayList<Face> orderedFaces = new ArrayList();
 
         //drains faces in order to populate orderedFaces with the faces from low to high z
@@ -68,7 +68,7 @@ public class Display extends JPanel
         {
             Face currentFace = orderedFaces.get(i);
 
-            ArrayList<Vertex> orderedVertices = currentFace.getOrderedVertices();
+            ArrayList<Vertex> orderedVertices = new ArrayList<Vertex>(currentFace.getOrderedVertices());
 
             faceShapes[i] = new GeneralPath(GeneralPath.WIND_EVEN_ODD,
                 currentFace.getNumVertices());
