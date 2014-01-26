@@ -16,6 +16,7 @@ import java.awt.Container;
 import java.util.ArrayList;
 import java.awt.Point;
 import java.awt.geom.GeneralPath;
+import java.awt.BasicStroke;
 
 public class Display extends JPanel
 {
@@ -32,6 +33,13 @@ public class Display extends JPanel
     private Polyhedron polyhedron;
     private Vertex selectedVertex;
     private Edge selectedEdge;
+    private int panelWidth;
+    private int panelHeight;
+    private double scale;
+    private int drawWidth;
+    private int drawHeight;
+    private int edgeWidth;
+    private int edgeHeight;
 
     @Override
     protected void paintComponent(Graphics g)
@@ -115,13 +123,13 @@ public class Display extends JPanel
                 this.translateY(endVertices[1].getY()));
         }
 
-        int panelWidth = this.getParent().getWidth();
-        int panelHeight = this.getParent().getHeight();
-        double scale = Math.min((double)panelWidth / width, (double)panelHeight / height);
-        int drawWidth = (int)Math.round(width * scale);
-        int drawHeight = (int)Math.round(height * scale);
-        int edgeWidth = (panelWidth - drawWidth) / 2;
-        int edgeHeight = (panelHeight - drawHeight) / 2;
+        panelWidth = this.getParent().getWidth();
+        panelHeight = this.getParent().getHeight();
+        scale = Math.min((double)panelWidth / width, (double)panelHeight / height);
+        drawWidth = (int)Math.round(width * scale);
+        drawHeight = (int)Math.round(height * scale);
+        edgeWidth = (panelWidth - drawWidth) / 2;
+        edgeHeight = (panelHeight - drawHeight) / 2;
         
         this.setSize(panelWidth, panelHeight);
         
@@ -156,6 +164,8 @@ public class Display extends JPanel
         {
             polyhedron = new Polyhedron(Polyhedron.ICOSAHEDRON);
         }
+        
+        g2D.setStroke(new BasicStroke(2));
     }
 
     /**
@@ -273,6 +283,12 @@ public class Display extends JPanel
      */
     public boolean hasVertexAtXY(int x, int y)
     {
+        if (x < edgeWidth || x > edgeWidth + drawWidth || y < edgeHeight || y > edgeHeight + drawHeight)
+        {
+            return false;
+        }
+        x = (int)((x - edgeWidth) / scale);
+        y = (int)((y - edgeHeight) / scale);
         if (new Color(buffImage.getRGB(x, y)) == edgeColor)
         {
             return polyhedron.hasVertexAtXY(this.untranslateX(x), this.untranslateY(y));
@@ -292,6 +308,12 @@ public class Display extends JPanel
      */
     public boolean hasEdgeAtXY(int x, int y)
     {
+        if (x < edgeWidth || x > edgeWidth + drawWidth || y < edgeHeight || y > edgeHeight + drawHeight)
+        {
+            return false;
+        }
+        x = (int)((x - edgeWidth) / scale);
+        y = (int)((y - edgeHeight) / scale);
         if (new Color(buffImage.getRGB(x, y)) == edgeColor)
         {
             return polyhedron.hasEdgeAtXY(this.untranslateX(x), this.untranslateY(y));
@@ -336,7 +358,8 @@ public class Display extends JPanel
      */
     public void selectVertexAtXY(int x, int y)
     {
-        selectedVertex = polyhedron.getVertexAtXY(this.untranslateX(x), this.untranslateY(y));
+        selectedVertex = polyhedron.getVertexAtXY(this.untranslateX((int)((x - edgeWidth) / scale)),
+        this.untranslateY((int)((y - edgeHeight) / scale)));
     }
 
     /**
@@ -347,7 +370,8 @@ public class Display extends JPanel
      */
     public void selectEdgeAtXY(int x, int y)
     {
-        selectedEdge = polyhedron.getEdgeAtXY(this.untranslateX(x), this.untranslateY(y));
+        selectedEdge = polyhedron.getEdgeAtXY(this.untranslateX((int)((x - edgeWidth) / scale)),
+        this.untranslateY((int)((y - edgeHeight) / scale)));
     }
 
 }
