@@ -79,8 +79,7 @@ public class Face
     
     public ArrayList<Vertex> getOrderedVertices()
     {
-        ArrayList<Edge> tempEdges = new ArrayList();
-        tempEdges = edges;
+        ArrayList<Edge> tempEdges = new ArrayList(edges);
         Edge e;
         Vertex a, b;
         int n = 2;
