@@ -79,7 +79,7 @@ public class Display extends JPanel
             for (int j = 1; j < orderedVertices.size(); j ++)
             {
                 currentVertex = orderedVertices.get(j);
-                faceShapes[j].lineTo(this.translateX(currentVertex.getX()),
+                faceShapes[i].lineTo(this.translateX(currentVertex.getX()),
                     this.translateY(currentVertex.getY()));
             }
             faceShapes[i].closePath();
