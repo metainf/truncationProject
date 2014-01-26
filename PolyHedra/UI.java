@@ -99,6 +99,7 @@ public class UI
                     }
                     display.clearSelected();
                     display.setShape(shapeComboBox.getSelectedItem().toString());
+                    display.repaint();
                     display.requestFocusInWindow();
                 }
             }
@@ -119,6 +120,7 @@ public class UI
                     {
                         display.setFacesVisible(true);
                     }
+                    display.repaint();
                     display.requestFocusInWindow();
                 }
             }
@@ -146,6 +148,7 @@ public class UI
                 public void actionPerformed(ActionEvent actionEvent)
                 {
                     display.clearSelected();
+                    display.repaint();
                     display.requestFocusInWindow();
                 }
             }
@@ -168,6 +171,7 @@ public class UI
                 public void stateChanged(ChangeEvent changeEvent)
                 {
                     display.setZoom(zoomSlider.getValue() / 20.0); //sets between 0.5 and 1.5, inclusive
+                    display.repaint();
                     display.requestFocusInWindow();
                 }
             }
@@ -220,6 +224,7 @@ public class UI
                                 }
                             }
                         }
+                        display.repaint();
                     }
                 }
             }
@@ -275,10 +280,12 @@ public class UI
                         if (rotator[0] == null)
                         {
                             display.rotate(new Point((int)(display.getSize().getWidth() / 8), 0), new Point());
+                            display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
                             display.rotate(new Point((int)(display.getSize().getWidth() / 8), 0), new Point());
+                            display.repaint();
                         }
                     }
                 }
@@ -294,10 +301,12 @@ public class UI
                         if (rotator[0] == null)
                         {
                             display.rotate(new Point(), new Point((int)(display.getSize().getWidth() / 8), 0));
+                            display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
                             display.rotate(new Point(), new Point((int)(display.getSize().getWidth() / 8), 0));
+                            display.repaint();
                         }
                     }
                 }
@@ -313,10 +322,12 @@ public class UI
                         if (rotator[0] == null)
                         {
                             display.rotate(new Point(0, (int)(display.getSize().getHeight() / 8)), new Point());
+                            display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
                             display.rotate(new Point(0, (int)(display.getSize().getHeight() / 8)), new Point());
+                            display.repaint();
                         }
                     }
                 }
@@ -332,10 +343,12 @@ public class UI
                         if (rotator[0] == null)
                         {
                             display.rotate(new Point(), new Point(0, (int)(display.getSize().getHeight() / 8)));
+                            display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
                             display.rotate(new Point(), new Point(0, (int)(display.getSize().getHeight() / 8)));
+                            display.repaint();
                         }
                     }
                 }
@@ -351,6 +364,7 @@ public class UI
                     }
                     display.clearSelected();
                     display.setShape(shapeComboBox.getSelectedItem().toString());
+                    display.repaint();
                     display.requestFocusInWindow();
                 }
             }
