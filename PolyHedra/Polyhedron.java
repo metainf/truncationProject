@@ -50,6 +50,9 @@ public class Polyhedron
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
             break;
         }
+        System.out.println(points.size()+"points");
+        System.out.println(edges.size()+"edges");
+        System.out.println(sides.size()+"faces");
     }
 
     public static ArrayList<Face> makePolyhedronFaces(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges){
@@ -112,9 +115,7 @@ public class Polyhedron
                     }
                 }
                 faces.add(new Face(face));
-                System.out.println(face+""+currentPoint);
             }
-            System.out.println();
             copyPoints.remove(0);
         }
         for(int i=0;i<faces.size();i++){
