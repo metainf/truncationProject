@@ -325,8 +325,10 @@ public class Polyhedron
     {
         for (Vertex v: points)
         {
-            if (v.getX() == x && v.getX() == y)
+            if (v.getX() > x - .01 && v.getX() < x + .01&& v.getX() > y - .01 && v.getX() < y + .01)
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -378,7 +380,8 @@ public class Polyhedron
         double  z=-Double.MAX_VALUE;                //gets a z coordinate to check against
         for (Vertex v: points)
         {
-            if (v.getX() == x && v.getY() == y && v.getZ() > z)        
+            if (v.getX() > x - .01 && v.getX() < x + .01&& v.getX() > y - .01
+            && v.getX() < y && v.getZ() > z)        
             {
                 closest = v;
                 z = v.getZ();
