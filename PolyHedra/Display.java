@@ -109,18 +109,22 @@ public class Display extends JPanel
         if (selectedVertex != null)
         {
             g2D.setColor(highlightColor);
+            g2D.setStroke(new BasicStroke(5));
             g2D.drawLine(this.translateX(selectedVertex.getX()),
                 this.translateY(selectedVertex.getY()), this.translateX(selectedVertex.getX()),
                 this.translateY(selectedVertex.getY()));
+            g2D.setStroke(new BasicStroke(2));
         }
         else if (selectedEdge != null)
         {
             Vertex[] endVertices = selectedEdge.getVertices();
 
             g2D.setColor(highlightColor);
+            g2D.setStroke(new BasicStroke(3));
             g2D.drawLine(this.translateX(endVertices[0].getX()),
                 this.translateY(endVertices[0].getY()), this.translateX(endVertices[1].getX()),
                 this.translateY(endVertices[1].getY()));
+            g2D.setStroke(new BasicStroke(2));
         }
 
         panelWidth = this.getParent().getWidth();
