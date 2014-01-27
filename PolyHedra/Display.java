@@ -79,7 +79,7 @@ public class Display extends JPanel
             ArrayList<Vertex> orderedVertices = new ArrayList<Vertex>(currentFace.getOrderedVertices());
 
             faceShapes[i] = new GeneralPath(GeneralPath.WIND_EVEN_ODD,
-                currentFace.getNumVertices());
+                100/*currentFace.getNumVertices()*/);                       //JUST A TEMPORARY FIX
 
             Vertex currentVertex = orderedVertices.get(0);
             faceShapes[i].moveTo(this.translateX(currentVertex.getX()),
