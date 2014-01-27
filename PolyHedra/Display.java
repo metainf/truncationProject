@@ -293,7 +293,7 @@ public class Display extends JPanel
         }
         x = (int)((x - edgeWidth) / scale);
         y = (int)((y - edgeHeight) / scale);
-        if (new Color(buffImage.getRGB(x, y)) == edgeColor)
+        if (new Color(buffImage.getRGB(x, y)).equals(edgeColor))
         {
             return polyhedron.hasVertexAtXY(this.untranslateX(x), this.untranslateY(y));
         }
@@ -318,7 +318,7 @@ public class Display extends JPanel
         }
         x = (int)((x - edgeWidth) / scale);
         y = (int)((y - edgeHeight) / scale);
-        if (new Color(buffImage.getRGB(x, y)) == edgeColor)
+        if (new Color(buffImage.getRGB(x, y)).equals(edgeColor))
         {
             return polyhedron.hasEdgeAtXY(this.untranslateX(x), this.untranslateY(y));
         }
