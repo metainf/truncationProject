@@ -55,7 +55,7 @@ public class Rotator extends SwingWorker<String, String>
             }
             
             UI.getDisplay().rotate(oldP, newP);
-            UI.getDisplay.repaint();
+            UI.getDisplay().repaint();
 
             try {
                 //waits a tenth of a second, minus the computation and rotation time
