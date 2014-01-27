@@ -98,6 +98,9 @@ public class UI
                         rotator[0].stop();
                     }
                     display.clearSelected();
+                    truncSlider.setEnabled(false);
+                    truncButton.setEnabled(false);
+                    truncLabel.setText("");
                     display.setShape(shapeComboBox.getSelectedItem().toString());
                     display.repaint();
                     display.requestFocusInWindow();
@@ -148,6 +151,9 @@ public class UI
                 public void actionPerformed(ActionEvent actionEvent)
                 {
                     display.clearSelected();
+                    truncSlider.setEnabled(false);
+                    truncButton.setEnabled(false);
+                    truncLabel.setText("");
                     display.repaint();
                     display.requestFocusInWindow();
                 }
@@ -176,6 +182,45 @@ public class UI
                 }
             }
         );
+        
+        final JLabel truncLabel = new JLabel();
+        truncLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        final JSlider truncSlider = new JSlider(0, 100);
+        truncSlider.setEnabled(false);
+        truncSlider.setMinorTickSpacing(1);
+        truncSlider.setMajorTickSpacing(10);
+        truncSlider.setPaintTicks(true);
+        truncSlider.setMaximumSize(new Dimension(160, 40));
+        truncSlider.setAlignmentX(Component.CENTER_ALIGNMENT);
+        truncSlider.addChangeListener(new ChangeListener()
+            {
+                public void stateChanged(ChangeEvent changeEvent)
+                {
+                    truncLabel.setText(truncSlider.getValue() + "%");
+                    display.requestFocusInWindow();
+                }
+            }
+        );
+        
+        final JButton truncButton = new JButton("Truncate");
+        truncButton.setEnabled(false);
+        truncButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //tells truncButton what to do when pressed
+        truncButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent actionEvent)
+                {
+                    truncSlider.setEnabled(false);
+                    truncButton.setEnabled(false);
+                    truncLabel.setText("");
+                    display.truncSelectedPercent(truncSlider.getValue());
+                    display.clearSelected();
+                    display.repaint();
+                    display.requestFocusInWindow();
+                }
+            }
+        );
 
         display.addMouseListener(new MouseInputAdapter()
             {
@@ -196,11 +241,9 @@ public class UI
                                     display.selectVertexAtXY(mouseEvent.getX() + dx,
                                         mouseEvent.getY() + dy);
 
-                                    //show a truncation-controlling component
-                                    //slider? (would need ability to reverse truncate)
-                                    //button? (while depressed, truncate) (can't fully trucate?)
-                                    //popup with a percentage chooser?
-                                    //change would not be visible until committed
+                                    truncSlider.setEnabled(true);
+                                    truncButton.setEnabled(true);
+                                    truncLabel.setText(truncSlider.getValue() + "%");
                                 }
                             }
                         }
@@ -216,11 +259,9 @@ public class UI
                                     display.selectEdgeAtXY(mouseEvent.getX() + dx,
                                         mouseEvent.getY() + dy);
 
-                                    //show a truncation-controlling component
-                                    //slider? (would need ability to reverse truncate)
-                                    //button? (while depressed, truncate) (can't fully trucate?)
-                                    //popup with a percentage chooser?
-                                    //change would not be visible until committed
+                                    truncSlider.setEnabled(true);
+                                    truncButton.setEnabled(true);
+                                    truncLabel.setText(truncSlider.getValue() + "%");
                                 }
                             }
                         }
@@ -363,6 +404,9 @@ public class UI
                         rotator[0].stop();
                     }
                     display.clearSelected();
+                    truncSlider.setEnabled(false);
+                    truncButton.setEnabled(false);
+                    truncLabel.setText("");
                     display.setShape(shapeComboBox.getSelectedItem().toString());
                     display.repaint();
                     display.requestFocusInWindow();
@@ -402,6 +446,10 @@ public class UI
         controlPanel.add(Box.createVerticalStrut(20));
         controlPanel.add(zoomLabel);
         controlPanel.add(zoomSlider);
+        controlPanel.add(Box.createVerticalStrut(20));
+        controlPanel.add(truncSlider);
+        controlPanel.add(truncLabel);
+        controlPanel.add(truncButton);
 
         //populates the main panel with the user's controls and the diaplay
         mainPanel.add(controlPanel);
