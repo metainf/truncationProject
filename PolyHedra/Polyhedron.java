@@ -334,7 +334,7 @@ public class Polyhedron
 		{
 			for (int i = 0; i < tempPoints.size(); i ++)
 			{
-				if (tempPoints.get(0).distance(tempPoints.get(i)) == 1)
+				if ((tempPoints.get(0).distance(tempPoints.get(i)) * 1000) / 1000  == 1)
 				{
 					edges.add(new Edge(tempPoints.get(0), tempPoints.get(i)));
 				}
