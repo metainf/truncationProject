@@ -590,9 +590,12 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
         double x, y,z;
         Vertex oldVertex;
         Vertex newVertex;
+        int n = 0;
+        int m = 0;
         double [] oldCoords = new double[3];
         for (int i = 0; i < sides.size(); i++)
         {
+           
             for (int v = 0; v < sides.get(i).returnEdges().size(); v ++)
             {
                 for (int k = 0; k < 2; k ++)
@@ -605,14 +608,14 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                         -x * Math.cos(b) * Math.sin(c) + z  * (Math.cos(c)  * Math.sin(a) - Math.cos(a) * Math.sin(b) *  Math.sin(c)) + y * (Math.cos(a)  * Math.cos(c) + Math.sin(a) * Math.sin(b) * Math.sin(c)),
                         z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
                         System.out.println("i = " + i + ", v = " + v + ", k = " + k + ", m = " + m + ", n = " + n);
-                    sides.get(i).returnEdges().get(v).getVertexes().set(k, newVertex);
+                    sides.get(i).returnEdges().get(v).setVerticies(k, newVertex);
                     //^^ has IndexOutOfBoundsException problems with n and/or m
                     //(icos: n = 3, dodec: n = 5, oct: n = 3, cube: n = 4, tetr: m = 4)
-                    (edges.get(v)).getVertexes().set(k, newVertex);
-                    points.set(k, newVertex);
-                  
+                    (edges.get(n)).setVerticies(k, newVertex);
+                    points.set(m, newVertex);
+                    m++
                 }
-               
+                n++;
             }
 
         }
