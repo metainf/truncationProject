@@ -377,5 +377,23 @@ public class Display extends JPanel
         selectedEdge = polyhedron.getEdgeAtXY(this.untranslateX((int)((x - edgeWidth) / scale)),
         this.untranslateY((int)((y - edgeHeight) / scale)));
     }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y   a sample parameter for a method
+     * @return     the sum of x and y
+     */
+    public void truncSelectedPercent(int percent)
+    {
+        if (selectedVertex != null)
+        {
+            polyhedron.truncPercent(selectedVertex, percent);
+        }
+        else if (selectedEdge != null)
+        {
+            polyhedron.truncPercent(selectedEdge, percent);
+        }
+    }
 
 }
