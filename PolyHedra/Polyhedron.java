@@ -617,7 +617,10 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                     newVertex = new Vertex(x * Math.cos(b) * Math.cos(c) + y * (Math.cos(a) * Math.sin(c) - Math.cos(c)  * Math.sin(a) *  Math.sin(b)) + z * (Math.cos(a) *  Math.cos(c) *  Math.sin(b) + Math.sin(a) * Math.sin(c)), 
                         -x * Math.cos(b) * Math.sin(c) + z  * (Math.cos(c)  * Math.sin(a) - Math.cos(a) * Math.sin(b) *  Math.sin(c)) + y * (Math.cos(a)  * Math.cos(c) + Math.sin(a) * Math.sin(b) * Math.sin(c)),
                         z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
+                        System.out.println("i = " + i + ", v = " + v + ", k = " + k + ", m = " + m + ", n = " + n);
                     sides.get(i).returnEdges().get(n).getVertexes().set(k, newVertex);
+                    //^^ has IndexOutOfBoundsException problems with n
+                    //(icos = 5, dodec = 3, oct = 3, cube = 4, tetr = 4)
                     (edges.get(n)).getVertexes().set(k, newVertex);
                     points.set(m, newVertex);
                     m++;
