@@ -35,6 +35,7 @@ public class Polyhedron
             case CUBE: points=new ArrayList(this.readVerticesCube("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
+                                this.pointTrun(new Vertex(.5,.5,.5),.5);
             break;
             case OCTAHEDRON: points=new ArrayList(this.readVerticesOctahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
@@ -43,11 +44,11 @@ public class Polyhedron
             case DODECAHEDRON: points=new ArrayList(this.readVerticesDodecahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
+                                this.pointTrun(new Vertex(0.0,0.0,0.9510565382188727), .1);
             break;
             case ICOSAHEDRON: points=new ArrayList(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                this.pointTrun(new Vertex(0.8506509438397194,0.0,1.113516704552101), .5);
                                 
             break;
         }
@@ -582,6 +583,7 @@ public class Polyhedron
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(output.size()+"output");
 
         return output;
     }
