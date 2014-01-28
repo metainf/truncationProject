@@ -61,4 +61,15 @@ public class Vertex
     {
         return Math.sqrt(Math.pow((a.getX() - this.getX()), 2) + Math.pow((a.getY() - this.getY()), 2) + Math.pow((a.getZ() - this.getZ()), 2));
     }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y   a sample parameter for a method
+     * @return     the sum of x and y
+     */
+    public String toString()
+    {
+        return "(" + x + ", " + y + ", " + z + ")";
+    }
 }
