@@ -160,7 +160,7 @@ public class Polyhedron
      */
     public void truncPercent(Edge edgeToTrunc, int percent)
     {
-        this.edgeTrun(edgeToTrunc, edgeToTrunc.distance() * percent / 100.0);
+        //this.edgeTrun(edgeToTrunc, edgeToTrunc.distance() * percent / 100.0);
     }
     
     //This requires that the length that we are going to truncate things by is less than the length of the shortest
