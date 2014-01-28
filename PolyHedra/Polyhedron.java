@@ -419,10 +419,11 @@ public class Polyhedron
     {
         Vertex closest= new Vertex();        
         double  z=-Double.MAX_VALUE;                //gets a z coordinate to check against
-        for (Vertex v: points)
+        for (int i = 0; i < points.size(); i ++)
         {
-            if (v.getX() > x - .01 && v.getX() < x + .01&& v.getX() > y - .01
-            && v.getX() < y && v.getZ() > z)        
+            Vertex v = points.get(i);
+            if (v.getX() > x - .01 && v.getX() < x + .01 && v.getY() > y - .01
+            && v.getY() < y  + .01 && v.getZ() > z)
             {
                 closest = v;
                 z = v.getZ();
