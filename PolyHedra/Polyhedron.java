@@ -35,7 +35,6 @@ public class Polyhedron
             case CUBE: points=new ArrayList(this.readVerticesCube("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                this.pointTrun(new Vertex(.5,.5,.5), -.5);
             break;
             case OCTAHEDRON: points=new ArrayList(this.readVerticesOctahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
@@ -48,6 +47,8 @@ public class Polyhedron
             case ICOSAHEDRON: points=new ArrayList(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
+                                this.pointTrun(new Vertex(0.8506509438397194,0.0,1.113516704552101), .5);
+                                
             break;
         }
         System.out.println(points.size()+"points");
@@ -166,6 +167,7 @@ public class Polyhedron
     //This requires that the length that we are going to truncate things by is less than the length of the shortest
     //edge. There is full truncation;
     public void pointTrun(Vertex point, double chop){
+        chop=chop*-1;
         ArrayList<Edge> tempEdges=new ArrayList<Edge>(); //used to store the edges before truncation
         ArrayList<Edge> newEdges=new ArrayList<Edge>();
         ArrayList<Vertex> newPoints=new ArrayList<Vertex>();
@@ -340,6 +342,17 @@ public class Polyhedron
             for(int j=i+1;j<points.size();j+=0){
                 if(points.get(j).equals(points.get(i))){
                     points.remove(j);
+                    j=i+1;
+                }
+                else{
+                    j++;
+                }
+            }
+        }
+        for(int i=0;i<edges.size();i++){
+            for(int j=i+1;j<edges.size();j+=0){
+                if(edges.get(j).equals(edges.get(i))){
+                    edges.remove(j);
                     j=i+1;
                 }
                 else{

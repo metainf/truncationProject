@@ -127,6 +127,7 @@ public class Face
         double smallest=Double.MAX_VALUE;
         boolean isDone=false;
         do{ 
+            System.out.println("plzno");
             smallest=Double.MAX_VALUE;
             //finds the next point
             for(Vertex comparePoint: unOrder){
