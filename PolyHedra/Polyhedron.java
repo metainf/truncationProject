@@ -131,6 +131,38 @@ public class Polyhedron
         }
         return faces;
     }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y   a sample parameter for a method
+     * @return     the sum of x and y
+     */
+    public void truncPercent(Vertex vertexToTrunc, int percent)
+    {
+        double minLength = -Double.MAX_VALUE;
+        for (int i = 0; i < edges.size(); i ++)
+        {
+            if (edges.get(i).hasPoint(vertexToTrunc) && edges.get(i).distance() > minLength)
+            {
+                minLength = edges.get(i).distance();
+            }
+        }
+        
+        this.pointTrun(vertexToTrunc, minLength * percent / 100.0);
+    }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y   a sample parameter for a method
+     * @return     the sum of x and y
+     */
+    public void truncPercent(Edge edgeToTrunc, int percent)
+    {
+        this.edgeTrun(edgeToTrunc, edgeToTrunc.distance() * percent / 100.0);
+    }
+    
     //This requires that the length that we are going to truncate things by is less than the length of the shortest
     //edge. There is full truncation;
     public void pointTrun(Vertex point, double chop){
