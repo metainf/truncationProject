@@ -44,7 +44,7 @@ public class Polyhedron
             case DODECAHEDRON: points=new ArrayList(this.readVerticesDodecahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                this.pointTrun(new Vertex(0.0,0.0,0.9510565382188727), .1);
+                                this.pointTrun(new Vertex(0.0,0.0,0.9510565382188727), .6);
             break;
             case ICOSAHEDRON: points=new ArrayList(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
@@ -310,19 +310,10 @@ public class Polyhedron
         //adds the edges of the new face created by truncation to the faces choped by truncation
         for(int i=0;i<newFaces.size();i++){
             Face currentFace=newFaces.get(i);
-            ArrayList<Edge> edgesInCurrentFace=currentFace.returnEdges();
             ArrayList<Edge> edgesInNewFace=newFace;
-            ArrayList<Vertex> pointsInCurrentFace= new ArrayList();
-            for(Edge e:edgesInCurrentFace){
-                if(pointsInCurrentFace.indexOf(e.getVertices()[0])==-1){
-                    pointsInCurrentFace.add(e.getVertices()[0]);
-                }
-                if(pointsInCurrentFace.indexOf(e.getVertices()[1])==-1){
-                    pointsInCurrentFace.add(e.getVertices()[1]);
-                }
-            }
+            ArrayList<Vertex> pointsInCurrentFace= new ArrayList(currentFace.getVerts());
             for(Edge e:edgesInNewFace){
-                if(pointsInCurrentFace.indexOf(e.getVertices()[0])!=-1 && pointsInCurrentFace.indexOf(e.getVertices()[1])!=-1){
+                if(pointsInCurrentFace.contains(e.getVertices()[0])&&pointsInCurrentFace.contains(e.getVertices()[1])){
                     currentFace.add(e);
                 }
             }

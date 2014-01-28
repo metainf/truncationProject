@@ -114,7 +114,7 @@ public class Face
         }
         while (tempEdges.size() > 0);
         **/
-        return this.getVerts();
+        return this.getOrder();
     }
     public ArrayList<Vertex> getOrder(){
         ArrayList<Vertex> unOrder=new ArrayList(this.getVerts());
@@ -132,13 +132,16 @@ public class Face
             //finds the next point
             for(Vertex comparePoint: unOrder){
                 if(current.equals(comparePoint)){
+
                 }
                 else if(comparePoint.equals(last)){
+
                 }
                 else{
                     if(current.distance(comparePoint)<smallest+.01){
                         smallest=current.distance(comparePoint);
                         next=comparePoint;
+
                     }
                 }
             }

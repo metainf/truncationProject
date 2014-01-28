@@ -50,7 +50,7 @@ public class Vertex
         return coords;
     }
     public boolean equals(Vertex vert){
-        if((this.x==vert.x) && this.y==vert.y && this.z==vert.z){
+        if(Utility.inRange(this.x,vert.x) && Utility.inRange(this.y,vert.y) && Utility.inRange(this.z,vert.z)){
             return true;
         }
         else{
