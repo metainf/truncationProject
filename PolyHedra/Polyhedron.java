@@ -536,7 +536,7 @@ public class Polyhedron
             int lineCounter = 0;
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
-                if(lineCounter>=30 && lineCounter <=41) {
+                if(lineCounter>=47 && lineCounter <=66) {
                     StringTokenizer lineN = new StringTokenizer(nextVertex);
                     double x = Double.parseDouble(lineN.nextToken());
                     double y = Double.parseDouble(lineN.nextToken());
@@ -561,7 +561,7 @@ public class Polyhedron
             int lineCounter = 0;
             while (scan.hasNextLine()) {
                 String nextVertex = scan.nextLine();
-                if(lineCounter>=47 && lineCounter <= 66) {
+                if(lineCounter>=30 && lineCounter <= 41) {
                     StringTokenizer lineN = new StringTokenizer(nextVertex);
                     double x = Double.parseDouble(lineN.nextToken());
                     double y = Double.parseDouble(lineN.nextToken());
@@ -611,7 +611,7 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                         System.out.println("i = " + i + ", v = " + v + ", k = " + k + ", m = " + m + ", n = " + n);
                     sides.get(i).returnEdges().get(n).getVertexes().set(k, newVertex);
                     //^^ has IndexOutOfBoundsException problems with n
-                    //(icos = 5, dodec = 3, oct = 3, cube = 4, tetr = 4)
+                    //(icos = 3, dodec = 5, oct = 3, cube = 4, tetr = 4)
                     (edges.get(n)).getVertexes().set(k, newVertex);
                     points.set(m, newVertex);
                     m++;
