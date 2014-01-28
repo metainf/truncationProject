@@ -35,7 +35,7 @@ public class Polyhedron
             case CUBE: points=new ArrayList(this.readVerticesCube("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                System.out.println(sides);
+                                this.pointTrun(new Vertex(.5,.5,.5), -.5);
             break;
             case OCTAHEDRON: points=new ArrayList(this.readVerticesOctahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
@@ -335,11 +335,6 @@ public class Polyhedron
         }
         for(Face f:newFaces){
             sides.add(f);
-        }
-        for(int i=0;i<points.size();i++){
-            if(points.get(i).equals(point)){
-                points.remove(i);
-            }
         }
         for(int i=0;i<points.size();i++){
             for(int j=i+1;j<points.size();j+=0){

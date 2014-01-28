@@ -79,6 +79,7 @@ public class Face
     
     public ArrayList<Vertex> getOrderedVertices()
     {
+        /*
         ArrayList<Edge> tempEdges = new ArrayList(edges);
         Edge e;
         Vertex a, b;
@@ -112,8 +113,67 @@ public class Face
             }
         }
         while (tempEdges.size() > 0);
-        
-        return orderedVertices;
+        **/
+        return this.getOrder();
+    }
+    public ArrayList<Vertex> getOrder(){
+        ArrayList<Vertex> unOrder=new ArrayList(this.getVerts());
+        ArrayList<Vertex> out=new ArrayList();
+        out.add(unOrder.get(0));
+        Vertex first=unOrder.get(0);
+        Vertex current=first;
+        Vertex last=first;
+        Vertex next=first;
+        double smallest=Double.MAX_VALUE;
+        boolean isDone=false;
+        do{ 
+            smallest=Double.MAX_VALUE;
+            //finds the next point
+            for(Vertex comparePoint: unOrder){
+                if(current.equals(comparePoint)){
+                }
+                else if(comparePoint.equals(last)){
+                }
+                else{
+                    if(current.distance(comparePoint)<smallest){
+                        smallest=current.distance(comparePoint);
+                        next=comparePoint;
+                    }
+                }
+            }
+            last=current;
+            current=next;
+            smallest=Double.MAX_VALUE;
+            out.add(next);
+            if(next.equals(first)){
+                isDone=true;
+            }
+        }
+        while(!isDone);
+            //updates the verts
+            unOrder.remove(last);
+
+            System.out.println(out.size());
+        return out;
+    }
+    public ArrayList<Vertex> getVerts(){
+        ArrayList<Vertex> out= new ArrayList();
+        for(Edge e:edges){
+            out.add(e.getVertices()[0]);
+            out.add(e.getVertices()[1]);
+        }
+        for(int i=0;i<out.size();i++){
+            for(int j=i+1;j<out.size();j+=0){
+                if(out.get(j).equals(out.get(i))){
+                    out.remove(j);
+                    j=i+1;
+                }
+                else{
+                    j++;
+                }
+            }
+        }
+        return out;
     }
 }
     
