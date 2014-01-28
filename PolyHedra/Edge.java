@@ -70,4 +70,20 @@ public class Edge
             String out=""+(a.getX()+b.getX())/2+" "+(a.getY()+b.getY())/2+" "+(a.getZ()+b.getZ())/2;
             return out;
         }
+        public void setVerticies(int index, Vertex v)
+        {
+        	if (index = 0)
+        	{
+        		a = v;
+        	}
+        	else if (index = 1)
+        	{
+        		b = v;
+        	}
+        	else
+        	{
+        		System.out.println("index must be 0 or 1");
+        	}
+        }
+        }
 }
