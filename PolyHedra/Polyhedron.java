@@ -82,7 +82,7 @@ public class Polyhedron
                 }
             }
             for(int i=0;i<pairs.size();i++){
-                if(pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint))>shortestDistance){
+                if(pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint))>shortestDistance+.01){
                     pairs.remove(i);
                     i=0;
                 }
@@ -106,7 +106,7 @@ public class Polyhedron
                         double[] cross={v1[1]*v2[2]-v1[2]*v2[1],
                                 v1[2]*v2[0]-v1[0]*v2[2],
                                 v1[0]*v2[1]-v1[1]*v2[0],};
-                        if(v3[0]*cross[0]+v3[1]*cross[1]+v3[2]*cross[2]!=0.0){
+                        if((v3[0]*cross[0]+v3[1]*cross[1]+v3[2]*cross[2])>0.01 || (v3[0]*cross[0]+v3[1]*cross[1]+v3[2]*cross[2])<-0.01){
                             inPlane=false;
                         }
                     }
