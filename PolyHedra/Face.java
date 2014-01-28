@@ -95,6 +95,8 @@ public class Face
                 a = e.getVertices()[0];
                 b = e.getVertices()[1];
                 n = orderedVertices.size() - 1;
+                System.out.println("e = " + e + ", a = " + a + ", b = " + b + ", n = " + n
+                    + ", orderedVertices.get(n) = " + orderedVertices.get(n));
                 if (orderedVertices.get(n).equals(a))
                 {
                     orderedVertices.add(b);
