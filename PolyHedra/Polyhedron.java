@@ -610,8 +610,8 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                         z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
                         System.out.println("i = " + i + ", v = " + v + ", k = " + k + ", m = " + m + ", n = " + n);
                     sides.get(i).returnEdges().get(n).getVertexes().set(k, newVertex);
-                    //^^ has IndexOutOfBoundsException problems with n
-                    //(icos = 3, dodec = 5, oct = 3, cube = 4, tetr = 4)
+                    //^^ has IndexOutOfBoundsException problems with n and/or m
+                    //(icos: n = 3, dodec: n = 5, oct: n = 3, cube: n = 4, tetr: m = 4)
                     (edges.get(n)).getVertexes().set(k, newVertex);
                     points.set(m, newVertex);
                     m++;
