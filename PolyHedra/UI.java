@@ -84,6 +84,45 @@ public class UI
                 }
             }
         );
+        
+        final JLabel truncLabel = new JLabel();
+        truncLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        final JSlider truncSlider = new JSlider(0, 100);
+        truncSlider.setEnabled(false);
+        truncSlider.setMinorTickSpacing(1);
+        truncSlider.setMajorTickSpacing(10);
+        truncSlider.setPaintTicks(true);
+        truncSlider.setMaximumSize(new Dimension(160, 40));
+        truncSlider.setAlignmentX(Component.CENTER_ALIGNMENT);
+        truncSlider.addChangeListener(new ChangeListener()
+            {
+                public void stateChanged(ChangeEvent changeEvent)
+                {
+                    truncLabel.setText(truncSlider.getValue() + "%");
+                    display.requestFocusInWindow();
+                }
+            }
+        );
+        
+        final JButton truncButton = new JButton("Truncate");
+        truncButton.setEnabled(false);
+        truncButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //tells truncButton what to do when pressed
+        truncButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent actionEvent)
+                {
+                    truncSlider.setEnabled(false);
+                    truncButton.setEnabled(false);
+                    truncLabel.setText("");
+                    display.truncSelectedPercent(truncSlider.getValue());
+                    display.clearSelected();
+                    display.repaint();
+                    display.requestFocusInWindow();
+                }
+            }
+        );
 
         String [] polyhedra = {"Tetrahedron", "Cube", "Octahedron", "Dodecahedron", "Icosahedron"};
         final JComboBox shapeComboBox = new JComboBox(polyhedra);
@@ -183,45 +222,6 @@ public class UI
             }
         );
         
-        final JLabel truncLabel = new JLabel();
-        truncLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        final JSlider truncSlider = new JSlider(0, 100);
-        truncSlider.setEnabled(false);
-        truncSlider.setMinorTickSpacing(1);
-        truncSlider.setMajorTickSpacing(10);
-        truncSlider.setPaintTicks(true);
-        truncSlider.setMaximumSize(new Dimension(160, 40));
-        truncSlider.setAlignmentX(Component.CENTER_ALIGNMENT);
-        truncSlider.addChangeListener(new ChangeListener()
-            {
-                public void stateChanged(ChangeEvent changeEvent)
-                {
-                    truncLabel.setText(truncSlider.getValue() + "%");
-                    display.requestFocusInWindow();
-                }
-            }
-        );
-        
-        final JButton truncButton = new JButton("Truncate");
-        truncButton.setEnabled(false);
-        truncButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //tells truncButton what to do when pressed
-        truncButton.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent actionEvent)
-                {
-                    truncSlider.setEnabled(false);
-                    truncButton.setEnabled(false);
-                    truncLabel.setText("");
-                    display.truncSelectedPercent(truncSlider.getValue());
-                    display.clearSelected();
-                    display.repaint();
-                    display.requestFocusInWindow();
-                }
-            }
-        );
-
         display.addMouseListener(new MouseInputAdapter()
             {
                 public void mouseClicked(MouseEvent mouseEvent)
