@@ -213,7 +213,7 @@ public class Display extends JPanel
      */
     private double untranslateY(int graphicalY)
     {
-        return (graphicalY - (height / 2.0)) / ((height / 4.0) * zoom);
+        return -1 * (graphicalY - (height / 2.0)) / ((height / 4.0) * zoom);
     }
 
     /**
