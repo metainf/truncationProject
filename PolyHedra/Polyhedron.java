@@ -613,7 +613,7 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                     //(icos: n = 3, dodec: n = 5, oct: n = 3, cube: n = 4, tetr: m = 4)
                     (edges.get(n)).setVerticies(k, newVertex);
                     points.set(m, newVertex);
-                    m++
+                    m++;
                 }
                 n++;
             }
