@@ -587,7 +587,17 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
     
     public void rotate(double a, double b, double c)
     {
-        double x, y,z;
+        for (int i = 0; i < points.size(); i ++)
+        {
+            double x = points.get(i).getX();
+            double y = points.get(i).getY();
+            double z = points.get(i).getZ();
+            points.get(i).set(x * Math.cos(b) * Math.cos(c) + y * (Math.cos(a) * Math.sin(c) - Math.cos(c) * Math.sin(a) * Math.sin(b)) + z * (Math.cos(a) * Math.cos(c) * Math.sin(b) + Math.sin(a) * Math.sin(c)),
+                -x * Math.cos(b) * Math.sin(c) + z * (Math.cos(c) * Math.sin(a) - Math.cos(a) * Math.sin(b) * Math.sin(c)) + y * (Math.cos(a) * Math.cos(c) + Math.sin(a) * Math.sin(b) * Math.sin(c)),
+                z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
+        }
+        
+        /*double x, y,z;
         Vertex oldVertex;
         Vertex newVertex;
         int n = 0;
@@ -618,7 +628,7 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                 n++;
             }
 
-        }
+        }*/
     }
     public ArrayList<Vertex> getVerts(){
         return points;
