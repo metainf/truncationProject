@@ -72,4 +72,17 @@ public class Vertex
     {
         return "(" + x + ", " + y + ", " + z + ")";
     }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y   a sample parameter for a method
+     * @return     the sum of x and y
+     */
+    public void set(double newX, double newY, double newZ)
+    {
+        x = newX;
+        y = newY;
+        z = newZ;
+    }
 }
