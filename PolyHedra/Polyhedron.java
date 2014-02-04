@@ -580,9 +580,20 @@ public class Polyhedron
     }
 public void rotate (double p1X, double p1Y, double p2X, double p2Y)
     {
-        this.rotate(Math.asin((p2Y - p1Y) / Math.sqrt(1 + Math.pow(p2Y, 2))),
-        Math.asin((p2X - p1X) / Math.sqrt(1 + Math.pow(p2X, 2))),
-        Math.asin((p2X - p1X) / Math.sqrt(Math.pow(p2X, 2) + Math.pow(p2Y, 2))));
+        if (p1X == 0.0 && p1Y == 0.0)
+        {
+            return;
+        }
+        else if (p2X == 0.0 && p2Y == 0.0)
+        {
+            return;
+        }
+        else
+        {
+            this.rotate(Utility.angleOf(-1.0, p2Y) - Utility.angleOf(-1.0, p1Y),
+            Utility.angleOf(p2X, -1.0) - Utility.angleOf(p1X, -1.0),
+            Utility.angleOf(p2X, p2Y) - Utility.angleOf(p1X, p1Y));
+        }
     }
     
     public void rotate(double a, double b, double c)
