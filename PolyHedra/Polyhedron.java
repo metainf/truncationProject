@@ -44,12 +44,12 @@ public class Polyhedron
             case DODECAHEDRON: points=new ArrayList(this.readVerticesDodecahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                this.pointTrun(new Vertex(0.0,0.0,0.9510565382188727), .6);
+                                //this.pointTrun(new Vertex(0.0,0.0,0.9510565382188727), .6);
             break;
             case ICOSAHEDRON: points=new ArrayList(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                
+                                this.pointTrun(new Vertex(0.0,0.0,-0.9510565382188727), .6);
             break;
         }
         System.out.println(points.size()+"points");

@@ -72,11 +72,11 @@ public class Edge
         }
         public void setVerticies(int index, Vertex v)
         {
-        	if (index = 0)
+        	if (index == 0)
         	{
         		a = v;
         	}
-        	else if (index = 1)
+        	else if (index == 1)
         	{
         		b = v;
         	}
@@ -84,6 +84,5 @@ public class Edge
         	{
         		System.out.println("index must be 0 or 1");
         	}
-        }
         }
 }
