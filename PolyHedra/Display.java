@@ -277,6 +277,17 @@ public class Display extends JPanel
             this.untranslateX((int)point2.getX()), this.untranslateY((int)point2.getY()));
     }
     
+    /**
+     * Rotates the polyhedron in a direction and by an amount determined by angles a, b, and c
+     *
+     * @param a the angle around the x-axis
+     * @param b the angle around the y-axis
+     * @param c the angle around the z-axis
+     */
+    public void rotate(double a, double b, double c)
+    {
+        polyhedron.rotate(a, b, c);
+    }
 
     /**
      * Returns whether there is a vertex at the given display coordinates
