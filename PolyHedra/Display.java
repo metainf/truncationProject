@@ -273,7 +273,7 @@ public class Display extends JPanel
      */
     public void rotate(Point point1, Point point2)
     {
-        polyhedron.rotate(this.untranslateX((int)point1.getX()), (int)this.untranslateY((int)point1.getY()),
+        polyhedron.rotate(this.untranslateX((int)point1.getX()), this.untranslateY((int)point1.getY()),
             this.untranslateX((int)point2.getX()), this.untranslateY((int)point2.getY()));
     }
     
