@@ -16,4 +16,40 @@ public class Utility
         }
         return false;
     }
+    
+    /**
+     * Returns (in radians, over the interval [0, 2pi)) the standard angle of the line from (0, 0) to (x, y)
+     *
+     * @param  x   the x-coordinate
+     * @param  y   the y-coordinate
+     * @return     the standard angle of the line from (0, 0) to (x, y)
+     */
+    public static double angleOf(double x, double y)
+    {
+        if (x > 0.0 && y >= 0.0)
+        {
+            return Math.atan(y / x);
+        }
+        else if (x == 0.0 && y > 0.0)
+        {
+            return Math.PI / 2;
+        }
+        else if (x < 0.0)
+        {
+            return Math.PI + Math.atan(y / x);
+        }
+        else if (x == 0.0 && y < 0.0)
+        {
+            return 3 * Math.PI / 2;
+        }
+        else if (x > 0.0 && y < 0.0)
+        {
+            return (2 * Math.PI) + Math.atan(y / x);
+        }
+        else //if (x == 0.0 && y == 0.0)
+        {
+            System.out.println("ERROR: Utility.angleOf(0.0, 0.0) CANNOT BE EVALUATED");
+            return 0.0;
+        }
+    }
 }
