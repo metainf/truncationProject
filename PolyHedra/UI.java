@@ -298,7 +298,7 @@ public class UI
                 }
             }
         );
-        display.addMouseListener(new MouseInputAdapter()
+        /*display.addMouseListener(new MouseInputAdapter()
             {
                 public void mouseExited(MouseEvent mouseEvent)
                 {
@@ -308,7 +308,7 @@ public class UI
                     }
                 }
             }
-        );
+        );*/
 
         //the actions for keyboard inputs
         Action rotateLeft = new AbstractAction()
