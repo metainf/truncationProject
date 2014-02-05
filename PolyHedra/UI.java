@@ -377,6 +377,32 @@ public class UI
                 }
             }
         ;
+        Action switchTool = new AbstractAction()
+            {
+                public void actionPerformed(ActionEvent actionEvent)
+                {
+                    if (selectRB.isSelected())
+                    {
+                        display.clearSelected();
+                        truncSlider.setEnabled(false);
+                        truncButton.setEnabled(false);
+                        truncLabel.setText("");
+                        display.repaint();
+                        rotateRB.setSelected(true);
+                        display.requestFocusInWindow();
+                    }
+                    else if (rotateRB.isSelected())
+                    {
+                        if (rotator[0] != null)
+                        {
+                            rotator[0].stop();
+                        }
+                        selectRB.setSelected(true);
+                        display.requestFocusInWindow();
+                    }
+                }
+            }
+        ;
 
         //lays out the keyboard inputs
         display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
@@ -389,6 +415,8 @@ public class UI
             KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "pressed DOWN");
         display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_R, 0), "pressed R");
+        display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+            KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "pressed SPACE");
 
         //lays out the response actions for keyboard inputs
         display.getActionMap().put("pressed LEFT", rotateLeft);
@@ -396,6 +424,7 @@ public class UI
         display.getActionMap().put("pressed UP", rotateUp);
         display.getActionMap().put("pressed DOWN", rotateDown);
         display.getActionMap().put("pressed R", reset);
+        display.getActionMap().put("pressed SPACE", switchTool);
 
         //populates the user's control panel
         controlPanel.add(Box.createVerticalStrut(20));
