@@ -358,7 +358,7 @@ public class Polyhedron
     {
         for (Vertex v: points)
         {
-            if (v.getX() > x - .01 && v.getX() < x + .01&& v.getX() > y - .01 && v.getX() < y + .01)
+            if (v.getX() > x - .01 && v.getX() < x + .01&& v.getY() > y - .01 && v.getY() < y + .01)
             {
                 return true;
             }
