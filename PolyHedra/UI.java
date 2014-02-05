@@ -315,11 +315,8 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    if (rotateRB.isSelected())
-                    {
-                        display.rotate(0.0, -Math.PI / 8, 0.0);
-                        display.repaint();
-                    }
+                    display.rotate(0.0, -Math.PI / 8, 0.0);
+                    display.repaint();
                 }
             }
         ;
@@ -327,11 +324,8 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    if (rotateRB.isSelected())
-                    {
-                        display.rotate(0.0, Math.PI / 8, 0.0);
-                        display.repaint();
-                    }
+                    display.rotate(0.0, Math.PI / 8, 0.0);
+                    display.repaint();
                 }
             }
         ;
@@ -339,11 +333,8 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    if (rotateRB.isSelected())
-                    {
-                        display.rotate(Math.PI / 8, 0.0, 0.0);
-                        display.repaint();
-                    }
+                    display.rotate(Math.PI / 8, 0.0, 0.0);
+                    display.repaint();
                 }
             }
         ;
@@ -351,11 +342,8 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    if (rotateRB.isSelected())
-                    {
-                        display.rotate(-Math.PI / 8, 0.0, 0.0);
-                        display.repaint();
-                    }
+                    display.rotate(-Math.PI / 8, 0.0, 0.0);
+                    display.repaint();
                 }
             }
         ;
