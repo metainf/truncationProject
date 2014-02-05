@@ -189,11 +189,11 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    display.clearSelected();
+                    /*display.clearSelected();
                     truncSlider.setEnabled(false);
                     truncButton.setEnabled(false);
                     truncLabel.setText("");
-                    display.repaint();
+                    display.repaint();*/
                     display.requestFocusInWindow();
                 }
             }
@@ -371,11 +371,11 @@ public class UI
                 {
                     if (selectRB.isSelected())
                     {
-                        display.clearSelected();
+                        /*display.clearSelected();
                         truncSlider.setEnabled(false);
                         truncButton.setEnabled(false);
                         truncLabel.setText("");
-                        display.repaint();
+                        display.repaint();*/
                         rotateRB.setSelected(true);
                         display.requestFocusInWindow();
                     }
