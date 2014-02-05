@@ -320,12 +320,12 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(0.0, Math.PI / 8, 0.0);
+                            display.rotate(0.0, -Math.PI / 8, 0.0);
                             display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(0.0, Math.PI / 8, 0.0);
+                            display.rotate(0.0, -Math.PI / 8, 0.0);
                             display.repaint();
                         }
                     }
@@ -341,12 +341,12 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(0.0, -Math.PI / 8, 0.0);
+                            display.rotate(0.0, Math.PI / 8, 0.0);
                             display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(0.0, -Math.PI / 8, 0.0);
+                            display.rotate(0.0, Math.PI / 8, 0.0);
                             display.repaint();
                         }
                     }
@@ -362,12 +362,12 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(-Math.PI / 8, 0.0, 0.0);
+                            display.rotate(Math.PI / 8, 0.0, 0.0);
                             display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(-Math.PI / 8, 0.0, 0.0);
+                            display.rotate(Math.PI / 8, 0.0, 0.0);
                             display.repaint();
                         }
                     }
@@ -383,12 +383,12 @@ public class UI
                         //if the polyhedron isn't currently spinning
                         if (rotator[0] == null)
                         {
-                            display.rotate(Math.PI / 8, 0.0, 0.0);
+                            display.rotate(-Math.PI / 8, 0.0, 0.0);
                             display.repaint();
                         }
                         else if (! rotator[0].isRunning())
                         {
-                            display.rotate(Math.PI / 8, 0.0, 0.0);
+                            display.rotate(-Math.PI / 8, 0.0, 0.0);
                             display.repaint();
                         }
                     }
