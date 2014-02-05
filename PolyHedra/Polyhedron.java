@@ -590,7 +590,7 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
         }
         else
         {
-            this.rotate(Utility.angleOf(-1.0, p2Y) - Utility.angleOf(-1.0, p1Y),
+            this.rotate(Utility.angleOf(1.0, p2Y) - Utility.angleOf(1.0, p1Y),
             Utility.angleOf(p2X, -1.0) - Utility.angleOf(p1X, -1.0),
             Utility.angleOf(p2X, p2Y) - Utility.angleOf(p1X, p1Y));
         }
