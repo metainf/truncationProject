@@ -54,7 +54,7 @@ public class Display extends JPanel
         //drains faces in order to populate orderedFaces with the faces from low to high z
         while (faces.size() > 0)
         {
-            double minZ = -Double.MAX_VALUE;
+            double minZ = Double.MAX_VALUE;
             int minIndex = 0;
             for (int i = 0; i < faces.size(); i ++)
             {
