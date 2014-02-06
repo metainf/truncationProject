@@ -377,7 +377,7 @@ public class Polyhedron
             x2 = vertices[1].getX();
             y1 = vertices[0].getY();
             y2 = vertices[1].getY();
-            if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
+            if (Utility.inRange((y3 - y1) * (x2 - x1), (y2 - y1) * (x3 - x1)))
             { 
                 return true;
             }
@@ -398,7 +398,7 @@ public class Polyhedron
             x2 = vertices[1].getX();
             y1 = vertices[0].getY();
             y2 = vertices[1].getY();
-            if (y3-y1 == (y2-y1)*(x3-x1)/(x2-x1))
+            if (Utility.inRange((y3 - y1) * (x2 - x1), (y2 - y1) * (x3 - x1)))
             { 
                 currentEdge = e;
             }
