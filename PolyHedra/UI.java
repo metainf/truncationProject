@@ -32,6 +32,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.MouseInputAdapter;
@@ -309,6 +310,14 @@ public class UI
                 }
             }
         );*/
+        display.addMouseWheelListener(new MouseInputAdapter()
+            {
+                public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent)
+                {
+                    zoomSlider.setValue(zoomSlider.getValue() - mouseWheelEvent.getWheelRotation());
+                }
+            }
+        );
 
         //the actions for keyboard inputs
         Action rotateLeft = new AbstractAction()
