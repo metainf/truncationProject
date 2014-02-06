@@ -388,19 +388,45 @@ public class Polyhedron
 
     public Edge getEdgeAtXY(double x3, double y3)   //NEEDS TO RETURN THE CLOSEST ONE
     {
-        double x1,x2,y1,y2;
+        double x1,x2,y1,y2,z1,z2;
         Vertex[] vertices = new Vertex[2];
         Edge currentEdge=new Edge();
-        for (Edge e: edges)
+        double minZ = -Double.MAX_VALUE;
+        for (int i = 0; i < edges.size(); i ++)
         {
-            vertices = e.getVertices();
+            vertices = edges.get(i).getVertices();
             x1 = vertices[0].getX();
             x2 = vertices[1].getX();
             y1 = vertices[0].getY();
             y2 = vertices[1].getY();
+            z1 = vertices[0].getZ();
+            z2 = vertices[1].getZ();
             if (Utility.inRange((y3 - y1) * (x2 - x1), (y2 - y1) * (x3 - x1)))
             { 
-                currentEdge = e;
+                if (x2 - x1 != 0.0)
+                {
+                    if (((z2 - z1) * (x3 - x1) / (x2 - x1)) + z1 > minZ)
+                    {
+                        currentEdge = edges.get(i);
+                        minZ = ((z2 - z1) * (x3 - x1) / (x2 - x1)) + z1;
+                    }
+                }
+                else if (y2 - y1 != 0)
+                {
+                    if (((z2 - z1) * (y3 - y1) / (y2 - y1)) + z1 > minZ)
+                    {
+                        currentEdge = edges.get(i);
+                        minZ = ((z2 - z1) * (y3 - y1) / (y2 - y1)) + z1;
+                    }
+                }
+                else if (x3 == x1 && y3 == y1)
+                {
+                    if (Math.max(z1, z2) > minZ)
+                    {
+                        currentEdge = edges.get(i);
+                        minZ = Math.max(z1, z2);
+                    }
+                }
             }
         }
         return currentEdge;
