@@ -207,7 +207,8 @@ public class UI
         JLabel zoomLabel = new JLabel("-     Zoom:     +");
         zoomLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JSlider zoomSlider = new JSlider(10, 30);
+        final JSlider zoomSlider = new JSlider(10, 50);
+        zoomSlider.setValue(20);
         zoomSlider.setMinorTickSpacing(1);
         zoomSlider.setPaintTicks(true);
         zoomSlider.setMaximumSize(new Dimension(160, 40));
@@ -216,7 +217,7 @@ public class UI
             {
                 public void stateChanged(ChangeEvent changeEvent)
                 {
-                    display.setZoom(zoomSlider.getValue() / 20.0); //sets between 0.5 and 1.5, inclusive
+                    display.setZoom(zoomSlider.getValue() / 20.0); //sets between 0.5 and 2.5, inclusive
                     display.repaint();
                     display.requestFocusInWindow();
                 }
