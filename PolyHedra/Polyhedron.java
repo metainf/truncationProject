@@ -358,7 +358,7 @@ public class Polyhedron
     {
         for (Vertex v: points)
         {
-            if (v.getX() > x - .01 && v.getX() < x + .01&& v.getY() > y - .01 && v.getY() < y + .01)
+            if (Utility.inRange(v.getX(), x) && Utility.inRange(v.getY(), y))
             {
                 return true;
             }
@@ -377,7 +377,9 @@ public class Polyhedron
             x2 = vertices[1].getX();
             y1 = vertices[0].getY();
             y2 = vertices[1].getY();
-            if (Utility.inRange((y3 - y1) * (x2 - x1), (y2 - y1) * (x3 - x1)))
+            if (Utility.inRange((y3 - y1) * (x2 - x1), (y2 - y1) * (x3 - x1))
+            && x3 >= Math.min(x1, x2) - 0.02 && x3 <= Math.max(x1, x2) + 0.02
+            && y3 >= Math.min(y1, y2) - 0.02 && y3 <= Math.max(y1, y2) + 0.02)
             { 
                 return true;
             }
@@ -401,7 +403,9 @@ public class Polyhedron
             y2 = vertices[1].getY();
             z1 = vertices[0].getZ();
             z2 = vertices[1].getZ();
-            if (Utility.inRange((y3 - y1) * (x2 - x1), (y2 - y1) * (x3 - x1)))
+            if (Utility.inRange((y3 - y1) * (x2 - x1), (y2 - y1) * (x3 - x1))
+            && x3 >= Math.min(x1, x2) - 0.02 && x3 <= Math.max(x1, x2) + 0.02
+            && y3 >= Math.min(y1, y2) - 0.02 && y3 <= Math.max(y1, y2) + 0.02)
             { 
                 if (x2 - x1 != 0.0)
                 {
@@ -440,8 +444,7 @@ public class Polyhedron
         for (int i = 0; i < points.size(); i ++)
         {
             Vertex v = points.get(i);
-            if (v.getX() > x - .01 && v.getX() < x + .01 && v.getY() > y - .01
-            && v.getY() < y  + .01 && v.getZ() > z)
+            if (Utility.inRange(v.getX(), x) && Utility.inRange(v.getY(), y) && v.getZ() > z)
             {
                 closest = v;
                 z = v.getZ();
