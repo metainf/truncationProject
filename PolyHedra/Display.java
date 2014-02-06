@@ -29,7 +29,7 @@ public class Display extends JPanel
     private BufferedImage buffImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     private Graphics2D g2D = (Graphics2D)buffImage.getGraphics();
     private boolean facesVisible = true;
-    private double zoom = 1;   //should stay between .5 and 1.5, inclusive
+    private double zoom = 1;   //should stay between .5 and 2.5, inclusive
     private Polyhedron polyhedron;
     private Vertex selectedVertex;
     private Edge selectedEdge;
@@ -258,7 +258,7 @@ public class Display extends JPanel
     /**
      * Sets the zoom level for the polyhedron's diplay
      *
-     * @param  newZoom   the new zoom level (should be between 0.5 and 1.5, inclusive)
+     * @param  newZoom   the new zoom level (should be between 0.5 and 2.5, inclusive)
      */
     public void setZoom(double newZoom)
     {
