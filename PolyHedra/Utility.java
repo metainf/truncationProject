@@ -1,5 +1,5 @@
 package PolyHedra;
-
+import java.util.ArrayList;
 
 /**
  * The utility class for UI
@@ -51,5 +51,31 @@ public class Utility
             System.out.println("ERROR: Utility.angleOf(0.0, 0.0) CANNOT BE EVALUATED");
             return 0.0;
         }
+    }
+    //creates a convex face given a set of points.
+    public static Face createFace(ArrayList<Vertex> vertexIn){
+        System.out.println("started");
+        ArrayList<Edge> edges=new ArrayList();
+        Vertex startingVertex=vertexIn.get(0);
+        double smallestDistance=Double.MAX_VALUE;
+        Vertex currentVertex=vertexIn.get(0);
+        Vertex nextVertex=vertexIn.get(0);
+        vertexIn.remove(0);
+        while(vertexIn.size()!=0){
+            System.out.println(vertexIn.size());
+            for(Vertex testVertex:vertexIn){
+                if(testVertex.distance(currentVertex)<smallestDistance){
+                    smallestDistance=testVertex.distance(currentVertex);
+                    nextVertex=testVertex;
+                }
+            }
+            edges.add(new Edge(currentVertex,nextVertex));
+            vertexIn.remove(currentVertex);
+            currentVertex=nextVertex;
+            smallestDistance=Double.MAX_VALUE;
+        }
+        edges.add(new Edge(startingVertex,currentVertex));
+        System.out.println("finished");
+        return new Face(edges);
     }
 }

@@ -35,7 +35,6 @@ public class Polyhedron
             case CUBE: points=new ArrayList(this.readVerticesCube("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                this.pointTrun(new Vertex(.5,.5,.5),.5);
             break;
             case OCTAHEDRON: points=new ArrayList(this.readVerticesOctahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
@@ -44,12 +43,10 @@ public class Polyhedron
             case DODECAHEDRON: points=new ArrayList(this.readVerticesDodecahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                //this.pointTrun(new Vertex(0.0,0.0,0.9510565382188727), .6);
             break;
             case ICOSAHEDRON: points=new ArrayList(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
                                 edges=new ArrayList(initiateEdges(points));
                                 sides=new ArrayList(makePolyhedronFaces(points,edges));
-                                this.pointTrun(new Vertex(0.0,0.0,-0.9510565382188727), .6);
             break;
         }
         System.out.println(points.size()+"points");
@@ -173,7 +170,7 @@ public class Polyhedron
         ArrayList<Edge> newEdges=new ArrayList<Edge>();
         ArrayList<Vertex> newPoints=new ArrayList<Vertex>();
         ArrayList<Face> newFaces=new ArrayList<Face>();
-        ArrayList<Edge> newFace=new ArrayList<Edge>();// used to make the new face created from truncating.
+        Face newFace; //the face created by truncation
         //generates the list of edges that will be changed
         for(Edge e : edges){
             if(e.hasPoint(point)){
@@ -188,7 +185,7 @@ public class Polyhedron
                 }
             }
         }
-        //supermessy way of getting rid of duplicates faces
+        //getting rid of duplicate faces
         for(int i=0;i<newFaces.size();i+=0){
             if(newFaces.indexOf(newFaces.get(i))==(newFaces.lastIndexOf(newFaces.get(i)))){
                 i++;
@@ -272,45 +269,12 @@ public class Polyhedron
         /* This will create the face that is created by truncating the point
          *It does so by going through the list of new points, and creating the new face from that
          */
-        boolean isdone=false;
-        Vertex firstPoint=newPoints.get(0);
-        Vertex currentPoint=firstPoint;
-        Vertex lastPoint=firstPoint;
-        Vertex nextPoint=firstPoint;
-        double smallestDistance=Double.MAX_VALUE;
-        while(!isdone){
-            //finds the next point
-            for(Vertex comparePoint: newPoints){
-                if(currentPoint.equals(comparePoint)){
-                }
-                else if(comparePoint.equals(lastPoint)){
-                }
-                else{
-                    if(currentPoint.distance(comparePoint)<smallestDistance){
-                        smallestDistance=currentPoint.distance(comparePoint);
-                        nextPoint=comparePoint;
-                    }
-                }
-
-            }
-            //creates and edds the edge made from the current point and the next point
-            newFace.add(new Edge(currentPoint,nextPoint));
-            newEdges.add(new Edge(currentPoint,nextPoint));
-            //moves to the next point
-            lastPoint=currentPoint;
-            currentPoint=nextPoint;
-            smallestDistance=Double.MAX_VALUE;
-            //checks if the loop is done
-            if(nextPoint.equals(firstPoint)){
-                newFace.add(new Edge(lastPoint,nextPoint));
-                newEdges.add(new Edge(lastPoint,nextPoint));
-                isdone=true;
-            }
-        }
+       newFace=Utility.createFace(newPoints);
         //adds the edges of the new face created by truncation to the faces choped by truncation
+       /*
         for(int i=0;i<newFaces.size();i++){
             Face currentFace=newFaces.get(i);
-            ArrayList<Edge> edgesInNewFace=newFace;
+            ArrayList<Edge> edgesInNewFace=newFace.returnEdges();
             ArrayList<Vertex> pointsInCurrentFace= new ArrayList(currentFace.getVerts());
             for(Edge e:edgesInNewFace){
                 if(pointsInCurrentFace.contains(e.getVertices()[0])&&pointsInCurrentFace.contains(e.getVertices()[1])){
@@ -320,11 +284,15 @@ public class Polyhedron
             newFaces.remove(i);
             newFaces.add(i,currentFace);
         }
-        newFaces.add( new Face(newFace));
+        */
+        newFaces.add(newFace);
         for(Vertex p:newPoints){
             points.add(p);
         }
         for(Edge e:newEdges){
+            edges.add(e);
+        }
+        for(Edge e:newFace.returnEdges()){
             edges.add(e);
         }
         for(Face f:newFaces){

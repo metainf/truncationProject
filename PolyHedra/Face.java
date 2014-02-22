@@ -18,7 +18,7 @@ public class Face
 	* Constructor for objects of class Face
 	*/
 	public Face(ArrayList<Edge> inputEdges){
-        	edges=new ArrayList<Edge>(inputEdges);
+        	edges=new ArrayList<>(inputEdges);
         }
 	/**
 	*returns all the edges of a face
@@ -119,45 +119,24 @@ public class Face
     public ArrayList<Vertex> getOrder(){
         ArrayList<Vertex> unOrder=new ArrayList(this.getVerts());
         ArrayList<Vertex> out=new ArrayList();
-        out.add(unOrder.get(0));
-        Vertex first=unOrder.get(0);
-        Vertex current=first;
-        Vertex last=first;
-        Vertex next=first;
-        double smallest=Double.MAX_VALUE;
-        boolean isDone=false;
-        do{ 
-            //System.out.println("plzno");
-            smallest=Double.MAX_VALUE;
-            //finds the next point
-            for(Vertex comparePoint: unOrder){
-                if(current.equals(comparePoint)){
-
-                }
-                else if(comparePoint.equals(last)){
-
-                }
-                else{
-                    if(current.distance(comparePoint)<smallest+.01){
-                        smallest=current.distance(comparePoint);
-                        next=comparePoint;
-
-                    }
+        Vertex startingVertex=unOrder.get(0);
+        Vertex currentVertex=unOrder.get(0);
+        Vertex nextVertex=unOrder.get(0);
+        unOrder.remove(0);
+        out.add(currentVertex);
+        double smallestDistance=Double.MAX_VALUE;
+        while(unOrder.size()!=0){
+            for(Vertex testVertex:unOrder){
+                if(testVertex.distance(currentVertex)<smallestDistance){
+                    smallestDistance=testVertex.distance(currentVertex);
+                    nextVertex=testVertex;
                 }
             }
-            last=current;
-            current=next;
-            smallest=Double.MAX_VALUE;
-            out.add(next);
-            if(next.equals(first)){
-                isDone=true;
-            }
+            out.add(nextVertex);
+            unOrder.remove(currentVertex);
+            currentVertex=nextVertex;
+            smallestDistance=Double.MAX_VALUE;
         }
-        while(!isDone);
-            //updates the verts
-            unOrder.remove(last);
-
-            System.out.println(out.size());
         return out;
     }
     public ArrayList<Vertex> getVerts(){
