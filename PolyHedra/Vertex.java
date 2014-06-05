@@ -1,21 +1,11 @@
-package PolyHedra;
+package polyhedra;
 
- 
-
-/**
- * Write a description of class Point here.
- * 
- * @author Taylor 
- * @version (a version number or a date)
- */
 public class Vertex
 {
     private double x;
-    private double y; 
+    private double y;
     private double z;
-    /**
-     * Constructor for objects of class Point
-     */
+
     public Vertex(){
         
     }
@@ -62,23 +52,11 @@ public class Vertex
         return Math.sqrt(Math.pow((a.getX() - this.getX()), 2) + Math.pow((a.getY() - this.getY()), 2) + Math.pow((a.getZ() - this.getZ()), 2));
     }
     
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     */
     public String toString()
     {
         return "(" + x + ", " + y + ", " + z + ")";
     }
     
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     */
     public void set(double newX, double newY, double newZ)
     {
         x = newX;
