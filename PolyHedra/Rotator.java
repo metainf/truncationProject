@@ -1,11 +1,10 @@
-package PolyHedra;
+package polyhedra;
 
 /**
- * Rotates the polyhedron based upon mouse positions
- * 
- * @author (Michael Vrablik) 
- * @version (1/18/2014)
- */
+* Rotates the polyhedron based upon mouse positions
+*
+* @author (Michael Vrablik)
+*/
 
 import javax.swing.SwingWorker;
 import java.awt.MouseInfo;
@@ -15,21 +14,13 @@ public class Rotator extends SwingWorker<String, String>
 {
     private boolean running;
     private boolean takingInput;
+    private Display display;
 
-    /**
-     * Constructor for objects of class Rotator
-     */
-    public Rotator()
+    public Rotator(Display newDisplay)
     {
-        //
+        display = newDisplay;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
     @Override
     public String doInBackground()
     {
@@ -37,10 +28,10 @@ public class Rotator extends SwingWorker<String, String>
         takingInput = true;
 
         Point mouseP = MouseInfo.getPointerInfo().getLocation();
-        Point oldP = new Point((int)mouseP.getX() - (int)UI.getDisplay().getLocationOnScreen().getX(),
-                (int)mouseP.getY() - (int)UI.getDisplay().getLocationOnScreen().getY());
-        Point newP = new Point((int)mouseP.getX() - (int)UI.getDisplay().getLocationOnScreen().getX(),
-                (int)mouseP.getY() - (int)UI.getDisplay().getLocationOnScreen().getY());
+        Point oldP = new Point((int)mouseP.getX() - (int)display.getLocationOnScreen().getX(),
+                (int)mouseP.getY() - (int)display.getLocationOnScreen().getY());
+        Point newP = new Point((int)mouseP.getX() - (int)display.getLocationOnScreen().getX(),
+                (int)mouseP.getY() - (int)display.getLocationOnScreen().getY());
 
         while (running)
         {
@@ -50,12 +41,12 @@ public class Rotator extends SwingWorker<String, String>
             {
                 mouseP = MouseInfo.getPointerInfo().getLocation();
                 oldP.setLocation(newP);
-                newP.setLocation(mouseP.getX() - UI.getDisplay().getLocationOnScreen().getX(),
-                    mouseP.getY() - UI.getDisplay().getLocationOnScreen().getY());
+                newP.setLocation(mouseP.getX() - display.getLocationOnScreen().getX(),
+                    mouseP.getY() - display.getLocationOnScreen().getY());
             }
             
-            UI.getDisplay().rotate(oldP, newP);
-            UI.getDisplay().repaint();
+            display.rotate(oldP, newP);
+            display.repaint();
 
             try {
                 //waits a tenth of a second, minus the computation and rotation time
@@ -67,35 +58,17 @@ public class Rotator extends SwingWorker<String, String>
         return "";
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     */
     public void stopInput()
     {
         takingInput = false;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     */
     public void stop()
     {
         running = false;
         takingInput = false;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     */
     public boolean isRunning()
     {
         return running;
