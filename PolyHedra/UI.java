@@ -1,11 +1,10 @@
-package PolyHedra;
+package polyhedra;
 
 /**
- * The User Interface for a truncation program
- * 
- * @author (Michael Vrablik) 
- * @version (1/18/2014)
- */
+* The User Interface for a truncation program
+*
+* @author (Michael Vrablik)
+*/
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,13 +23,11 @@ import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import javax.swing.event.ChangeListener;
@@ -39,24 +36,23 @@ import javax.swing.event.MouseInputAdapter;
 
 public class UI
 {
-    static JFrame mainFrame;    //the main window for the program
-    final static Display display = new Display("Tetrahedron");
 
     public static void main (String[] args)
 
     {
+    	JFrame mainFrame; //the main window for the program
         mainFrame = new JFrame("Shrinking Elephants"); //the frame for the program's GUI
         //ends the program when the main window is closed
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(new Dimension(575, 400));
         mainFrame.setMinimumSize(new Dimension(575, 400));
-        mainFrame.setLocationRelativeTo(null);  //centers the window
+        mainFrame.setLocationRelativeTo(null); //centers the window
         //maximizes the program's main window
         mainFrame.setExtendedState( mainFrame.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 
         final Rotator[] rotator = new Rotator[1];
 
-        JPanel mainPanel = new JPanel();  //the main panel
+        JPanel mainPanel = new JPanel(); //the main panel
         //sets mainPanel to a vertically stacking layout
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
 
@@ -65,6 +61,7 @@ public class UI
         controlPanel.setMaximumSize(new Dimension(175, 400));
         controlPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        final Display display = new Display("Tetrahedron");
         display.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel displayPanel = new JPanel();
@@ -79,7 +76,7 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    JOptionPane.showMessageDialog(null, Utility.HELP_TEXT, "Instructions",
+                    JOptionPane.showMessageDialog(null, polyhedra.Utility.HELP_TEXT, "Instructions",
                         JOptionPane.PLAIN_MESSAGE);
                     display.requestFocusInWindow();
                 }
@@ -191,20 +188,20 @@ public class UI
                 public void actionPerformed(ActionEvent actionEvent)
                 {
                     /*display.clearSelected();
-                    truncSlider.setEnabled(false);
-                    truncButton.setEnabled(false);
-                    truncLabel.setText("");
-                    display.repaint();*/
+truncSlider.setEnabled(false);
+truncButton.setEnabled(false);
+truncLabel.setText("");
+display.repaint();*/
                     display.requestFocusInWindow();
                 }
             }
         );
 
-        ButtonGroup rBGroup = new ButtonGroup();    //allows only one to be selected at a time
+        ButtonGroup rBGroup = new ButtonGroup(); //allows only one to be selected at a time
         rBGroup.add(selectRB);
         rBGroup.add(rotateRB);
         
-        JLabel zoomLabel = new JLabel("-     Zoom:     +");
+        JLabel zoomLabel = new JLabel("- Zoom: +");
         zoomLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JSlider zoomSlider = new JSlider(10, 50);
@@ -283,7 +280,7 @@ public class UI
                         {
                             rotator[0].stop();
                         }
-                        rotator[0] = new Rotator();
+                        rotator[0] = new Rotator(display);
                         rotator[0].execute();
                     }
                 }
@@ -301,16 +298,16 @@ public class UI
             }
         );
         /*display.addMouseListener(new MouseInputAdapter()
-            {
-                public void mouseExited(MouseEvent mouseEvent)
-                {
-                    if (rotator[0] != null)
-                    {
-                        rotator[0].stopInput();
-                    }
-                }
-            }
-        );*/
+{
+public void mouseExited(MouseEvent mouseEvent)
+{
+if (rotator[0] != null)
+{
+rotator[0].stopInput();
+}
+}
+}
+);*/
         display.addMouseWheelListener(new MouseInputAdapter()
             {
                 public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent)
@@ -382,10 +379,10 @@ public class UI
                     if (selectRB.isSelected())
                     {
                         /*display.clearSelected();
-                        truncSlider.setEnabled(false);
-                        truncButton.setEnabled(false);
-                        truncLabel.setText("");
-                        display.repaint();*/
+truncSlider.setEnabled(false);
+truncButton.setEnabled(false);
+truncLabel.setText("");
+display.repaint();*/
                         rotateRB.setSelected(true);
                         display.requestFocusInWindow();
                     }
@@ -450,16 +447,6 @@ public class UI
         mainFrame.setVisible(true);
 
         display.requestFocusInWindow();
-    }
-
-    /**
-     * Returns the display
-     *
-     * @return     the display
-     */
-    public static Display getDisplay()
-    {
-        return display;
     }
 
 }
