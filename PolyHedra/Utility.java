@@ -1,12 +1,12 @@
-package PolyHedra;
+package polyhedra;
+
 import java.util.ArrayList;
 
 /**
- * The utility class for UI
- * 
- * @author (Michael Vrablik) 
- * @version (1/18/2014)
- */
+* The utility class for UI
+*
+* @author (Michael Vrablik)
+*/
 public class Utility
 {
     public static String HELP_TEXT = "Help text to be written";
@@ -18,12 +18,12 @@ public class Utility
     }
     
     /**
-     * Returns (in radians, over the interval [0, 2pi)) the standard angle of the line from (0, 0) to (x, y)
-     *
-     * @param  x   the x-coordinate
-     * @param  y   the y-coordinate
-     * @return     the standard angle of the line from (0, 0) to (x, y)
-     */
+* Returns (in radians, over the interval [0, 2pi)) the standard angle of the line from (0, 0) to (x, y)
+*
+* @param x the x-coordinate
+* @param y the y-coordinate
+* @return the standard angle of the line from (0, 0) to (x, y)
+*/
     public static double angleOf(double x, double y)
     {
         if (x > 0.0 && y >= 0.0)
@@ -52,17 +52,18 @@ public class Utility
             return 0.0;
         }
     }
+    
     //creates a convex face given a set of points.
     public static Face createFace(ArrayList<Vertex> vertexIn){
-        System.out.println("started");
-        ArrayList<Edge> edges=new ArrayList();
+        //System.out.println("started");
+        ArrayList<Edge> edges=new ArrayList<Edge>();
         Vertex startingVertex=vertexIn.get(0);
         double smallestDistance=Double.MAX_VALUE;
         Vertex currentVertex=vertexIn.get(0);
         Vertex nextVertex=vertexIn.get(0);
         vertexIn.remove(0);
         while(vertexIn.size()!=0){
-            System.out.println(vertexIn.size());
+            //System.out.println(vertexIn.size());
             for(Vertex testVertex:vertexIn){
                 if(testVertex.distance(currentVertex)<smallestDistance){
                     smallestDistance=testVertex.distance(currentVertex);
@@ -75,7 +76,7 @@ public class Utility
             smallestDistance=Double.MAX_VALUE;
         }
         edges.add(new Edge(startingVertex,currentVertex));
-        System.out.println("finished");
+        //System.out.println("finished");
         return new Face(edges);
     }
 }
