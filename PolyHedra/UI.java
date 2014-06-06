@@ -123,7 +123,7 @@ public class UI
         );
 
         String [] polyhedra = {"Tetrahedron", "Cube", "Octahedron", "Dodecahedron", "Icosahedron"};
-        final JComboBox shapeComboBox = new JComboBox(polyhedra);
+        final JComboBox<String> shapeComboBox = new JComboBox<String>(polyhedra);
         shapeComboBox.setMaximumSize(new Dimension(160, 20));
         shapeComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         shapeComboBox.addActionListener(new ActionListener()
