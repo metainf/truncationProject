@@ -3,8 +3,6 @@ package polyhedra;
 import java.util.ArrayList;
 import java.util.*;
 import java.io.File;
-import java.io.FileReader;
-import java.awt.Point;
 public class Polyhedron
 {
     private ArrayList<Vertex> points;
@@ -61,7 +59,7 @@ public class Polyhedron
             Vertex currentPoint=(Vertex)copyPoints.get(0);
             ArrayList<Edge> edgesHasCurrentPoint= new ArrayList<Edge>();
             for(Edge e:copyEdge){
-                if(e.hasPoint(currentPoint)) edgesHasCurrentPoint.add(e);
+                if(e.hasVertex(currentPoint)) edgesHasCurrentPoint.add(e);
             }
             ArrayList<ArrayList<Edge>> pairs=new ArrayList<ArrayList<Edge>>();
             for(int i=0;i<edgesHasCurrentPoint.size();i++){
@@ -74,12 +72,12 @@ public class Polyhedron
             }
             double shortestDistance=Double.MAX_VALUE;
             for(int i=0;i<pairs.size();i++){
-                if(pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint))<shortestDistance){
-                    shortestDistance=pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint));
+                if(pairs.get(i).get(0).otherVert(currentPoint).distanceTo(pairs.get(i).get(1).otherVert(currentPoint))<shortestDistance){
+                    shortestDistance=pairs.get(i).get(0).otherVert(currentPoint).distanceTo(pairs.get(i).get(1).otherVert(currentPoint));
                 }
             }
             for(int i=0;i<pairs.size();i++){
-                if(pairs.get(i).get(0).otherVert(currentPoint).distance(pairs.get(i).get(1).otherVert(currentPoint))>shortestDistance+.01){
+                if(pairs.get(i).get(0).otherVert(currentPoint).distanceTo(pairs.get(i).get(1).otherVert(currentPoint))>shortestDistance+.01){
                     pairs.remove(i);
                     i=0;
                 }
@@ -134,13 +132,13 @@ public class Polyhedron
         double minLength = -Double.MAX_VALUE;
         for (int i = 0; i < edges.size(); i ++)
         {
-            if (edges.get(i).hasPoint(vertexToTrunc) && edges.get(i).distance() > minLength)
+            if (edges.get(i).hasVertex(vertexToTrunc) && edges.get(i).distance() > minLength)
             {
                 minLength = edges.get(i).distance();
             }
         }
         
-        this.pointTrun(vertexToTrunc, minLength * percent / 100.0);
+        this.pointTrunc(vertexToTrunc, minLength * percent / 100.0);
     }
     
     public void truncPercent(Edge edgeToTrunc, int percent)
@@ -150,7 +148,7 @@ public class Polyhedron
     
     //This requires that the length that we are going to truncate things by is less than the length of the shortest
     //edge. There is full truncation;
-    public void pointTrun(Vertex point, double chop){
+    public void pointTrunc(Vertex point, double chop){
         chop=chop*-1;
         ArrayList<Edge> tempEdges=new ArrayList<Edge>(); //used to store the edges before truncation
         ArrayList<Edge> newEdges=new ArrayList<Edge>();
@@ -159,7 +157,7 @@ public class Polyhedron
         Face newFace; //the face created by truncation
         //generates the list of edges that will be changed
         for(Edge e : edges){
-            if(e.hasPoint(point)){
+            if(e.hasVertex(point)){
                 tempEdges.add(e);
             }
         }
@@ -278,7 +276,7 @@ newFaces.add(i,currentFace);
         for(Edge e:newEdges){
             edges.add(e);
         }
-        for(Edge e:newFace.returnEdges()){
+        for(Edge e:newFace.getEdges()){
             edges.add(e);
         }
         for(Face f:newFaces){
@@ -421,7 +419,7 @@ newFaces.add(i,currentFace);
         {
             for (int i = 0; i < tempPoints.size(); i ++)
             {
-                double length=tempPoints.get(0).distance(tempPoints.get(i));
+                double length=tempPoints.get(0).distanceTo(tempPoints.get(i));
                 if (length<1.01 && length>.99)
                 {
                     edges.add(new Edge(tempPoints.get(0), tempPoints.get(i)));
@@ -595,7 +593,7 @@ public void rotate (double p1X, double p1Y, double p2X, double p2Y)
                 z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
         }
     }
-    public ArrayList<Vertex> getVerts(){
+    public ArrayList<Vertex> getVertices(){
         return points;
     }
 }
