@@ -65,8 +65,8 @@ public class Utility
         while(vertexIn.size()!=0){
             //System.out.println(vertexIn.size());
             for(Vertex testVertex:vertexIn){
-                if(testVertex.distance(currentVertex)<smallestDistance){
-                    smallestDistance=testVertex.distance(currentVertex);
+                if(testVertex.distanceTo(currentVertex)<smallestDistance){
+                    smallestDistance=testVertex.distanceTo(currentVertex);
                     nextVertex=testVertex;
                 }
             }
