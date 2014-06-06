@@ -27,6 +27,7 @@ return a;
         points.add(b);
         return points;
     }
+    
     public Vertex[] getVertices()
     {
      Vertex[] vertices = new Vertex[2];
@@ -34,7 +35,19 @@ return a;
      vertices[1] = this.b;
      return vertices;
     }
-    public boolean equals(Edge edge){
+    
+    @Override
+    public boolean equals(Object obj){
+        if(obj==null){
+            return false;
+        }
+        if(obj instanceof Edge){
+            return equals(obj);
+        }
+        return false;
+    }
+    
+    private boolean equals(Edge edge){
             if(edge.hasVertex(a)&&edge.hasVertex(b)){
             return true;
         }

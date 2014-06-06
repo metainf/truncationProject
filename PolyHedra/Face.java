@@ -32,12 +32,22 @@ return true;
 }
 return false;
     }
-    public boolean equals(Face f){
+    private boolean equals(Face f){
      for (int i=0;i<this.edges.size();i++){
      if (!(f.edges.contains(this.edges.get(i)))) return false;
     
      }
      return true;
+    }
+        @Override
+    public boolean equals(Object obj){
+        if(obj==null){
+            return false;
+        }
+        if(obj instanceof Face){
+            return equals(obj);
+        }
+        return false;
     }
     public Vertex getCentroid()
     {
