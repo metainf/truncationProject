@@ -20,7 +20,7 @@ return b;
 }
 return a;
 }
-    public ArrayList<Vertex> getVertexes()
+    public ArrayList<Vertex> getVertexList()
     {
         ArrayList<Vertex> points=new ArrayList<Vertex>();
         points.add(a);
@@ -35,7 +35,7 @@ return a;
      return vertices;
     }
     public boolean equals(Edge edge){
-            if(edge.hasPoint(a)&&edge.hasPoint(b)){
+            if(edge.hasVertex(a)&&edge.hasVertex(b)){
             return true;
         }
     
@@ -43,7 +43,7 @@ return a;
             return false;
         }
     }
-public boolean hasPoint(Vertex v){
+public boolean hasVertex(Vertex v){
 if(this.getVertices()[0].equals(v)||this.getVertices()[1].equals(v)){
 return true;
 }
@@ -53,13 +53,13 @@ return false;
 }
 public double distance()
 {
-return	a.distance(b);
+return	a.distanceTo(b);
 }
 public String toString(){
             String out=""+(a.getX()+b.getX())/2+" "+(a.getY()+b.getY())/2+" "+(a.getZ()+b.getZ())/2;
             return out;
         }
-        public void setVerticies(int index, Vertex v)
+        public void setVertices(int index, Vertex v)
         {
          if (index == 0)
          {
