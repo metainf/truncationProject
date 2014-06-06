@@ -3,7 +3,6 @@ package polyhedra;
 import java.util.ArrayList;
 public class Face
 {
-// instance variables - replace the example below with your own
 private ArrayList<Edge> edges;
 /**
 * Constructor for objects of class Face
@@ -16,7 +15,7 @@ public Face(ArrayList<Edge> inputEdges){
 *
 *@return ArrayList<Edges> edges of the face.
 */
-public ArrayList<Edge> returnEdges(){
+public ArrayList<Edge> getEdges(){
 return new ArrayList<Edge>(edges);
 }
 public boolean remove(Edge e){
@@ -104,11 +103,11 @@ break;
 }
 }
 while (tempEdges.size() > 0);
-**/
+*/
         return this.getOrder();
     }
     public ArrayList<Vertex> getOrder(){
-        ArrayList<Vertex> unOrder=new ArrayList<Vertex>(this.getVerts());
+        ArrayList<Vertex> unOrder=new ArrayList<Vertex>(this.getVertices());
         ArrayList<Vertex> out=new ArrayList<Vertex>();
         Vertex startingVertex=unOrder.get(0);
         Vertex currentVertex=unOrder.get(0);
@@ -118,8 +117,8 @@ while (tempEdges.size() > 0);
         double smallestDistance=Double.MAX_VALUE;
         while(unOrder.size()!=0){
             for(Vertex testVertex:unOrder){
-                if(testVertex.distance(currentVertex)<smallestDistance){
-                    smallestDistance=testVertex.distance(currentVertex);
+                if(testVertex.distanceTo(currentVertex)<smallestDistance){
+                    smallestDistance=testVertex.distanceTo(currentVertex);
                     nextVertex=testVertex;
                 }
             }
@@ -130,7 +129,7 @@ while (tempEdges.size() > 0);
         }
         return out;
     }
-    public ArrayList<Vertex> getVerts(){
+    public ArrayList<Vertex> getVertices(){
         ArrayList<Vertex> out= new ArrayList<Vertex>();
         for(Edge e:edges){
             out.add(e.getVertices()[0]);
