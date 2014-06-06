@@ -47,7 +47,7 @@ public class Vertex
             return false;
         }
     }
-    public double distance(Vertex a)
+    public double distanceTo(Vertex a)
     {
         return Math.sqrt(Math.pow((a.getX() - this.getX()), 2) + Math.pow((a.getY() - this.getY()), 2) + Math.pow((a.getZ() - this.getZ()), 2));
     }
