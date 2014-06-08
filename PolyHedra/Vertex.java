@@ -45,7 +45,7 @@ public class Vertex
             return false;
         }
         if(obj instanceof Vertex){
-            return equals(obj);
+            return equals((Vertex)obj);
         }
         return false;
     }
