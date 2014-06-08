@@ -45,7 +45,7 @@ return false;
             return false;
         }
         if(obj instanceof Face){
-            return equals(obj);
+            return equals((Face)obj);
         }
         return false;
     }
