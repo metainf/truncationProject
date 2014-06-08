@@ -42,7 +42,7 @@ return a;
             return false;
         }
         if(obj instanceof Edge){
-            return equals(obj);
+            return equals((Edge)obj);
         }
         return false;
     }
