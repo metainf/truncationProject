@@ -5,15 +5,17 @@ import java.util.ArrayList;
 public class Face
 {
 	private ArrayList<Edge> edges;
+        private ArrayList<Vertex> vertexs;
 	
 	public Face(ArrayList<Edge> inputEdges)
 	{
 		edges=new ArrayList<>(inputEdges);
+                vertexs=this.getVertices();
 	}
 	
 	public ArrayList<Edge> getEdges()
 	{
-		return new ArrayList<Edge>(edges);
+		return new ArrayList(edges);
 	}
 	
 	public boolean remove(Edge e)
@@ -33,6 +35,12 @@ public class Face
     		return true;
     	}
     	return false;
+    }
+    public boolean hasVertex(Vertex v){
+        if(vertexs.contains(v)){
+            return true;
+        }
+        return false;
     }
     
     @Override
