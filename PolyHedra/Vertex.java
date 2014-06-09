@@ -6,9 +6,11 @@ public class Vertex
     private double y;
     private double z;
 
-    public Vertex(){
+    public Vertex()
+    {
         
     }
+    
     public Vertex(double a, double b, double c)
     {
         x = a;
@@ -39,21 +41,29 @@ public class Vertex
         coords[2] = z;
         return coords;
     }
+    
     @Override
-    public boolean equals(Object obj){
-        if(obj==null){
-            return false;
-        }
-        if(obj instanceof Vertex){
-            return equals((Vertex)obj);
-        }
-        return false;
+    public boolean equals(Object obj)
+    {
+    	if(obj==null)
+    	{
+    		return false;
+    	}
+    	if(obj instanceof Vertex)
+    	{
+    		return equals((Vertex)obj);
+    	}
+    	return false;
     }
-    private boolean equals(Vertex vert){
-        if(Utility.inRange(this.x,vert.x) && Utility.inRange(this.y,vert.y) && Utility.inRange(this.z,vert.z)){
+    
+    private boolean equals(Vertex vert)
+    {
+        if(Utility.inRange(this.x,vert.x) && Utility.inRange(this.y,vert.y) && Utility.inRange(this.z,vert.z))
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
