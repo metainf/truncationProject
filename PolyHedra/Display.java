@@ -1,10 +1,10 @@
 package polyhedra;
 
 /**
-* A display and controller for a polyhedron
-*
-* @author (Michael Vrablik)
-*/
+ * A display and controller for a polyhedron
+ *
+ * @author (Michael Vrablik)
+ */
 
 import javax.swing.JPanel;
 import java.awt.image.BufferedImage;
@@ -142,8 +142,8 @@ public class Display extends JPanel
     }
 
     /**
-* Constructor for objects of class Display
-*/
+     * Constructor for objects of class Display
+     */
     public Display(String newShape)
     {
         if (newShape.equals("Tetrahedron"))
@@ -171,54 +171,54 @@ public class Display extends JPanel
     }
 
     /**
-* Translates cartesian X values (from the polyhedron) into graphical X values (for display)
-*
-* @param cartesianX the cartesian X value to be translated
-* @return the graphical X value
-*/
+     * Translates cartesian X values (from the polyhedron) into graphical X values (for display)
+     *
+     * @param cartesianX the cartesian X value to be translated
+     * @return the graphical X value
+     */
     private int translateX(double cartesianX)
     {
         return (int)Math.round((width / 4.0) * cartesianX * zoom + (width / 2.0));
     }
 
     /**
-* Translates cartesian Y values (from the polyhedron) into graphical Y values (for display)
-*
-* @param cartesianY the cartesian Y value to be translated
-* @return the graphical Y value
-*/
+     * Translates cartesian Y values (from the polyhedron) into graphical Y values (for display)
+     *
+     * @param cartesianY the cartesian Y value to be translated
+     * @return the graphical Y value
+     */
     private int translateY(double cartesianY)
     {
         return (int)Math.round(-1 * (height / 4.0) * cartesianY * zoom + (height / 2.0));
     }
 
     /**
-* Translates graphical X values (from the display) into cartesian X values (for the polyhedron)
-*
-* @param graphicalX the graphical X value to be translated
-* @return the cartesian X value
-*/
+     * Translates graphical X values (from the display) into cartesian X values (for the polyhedron)
+     *
+     * @param graphicalX the graphical X value to be translated
+     * @return the cartesian X value
+     */
     private double untranslateX(int graphicalX)
     {
         return (graphicalX - (width / 2.0)) / ((width / 4.0) * zoom);
     }
 
     /**
-* Translates graphical Y values (from the display) into cartesian Y values (for the polyhedron)
-*
-* @param graphicalY the graphical Y value to be translated
-* @return the cartesian Y value
-*/
+     * Translates graphical Y values (from the display) into cartesian Y values (for the polyhedron)
+     *
+     * @param graphicalY the graphical Y value to be translated
+     * @return the cartesian Y value
+     */
     private double untranslateY(int graphicalY)
     {
         return -1 * (graphicalY - (height / 2.0)) / ((height / 4.0) * zoom);
     }
 
     /**
-* Sets the polyhedron to the given one
-*
-* @param newShape the polyhedron to be set to
-*/
+     * Sets the polyhedron to the given one
+     *
+     * @param newShape the polyhedron to be set to
+     */
     public void setShape(String newShape)
     {
         if (newShape.equals("Tetrahedron"))
@@ -244,31 +244,31 @@ public class Display extends JPanel
     }
 
     /**
-* Sets whether the faces of the polyhedron are displayed
-*
-* @param newFacesVisible whether the faces should be displayed
-*/
+     * Sets whether the faces of the polyhedron are displayed
+     *
+     * @param newFacesVisible whether the faces should be displayed
+     */
     public void setFacesVisible(boolean newFacesVisible)
     {
         facesVisible = newFacesVisible;
     }
 
     /**
-* Sets the zoom level for the polyhedron's diplay
-*
-* @param newZoom the new zoom level (should be between 0.5 and 2.5, inclusive)
-*/
+     * Sets the zoom level for the polyhedron's diplay
+     *
+     * @param newZoom the new zoom level (should be between 0.5 and 2.5, inclusive)
+     */
     public void setZoom(double newZoom)
     {
         zoom = newZoom;
     }
 
     /**
-* Rotates the polyhedron in a direction and by an amount determined by two given (X, Y) points
-*
-* @param point1 the first point to be used in direction and amount determination
-* @param point2 the second point to be used in direction and amount determination
-*/
+     * Rotates the polyhedron in a direction and by an amount determined by two given (X, Y) points
+     *
+     * @param point1 the first point to be used in direction and amount determination
+     * @param point2 the second point to be used in direction and amount determination
+     */
     public void rotate(Point point1, Point point2)
     {
         polyhedron.rotate(this.untranslateX((int)((point1.getX() - edgeWidth) / scale)),
@@ -278,24 +278,24 @@ public class Display extends JPanel
     }
     
     /**
-* Rotates the polyhedron in a direction and by an amount determined by angles a, b, and c
-*
-* @param a the angle around the x-axis
-* @param b the angle around the y-axis
-* @param c the angle around the z-axis
-*/
+     * Rotates the polyhedron in a direction and by an amount determined by angles a, b, and c
+     *
+     * @param a the angle around the x-axis
+     * @param b the angle around the y-axis
+     * @param c the angle around the z-axis
+     */
     public void rotate(double a, double b, double c)
     {
         polyhedron.rotate(a, b, c);
     }
 
     /**
-* Returns whether there is a vertex at the given display coordinates
-*
-* @param x the X coordinate for the test
-* @param y the Y coordinate for the test
-* @return whether there is a vertex at (x, y)
-*/
+     * Returns whether there is a vertex at the given display coordinates
+     *
+     * @param x the X coordinate for the test
+     * @param y the Y coordinate for the test
+     * @return whether there is a vertex at (x, y)
+     */
     public boolean hasVertexAtXY(int x, int y)
     {
         if (x < edgeWidth || x > edgeWidth + drawWidth || y < edgeHeight || y > edgeHeight + drawHeight)
@@ -316,12 +316,12 @@ public class Display extends JPanel
     }
 
     /**
-* Returns whether there is an edge at the given display coordinates
-*
-* @param x the X coordinate for the test
-* @param y the Y coordinate for the test
-* @return whether there is an edge at (x, y)
-*/
+     * Returns whether there is an edge at the given display coordinates
+     *
+     * @param x the X coordinate for the test
+     * @param y the Y coordinate for the test
+     * @return whether there is an edge at (x, y)
+     */
     public boolean hasEdgeAtXY(int x, int y)
     {
         if (x < edgeWidth || x > edgeWidth + drawWidth || y < edgeHeight || y > edgeHeight + drawHeight)
@@ -342,8 +342,8 @@ public class Display extends JPanel
     }
 
     /**
-* Deselects everything that is currently selected
-*/
+     * Deselects everything that is currently selected
+     */
     public void clearSelected()
     {
         selectedVertex = null;
@@ -351,10 +351,10 @@ public class Display extends JPanel
     }
 
     /**
-* Returns whether there is currently something selected
-*
-* @return whether there is currently something selected
-*/
+     * Returns whether there is currently something selected
+     *
+     * @return whether there is currently something selected
+     */
     public boolean hasSelected()
     {
         if (selectedVertex == null && selectedEdge == null)
@@ -368,11 +368,11 @@ public class Display extends JPanel
     }
 
     /**
-* Selects the vertex at the given display coordinates
-*
-* @param x the X coordinate for the vertex
-* @param y the Y coordinate for the vertex
-*/
+     * Selects the vertex at the given display coordinates
+     *
+     * @param x the X coordinate for the vertex
+     * @param y the Y coordinate for the vertex
+     */
     public void selectVertexAtXY(int x, int y)
     {
         selectedVertex = polyhedron.getVertexAtXY(this.untranslateX((int)((x - edgeWidth) / scale)),
@@ -380,11 +380,11 @@ public class Display extends JPanel
     }
 
     /**
-* Selects the edge at the given display coordinates
-*
-* @param x one of the X coordinates for the edge
-* @param y one of the Y coordinates for the edge
-*/
+     * Selects the edge at the given display coordinates
+     *
+     * @param x one of the X coordinates for the edge
+     * @param y one of the Y coordinates for the edge
+     */
     public void selectEdgeAtXY(int x, int y)
     {
         selectedEdge = polyhedron.getEdgeAtXY(this.untranslateX((int)((x - edgeWidth) / scale)),
@@ -392,11 +392,11 @@ public class Display extends JPanel
     }
     
     /**
-* An example of a method - replace this comment with your own
-*
-* @param y a sample parameter for a method
-* @return the sum of x and y
-*/
+     * An example of a method - replace this comment with your own
+     *
+     * @param y a sample parameter for a method
+     * @return the sum of x and y
+     */
     public void truncSelectedPercent(int percent)
     {
         if (selectedVertex != null)
@@ -408,5 +408,4 @@ public class Display extends JPanel
             polyhedron.truncPercent(selectedEdge, percent);
         }
     }
-
 }
