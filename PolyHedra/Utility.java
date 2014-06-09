@@ -3,27 +3,21 @@ package polyhedra;
 import java.util.ArrayList;
 
 /**
-* The utility class for UI
-*
-* @author (Michael Vrablik)
-*/
+ * The utility class for UI
+ *
+ * @author (Michael Vrablik)
+ */
 public class Utility
 {
     public static String HELP_TEXT = "Help text to be written";
-    public static boolean inRange(double d1, double d2){
-        if((d1-d2)<.02 &&d1-d2>-.02){
-            return true;
-        }
-        return false;
-    }
     
     /**
-* Returns (in radians, over the interval [0, 2pi)) the standard angle of the line from (0, 0) to (x, y)
-*
-* @param x the x-coordinate
-* @param y the y-coordinate
-* @return the standard angle of the line from (0, 0) to (x, y)
-*/
+     * Returns (in radians, over the interval [0, 2pi)) the standard angle of the line from (0, 0) to (x, y)
+     *
+     * @param x the x-coordinate
+     * @param y the y-coordinate
+     * @return the standard angle of the line from (0, 0) to (x, y)
+     */
     public static double angleOf(double x, double y)
     {
         if (x > 0.0 && y >= 0.0)
@@ -53,8 +47,18 @@ public class Utility
         }
     }
     
+    public static boolean inRange(double d1, double d2)
+    {
+        if((d1-d2)<.02 &&d1-d2>-.02)
+        {
+            return true;
+        }
+        return false;
+    }
+    
     //creates a convex face given a set of points.
-    public static Face createFace(ArrayList<Vertex> vertexIn){
+    public static Face createFace(ArrayList<Vertex> vertexIn)
+    {
         //System.out.println("started");
         ArrayList<Edge> edges=new ArrayList<Edge>();
         Vertex startingVertex=vertexIn.get(0);
@@ -62,10 +66,13 @@ public class Utility
         Vertex currentVertex=vertexIn.get(0);
         Vertex nextVertex=vertexIn.get(0);
         vertexIn.remove(0);
-        while(vertexIn.size()!=0){
+        while(vertexIn.size()!=0)
+        {
             //System.out.println(vertexIn.size());
-            for(Vertex testVertex:vertexIn){
-                if(testVertex.distanceTo(currentVertex)<smallestDistance){
+            for(Vertex testVertex:vertexIn)
+            {
+                if(testVertex.distanceTo(currentVertex)<smallestDistance)
+                {
                     smallestDistance=testVertex.distanceTo(currentVertex);
                     nextVertex=testVertex;
                 }
