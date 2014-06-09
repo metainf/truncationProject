@@ -1,10 +1,10 @@
 package polyhedra;
 
 /**
-* Rotates the polyhedron based upon mouse positions
-*
-* @author (Michael Vrablik)
-*/
+ * Rotates the polyhedron based upon mouse positions
+ *
+ * @author (Michael Vrablik)
+ */
 
 import javax.swing.SwingWorker;
 import java.awt.MouseInfo;
@@ -73,5 +73,4 @@ public class Rotator extends SwingWorker<String, String>
     {
         return running;
     }
-
 }
