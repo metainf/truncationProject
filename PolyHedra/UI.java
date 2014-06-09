@@ -1,11 +1,12 @@
 package polyhedra;
 
 /**
-* The User Interface for a truncation program
-*
-* @author (Michael Vrablik)
-*/
+ * The User Interface for a truncation program
+ *
+ * @author (Michael Vrablik)
+ */
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.Action;
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -30,18 +32,17 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.MouseInputAdapter;
 
 public class UI
 {
-
     public static void main (String[] args)
-
     {
     	JFrame mainFrame; //the main window for the program
-        mainFrame = new JFrame("Shrinking Elephants"); //the frame for the program's GUI
+        mainFrame = new JFrame("Truncation"); //the frame for the program's GUI
         //ends the program when the main window is closed
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(new Dimension(575, 400));
@@ -56,7 +57,7 @@ public class UI
         //sets mainPanel to a vertically stacking layout
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
 
-        JPanel controlPanel = new JPanel(); //the panel for the user'c controls
+        JPanel controlPanel = new JPanel(); //the panel for the user's controls
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
         controlPanel.setMaximumSize(new Dimension(175, 400));
         controlPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -188,10 +189,10 @@ public class UI
                 public void actionPerformed(ActionEvent actionEvent)
                 {
                     /*display.clearSelected();
-truncSlider.setEnabled(false);
-truncButton.setEnabled(false);
-truncLabel.setText("");
-display.repaint();*/
+                	truncSlider.setEnabled(false);
+                	truncButton.setEnabled(false);
+                	truncLabel.setText("");
+                	display.repaint();*/
                     display.requestFocusInWindow();
                 }
             }
@@ -269,7 +270,7 @@ display.repaint();*/
                 }
             }
         );
-
+        
         display.addMouseListener(new MouseInputAdapter()
             {
                 public void mousePressed(MouseEvent mouseEvent)
@@ -286,6 +287,7 @@ display.repaint();*/
                 }
             }
         );
+        
         display.addMouseListener(new MouseInputAdapter()
             {
                 public void mouseReleased(MouseEvent mouseEvent)
@@ -297,17 +299,19 @@ display.repaint();*/
                 }
             }
         );
+        
         /*display.addMouseListener(new MouseInputAdapter()
-{
-public void mouseExited(MouseEvent mouseEvent)
-{
-if (rotator[0] != null)
-{
-rotator[0].stopInput();
-}
-}
-}
-);*/
+        	{
+        		public void mouseExited(MouseEvent mouseEvent)
+        		{
+        			if (rotator[0] != null)
+        			{
+        				rotator[0].stopInput();
+        			}
+        		}
+        	}
+        );*/
+        
         display.addMouseWheelListener(new MouseInputAdapter()
             {
                 public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent)
@@ -379,10 +383,10 @@ rotator[0].stopInput();
                     if (selectRB.isSelected())
                     {
                         /*display.clearSelected();
-truncSlider.setEnabled(false);
-truncButton.setEnabled(false);
-truncLabel.setText("");
-display.repaint();*/
+                        truncSlider.setEnabled(false);
+                        truncButton.setEnabled(false);
+                        truncLabel.setText("");
+                        display.repaint();*/
                         rotateRB.setSelected(true);
                         display.requestFocusInWindow();
                     }
@@ -400,17 +404,17 @@ display.repaint();*/
         ;
 
         //lays out the keyboard inputs
-        display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+        display.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "pressed LEFT");
-        display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+        display.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "pressed RIGHT");
-        display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+        display.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "pressed UP");
-        display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+        display.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "pressed DOWN");
-        display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+        display.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_R, 0), "pressed R");
-        display.getInputMap(display.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+        display.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "pressed SPACE");
 
         //lays out the response actions for keyboard inputs
@@ -439,7 +443,7 @@ display.repaint();*/
         controlPanel.add(truncLabel);
         controlPanel.add(truncButton);
 
-        //populates the main panel with the user's controls and the diaplay
+        //populates the main panel with the user's controls and the display
         mainPanel.add(controlPanel);
         mainPanel.add(displayPanel);
 
@@ -447,6 +451,9 @@ display.repaint();*/
         mainFrame.setVisible(true);
 
         display.requestFocusInWindow();
+        
+        JOptionPane.showMessageDialog(null, "Truncation is currently nonfunctional."
+        		+ "\n(All other features work normally)", "WARNING",
+                JOptionPane.ERROR_MESSAGE);
     }
-
 }
