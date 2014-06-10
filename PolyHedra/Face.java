@@ -4,38 +4,44 @@ import java.util.ArrayList;
 
 public class Face
 {
-	private ArrayList<Edge> edges;
-        private ArrayList<Vertex> vertexs;
+    private ArrayList<Edge> edges;
+    private ArrayList<Vertex> vertexs;
 	
-	public Face(ArrayList<Edge> inputEdges)
-	{
-		edges=new ArrayList<>(inputEdges);
-                vertexs=this.getVertices();
-	}
+    public Face(ArrayList<Edge> inputEdges)
+    {
+	edges=new ArrayList<>(inputEdges);
+        vertexs=this.getVertices();
+    }
 	
-	public ArrayList<Edge> getEdges()
-	{
-		return new ArrayList(edges);
-	}
+    public ArrayList<Edge> getEdges()
+    {
+    	return new ArrayList(edges);
+    }
 	
-	public boolean remove(Edge e)
-	{
-		return edges.remove(e);
-	}
+    public boolean remove(Edge e)
+    {
+	return edges.remove(e);
+    }
+        
+    public boolean remove(Vertex v)
+    {
+	return vertexs.remove(v);
+    }
 	
-	public void add(Edge e)
-	{
-		edges.add(e);
-	}
+    public void add(Edge e)
+    {
+	edges.add(e);
+    }
 
     public boolean hasEdge(Edge e)
     {
-    	if(edges.contains(e))
-    	{
-    		return true;
-    	}
-    	return false;
-    }
+        if(edges.contains(e))
+        {
+            return true;
+        }
+            return false;
+        }
+    
     public boolean hasVertex(Vertex v){
         if(vertexs.contains(v)){
             return true;

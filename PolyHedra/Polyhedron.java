@@ -151,13 +151,14 @@ public class Polyhedron
     public void truncPercent(Vertex vertexToTrunc, int percent)
     {
         double truePercent=percent/100.0;
+        System.out.println(truePercent);
         ArrayList<Edge> edgesToTrunc=new ArrayList(); //should start with some number, and end with zero edges
         ArrayList<Edge> edgesAfterTrunc=new ArrayList();//should start with zero edges, and end with some number
         ArrayList<Face> facesToModify=new ArrayList();//should start with some number, and end with zero faces
         ArrayList<Face> facesAfterModify=new ArrayList();//should start with zero faces, and end with some number
         ArrayList<Vertex> vertsCreated=new ArrayList();
         ArrayList<Edge> edgesCreated=new ArrayList();
-        Face faceCreated;
+        Face faceCreated=new Face(edges);//remove later
         //This first part is to setup the truncation process.
         //puts the edges that are going to be truncated into the list
         for(Edge e: edges){
@@ -179,6 +180,7 @@ public class Polyhedron
         for(Face e:facesToModify){
             faces.remove(e);
         }
+        vertexs.remove(vertexToTrunc);
         //setup complete
         /*This portion deals with if the truncation is 100%
          * It will simply delete the edges in the edgesToTrunc list, and remove them from the faces that had them.
@@ -186,8 +188,34 @@ public class Polyhedron
          * then those edges will be used to make the new face, and to add to the faces in facesToModity
          */
         if(truePercent==1){
-            //To fill 
+            System.out.println("I RAN");
+            //removes the edge that will be truncated from the face that has it, and it also removes the point that will be truncated.
+            for(Face e: facesToModify){
+                for(Edge k: edgesToTrunc){
+                    if(e.remove(k)) break;
+                }
+                e.remove(vertexToTrunc);
+            }
+            //creats the lists of points that make up the new face.
+            for(Edge e: edgesToTrunc){
+                if(!vertsCreated.contains(e.otherVert(vertexToTrunc))){
+                    vertsCreated.add(e.otherVert(vertexToTrunc));
+                }
+            }
+            //creates the new face created by the truncation
+            faceCreated=Utility.createFace(vertsCreated);
+            //clears the list of points that make up the new face, as they were not "created"
+            vertsCreated=new ArrayList();
+            //adds the edges of the new face to the edges created list
+            edgesCreated=faceCreated.getEdges();
+            facesAfterModify=facesToModify;
+            
         }
+        edges.addAll(edgesCreated);
+        faces.addAll(facesAfterModify);
+        faces.add(faceCreated);
+        vertexs.addAll(vertsCreated);
+        System.out.println(vertexs.size()+" "+edges.size()+" "+faces.size());
         
     }
     
