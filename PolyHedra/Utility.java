@@ -59,7 +59,6 @@ public class Utility
     //creates a convex face given a set of points.
     public static Face createFace(ArrayList<Vertex> vertexIn)
     {
-        //System.out.println("started");
         ArrayList<Edge> edges=new ArrayList<Edge>();
         Vertex startingVertex=vertexIn.get(0);
         double smallestDistance=Double.MAX_VALUE;
@@ -68,7 +67,6 @@ public class Utility
         vertexIn.remove(0);
         while(vertexIn.size()!=0)
         {
-            //System.out.println(vertexIn.size());
             for(Vertex testVertex:vertexIn)
             {
                 if(testVertex.distanceTo(currentVertex)<smallestDistance)

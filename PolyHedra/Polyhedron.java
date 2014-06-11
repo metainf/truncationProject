@@ -188,19 +188,20 @@ public class Polyhedron
          * then those edges will be used to make the new face, and to add to the faces in facesToModity
          */
         if(truePercent==1){
-            System.out.println("I RAN");
             //removes the edge that will be truncated from the face that has it, and it also removes the point that will be truncated.
             for(Face e: facesToModify){
                 for(Edge k: edgesToTrunc){
-                    if(e.remove(k)) break;
+                    e.remove(k);
                 }
                 e.remove(vertexToTrunc);
             }
+            //"heals" the face that had edges removed
+            for(int i=0;i<facesToModify.size();i++){
+                facesToModify.set(i, Utility.createFace(facesToModify.get(i).getVertices()));
+            }
             //creats the lists of points that make up the new face.
             for(Edge e: edgesToTrunc){
-                if(!vertsCreated.contains(e.otherVert(vertexToTrunc))){
                     vertsCreated.add(e.otherVert(vertexToTrunc));
-                }
             }
             //creates the new face created by the truncation
             faceCreated=Utility.createFace(vertsCreated);
@@ -208,7 +209,19 @@ public class Polyhedron
             vertsCreated=new ArrayList();
             //adds the edges of the new face to the edges created list
             edgesCreated=faceCreated.getEdges();
-            facesAfterModify=facesToModify;
+            //if the full truncation removed an entire face, this removes those faces, and their edges.
+            for(Face e:facesToModify){
+                System.out.println(e.getEdges().size());
+                if(e.getEdges().size()>2){
+                    facesAfterModify.add(e);
+                }
+                else{
+                    for(Edge k:e.getEdges()){
+                        edgesCreated.remove(k);
+                    }
+                }
+            }
+            System.out.println(facesAfterModify.size());
             
         }
         edges.addAll(edgesCreated);
