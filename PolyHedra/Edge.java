@@ -42,22 +42,8 @@ public class Edge
     	vertices[1] = this.b;
     	return vertices;
     }
-    
-    @Override
-    public boolean equals(Object obj)
-    {
-    	if(obj==null)
-    	{
-    		return false;
-    	}
-    	if(obj instanceof Edge)
-    	{
-    		return equals((Edge)obj);
-    	}
-    	return false;
-    }
 
-    private boolean equals(Edge edge)
+    public boolean sameAs(Edge edge)
     {
     	if(edge.hasVertex(a)&&edge.hasVertex(b))
     	{
@@ -71,7 +57,7 @@ public class Edge
     
     public boolean hasVertex(Vertex v)
     {
-    	if(this.getVertices()[0].equals(v)||this.getVertices()[1].equals(v))
+    	if(this.getVertices()[0].roughEquals(v)||this.getVertices()[1].roughEquals(v))
     	{
     		return true;
     	}
@@ -88,12 +74,10 @@ public class Edge
     
     public String toString()
     {
-    	String out=""+(a.getX()+b.getX())/2+" "+(a.getY()+b.getY())/2
-    			+" "+(a.getZ()+b.getZ())/2;
-    	return out;
+    	return getMidpoint().toString();
     }
     
-    public void setVertices(int index, Vertex v)
+    public void setVertex(int index, Vertex v)
     {
     	if (index == 0)
     	{
@@ -108,4 +92,22 @@ public class Edge
     		System.out.println("index must be 0 or 1");
     	}
     }
+    
+    public void replace(Vertex oldVertex, Vertex newVertex)
+    {
+    	if (oldVertex.equals(a))
+    	{
+    		a = newVertex;
+    	}
+    	else if (oldVertex.equals(b))
+    	{
+    		b = newVertex;
+    	}
+    }
+
+	public Vertex getMidpoint()
+	{
+		return new Vertex((a.getX() + b.getX()) / 2, (a.getY() + b.getY()) / 2,
+				(a.getZ() + b.getZ()) / 2);
+	}
 }
