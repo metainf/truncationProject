@@ -2,8 +2,6 @@ package polyhedra;
 
 /**
  * A display and controller for a polyhedron
- *
- * @author (Michael Vrablik)
  */
 
 import javax.swing.JPanel;
@@ -42,7 +40,6 @@ public class Display extends JPanel
     @Override
     protected void paintComponent(Graphics g)
     {
-        //System.out.println("paint");
         g2D.setColor(backgroundColor);
         g2D.fillRect(0, 0, width, height);
 
@@ -56,6 +53,7 @@ public class Display extends JPanel
             int minIndex = 0;
             for (int i = 0; i < faces.size(); i ++)
             {
+            	//using the centroid occasionally leads to incorrect ordering
                 double currentZ = faces.get(i).getCentroid().getZ();
                 if (currentZ < minZ)
                 {
@@ -254,7 +252,7 @@ public class Display extends JPanel
     }
 
     /**
-     * Sets the zoom level for the polyhedron's diplay
+     * Sets the zoom level for the polyhedron's display
      *
      * @param newZoom the new zoom level (should be between 0.5 and 2.5, inclusive)
      */
@@ -391,12 +389,6 @@ public class Display extends JPanel
         this.untranslateY((int)((y - edgeHeight) / scale)));
     }
     
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param y a sample parameter for a method
-     * @return the sum of x and y
-     */
     public void truncSelectedPercent(int percent)
     {
         if (selectedVertex != null)
