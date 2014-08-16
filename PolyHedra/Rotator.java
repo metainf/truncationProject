@@ -2,8 +2,6 @@ package polyhedra;
 
 /**
  * Rotates the polyhedron based upon mouse positions
- *
- * @author (Michael Vrablik)
  */
 
 import javax.swing.SwingWorker;
