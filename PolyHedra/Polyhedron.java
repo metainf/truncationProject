@@ -1,12 +1,13 @@
 package polyhedra;
 
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.io.File;
 
 public class Polyhedron
 {
-    private ArrayList<Vertex> vertexs;
+    private ArrayList<Vertex> vertices;
     private ArrayList<Edge> edges;
     private ArrayList<Face> faces;
     
@@ -18,7 +19,7 @@ public class Polyhedron
 
     public Polyhedron(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges,ArrayList<Face> inputSides)
     {
-        vertexs= new ArrayList<Vertex>(inputPoints);
+        vertices= new ArrayList<Vertex>(inputPoints);
         edges= new ArrayList<Edge>(inputEdges);
         faces= new ArrayList<Face>(inputSides);
     }
@@ -27,31 +28,28 @@ public class Polyhedron
     {
         switch(shape)
         {
-            case TETRAHEDRON: vertexs=new ArrayList<Vertex>(this.readVerticesTetrahedron("PolyhedraVertices.txt"));
-                                edges=new ArrayList<Edge>(initiateEdges(vertexs));
-                                faces= new ArrayList<Face>(makePolyhedronFaces(vertexs,edges));
+            case TETRAHEDRON: vertices=new ArrayList<Vertex>(this.readVerticesTetrahedron("PolyhedraVertices.txt"));
+                                edges=new ArrayList<Edge>(initiateEdges(vertices));
+                                faces= new ArrayList<Face>(makePolyhedronFaces(vertices,edges));
                                 
             break;
-            case CUBE: vertexs=new ArrayList<Vertex>(this.readVerticesCube("PolyhedraVertices.txt"));
-                                edges=new ArrayList<Edge>(initiateEdges(vertexs));
-                                faces=new ArrayList<Face>(makePolyhedronFaces(vertexs,edges));
+            case CUBE: vertices=new ArrayList<Vertex>(this.readVerticesCube("PolyhedraVertices.txt"));
+                                edges=new ArrayList<Edge>(initiateEdges(vertices));
+                                faces=new ArrayList<Face>(makePolyhedronFaces(vertices,edges));
             break;
-            case OCTAHEDRON: vertexs=new ArrayList<Vertex>(this.readVerticesOctahedron("PolyhedraVertices.txt"));
-                                edges=new ArrayList<Edge>(initiateEdges(vertexs));
-                                faces=new ArrayList<Face>(makePolyhedronFaces(vertexs,edges));
+            case OCTAHEDRON: vertices=new ArrayList<Vertex>(this.readVerticesOctahedron("PolyhedraVertices.txt"));
+                                edges=new ArrayList<Edge>(initiateEdges(vertices));
+                                faces=new ArrayList<Face>(makePolyhedronFaces(vertices,edges));
             break;
-            case DODECAHEDRON: vertexs=new ArrayList<Vertex>(this.readVerticesDodecahedron("PolyhedraVertices.txt"));
-                                edges=new ArrayList<Edge>(initiateEdges(vertexs));
-                                faces=new ArrayList<Face>(makePolyhedronFaces(vertexs,edges));
+            case DODECAHEDRON: vertices=new ArrayList<Vertex>(this.readVerticesDodecahedron("PolyhedraVertices.txt"));
+                                edges=new ArrayList<Edge>(initiateEdges(vertices));
+                                faces=new ArrayList<Face>(makePolyhedronFaces(vertices,edges));
             break;
-            case ICOSAHEDRON: vertexs=new ArrayList<Vertex>(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
-                                edges=new ArrayList<Edge>(initiateEdges(vertexs));
-                                faces=new ArrayList<Face>(makePolyhedronFaces(vertexs,edges));
+            case ICOSAHEDRON: vertices=new ArrayList<Vertex>(this.readVerticesIcosahedron("PolyhedraVertices.txt"));
+                                edges=new ArrayList<Edge>(initiateEdges(vertices));
+                                faces=new ArrayList<Face>(makePolyhedronFaces(vertices,edges));
             break;
         }
-        //System.out.println(points.size()+"points");
-        //System.out.println(edges.size()+"edges");
-        //System.out.println(sides.size()+"faces");
     }
 
     public static ArrayList<Face> makePolyhedronFaces(ArrayList<Vertex> inputPoints, ArrayList<Edge> inputEdges)
@@ -59,7 +57,6 @@ public class Polyhedron
         ArrayList<Vertex> copyPoints=new ArrayList<Vertex>(inputPoints);
         ArrayList<Edge> copyEdge=new ArrayList<Edge>(inputEdges);
         ArrayList<Face> faces=new ArrayList<Face>();
-        ArrayList<Face> facesOut=new ArrayList<Face>();
         while(copyPoints.size()>0)
         {
             Vertex currentPoint=(Vertex)copyPoints.get(0);
@@ -135,7 +132,7 @@ public class Polyhedron
         {
             for(int j=i+1;j<faces.size();j+=0)
             {
-                if(faces.get(j).equals(faces.get(i)))
+                if(faces.get(j).sameAs(faces.get(i)))
                 {
                     faces.remove(j);
                     j=i+1;
@@ -149,98 +146,283 @@ public class Polyhedron
     }
     
     public void truncPercent(Vertex vertexToTrunc, int percent)
-    {
-        double truePercent=percent/100.0;
-        System.out.println(truePercent);
-        ArrayList<Edge> edgesToTrunc=new ArrayList(); //should start with some number, and end with zero edges
-        ArrayList<Edge> edgesAfterTrunc=new ArrayList();//should start with zero edges, and end with some number
-        ArrayList<Face> facesToModify=new ArrayList();//should start with some number, and end with zero faces
-        ArrayList<Face> facesAfterModify=new ArrayList();//should start with zero faces, and end with some number
-        ArrayList<Vertex> vertsCreated=new ArrayList();
-        ArrayList<Edge> edgesCreated=new ArrayList();
+    {	
+    	double percentLeft = (100 - percent) / 100.0;
+        ArrayList<Edge> edgesToTrunc = new ArrayList<Edge>();
+        ArrayList<Face> facesToModify = new ArrayList<Face>();
+        ArrayList<Vertex> vertsCreated = new ArrayList<Vertex>();
+        ArrayList<Edge> edgesCreated = new ArrayList<Edge>();
+        for(Edge e: edges)
+        {
+            if(e.hasVertex(vertexToTrunc))
+            {
+                edgesToTrunc.add(e);
+            }
+        }
+        for(Face f: faces)
+        {
+            if(f.hasVertex(vertexToTrunc))
+            {
+                facesToModify.add(f);
+            }
+        }
+        for (int i = 0; i < edgesToTrunc.size(); i ++)
+    	{
+    		Edge currentEdge = edgesToTrunc.get(i);
+    		Vertex baseVertex = currentEdge.otherVert(vertexToTrunc);
+    		Vertex newVertex = new Vertex(
+    				baseVertex.getX() + (percentLeft * (vertexToTrunc.getX() - baseVertex.getX())),
+    				baseVertex.getY() + (percentLeft * (vertexToTrunc.getY() - baseVertex.getY())),
+    				baseVertex.getZ() + (percentLeft * (vertexToTrunc.getZ() - baseVertex.getZ())));
+    		currentEdge.replace(vertexToTrunc, newVertex);
+    		vertsCreated.add(newVertex);
+    	}
+        for (int i = 0; i < facesToModify.size(); i ++)
+        {
+        	Face currentFace = facesToModify.get(i);
+        	ArrayList<Vertex> newVertices = new ArrayList<Vertex>();
+        	for (int j = 0; j < vertsCreated.size(); j ++)
+    		{
+    			Vertex currentVertex = vertsCreated.get(j);
+    			if (currentFace.hasVertex(currentVertex))
+        		{
+        			newVertices.add(currentVertex);
+        		}
+    		}
+        	Edge newEdge = new Edge(newVertices.get(0), newVertices.get(1));
+        	currentFace.add(newEdge);
+        	edgesCreated.add(newEdge);
+        }
+        //TODO //A TO //B causes an infinite loop in Face.getOrderedVertices()
+        //A
+        for (int i = 0; i < vertsCreated.size(); i ++)
+        {
+        	Vertex currentNewVertex = vertsCreated.get(i);
+        	boolean redundant = false;
+        	for (int j = 0; j < vertices.size(); j ++)
+    		{
+    			Vertex currentOldVertex = vertices.get(j);
+    			if (currentNewVertex.roughEquals(currentOldVertex))
+        		{
+    				redundant = true;
+    				for (int k = 0; k < edges.size(); k ++)
+    				{
+    					Edge currentEdge = edges.get(k);
+    					if (currentEdge.hasVertex(currentNewVertex))
+    					{
+    						currentEdge.replace(currentNewVertex, currentOldVertex);
+    					}
+    				}
+        		}
+    		}
+        	if (redundant)
+        	{
+        		vertsCreated.remove(currentNewVertex);
+        		i --;
+        	}
+        	
+        }
+        faces.add(new Face(edgesCreated));
+        edges.addAll(edgesCreated);
+        vertices.remove(vertexToTrunc);
+        vertices.addAll(vertsCreated);
+        for (int i = 0; i < edges.size(); i ++)
+    	{
+    		Edge currentEdge = edges.get(i);
+    		boolean redundant = false;
+    		Vertex[] edgeVertices = currentEdge.getVertices();
+    		if (edgeVertices[0].equals(edgeVertices[1]))
+    		{
+    			redundant = true;
+    		}
+    		else
+    		{
+    			for (int j = 0; j < edges.size(); j ++)
+    	    	{
+    	    		Edge currentOtherEdge = edges.get(j);
+    	    		if (currentEdge.sameAs(currentOtherEdge)
+    	    				&& !currentEdge.equals(currentOtherEdge))
+    	    		{
+    	    			redundant = true;
+    	    			for (int k = 0; k < faces.size(); k ++)
+    	        		{
+    	    				Face currentFace = faces.get(k);
+    	    				if (currentFace.hasEdge(currentEdge))
+    	    				{
+    	    					currentFace.add(currentOtherEdge);
+    	    				}
+    	        		}
+    	    			break;
+    	    		}
+    	    	}
+    		}
+    		if (redundant)
+    		{
+    			edges.remove(currentEdge);
+    			for (int j = 0; j < faces.size(); j ++)
+        		{
+    				Face currentFace = faces.get(j);
+    				if (currentFace.hasEdge(currentEdge))
+    				{
+    					currentFace.remove(currentEdge);
+    				}
+        		}
+    			i --;
+    		}
+    	}
+        for (int i = 0; i < faces.size(); i ++)
+		{
+        	Face currentFace = faces.get(i);
+        	if (currentFace.getNumVertices() < 3)
+        	{
+        		faces.remove(currentFace);
+        	}
+		}
+        //B
+        
+    	
+    	//obsolete code for performing full truncations
+        /*double truePercent=percent/100.0;
+        ArrayList<Edge> edgesToTrunc=new ArrayList<Edge>(); //should start with some number, and end with zero edges
+        ArrayList<Edge> edgesAfterTrunc=new ArrayList<Edge>();//should start with zero edges, and end with some number
+        ArrayList<Face> facesToModify=new ArrayList<Face>();//should start with some number, and end with zero faces
+        ArrayList<Face> facesAfterModify=new ArrayList<Face>();//should start with zero faces, and end with some number
+        ArrayList<Vertex> vertsCreated=new ArrayList<Vertex>();
+        ArrayList<Edge> edgesCreated=new ArrayList<Edge>();
         Face faceCreated=new Face(edges);//remove later
         //This first part is to setup the truncation process.
         //puts the edges that are going to be truncated into the list
-        for(Edge e: edges){
-            if(e.hasVertex(vertexToTrunc)){
+        for(Edge e: edges)
+        {
+            if(e.hasVertex(vertexToTrunc))
+            {
                 edgesToTrunc.add(e);
             }
         }
         //removes the previous edges from the master list
-        for(Edge e: edgesToTrunc){
+        for(Edge e: edgesToTrunc)
+        {
             edges.remove(e);
         }
-        //puts the edges that are going to be truncated into the list
-        for(Face e: faces){
-            if(e.hasVertex(vertexToTrunc)){
+        //puts the faces that are going to be truncated into the list
+        for(Face e: faces)
+        {
+            if(e.hasVertex(vertexToTrunc))
+            {
                 facesToModify.add(e);
             }
         }
         //removes the previous faces from the master list.
-        for(Face e:facesToModify){
+        for(Face e:facesToModify)
+        {
             faces.remove(e);
         }
-        vertexs.remove(vertexToTrunc);
+        vertices.remove(vertexToTrunc);
         //setup complete
         /*This portion deals with if the truncation is 100%
          * It will simply delete the edges in the edgesToTrunc list, and remove them from the faces that had them.
-         * Then it will take the verticies that make up the new face, and from that, create the edges in edgesCreated
+         * Then it will take the vertices that make up the new face, and from that, create the edges in edgesCreated
          * then those edges will be used to make the new face, and to add to the faces in facesToModity
-         */
-        if(truePercent==1){
-            //removes the edge that will be truncated from the face that has it, and it also removes the point that will be truncated.
-            for(Face e: facesToModify){
-                for(Edge k: edgesToTrunc){
-                    e.remove(k);
-                }
-                e.remove(vertexToTrunc);
-            }
-            //"heals" the face that had edges removed
-            for(int i=0;i<facesToModify.size();i++){
-                facesToModify.set(i, Utility.createFace(facesToModify.get(i).getVertices()));
-            }
-            //creats the lists of points that make up the new face.
-            for(Edge e: edgesToTrunc){
-                    vertsCreated.add(e.otherVert(vertexToTrunc));
-            }
-            //creates the new face created by the truncation
-            faceCreated=Utility.createFace(vertsCreated);
-            //clears the list of points that make up the new face, as they were not "created"
-            vertsCreated=new ArrayList();
-            //adds the edges of the new face to the edges created list
-            edgesCreated=faceCreated.getEdges();
-            //if the full truncation removed an entire face, this removes those faces, and their edges.
-            for(Face e:facesToModify){
-                System.out.println(e.getEdges().size());
-                if(e.getEdges().size()>2){
-                    facesAfterModify.add(e);
-                }
-                else{
-                    for(Edge k:e.getEdges()){
-                        edgesCreated.remove(k);
-                    }
-                }
-            }
-            System.out.println(facesAfterModify.size());
-            
+         *//*
+        if(truePercent==1)
+        {
+        	//removes the edge that will be truncated from the face that has it, and it also removes the point that will be truncated.
+        	for(Face e: facesToModify)
+        	{
+        		for(Edge k: edgesToTrunc)
+        		{
+        			e.remove(k);
+        		}
+        		e.remove(vertexToTrunc);
+        	}
+        	//"heals" the face that had edges removed
+        	for(int i=0;i<facesToModify.size();i++)
+        	{
+        		facesToModify.set(i, Utility.createFace(facesToModify.get(i).getVertices()));
+        	}
+        	//creates the lists of points that make up the new face.
+        	for(Edge e: edgesToTrunc)
+        	{
+        		vertsCreated.add(e.otherVert(vertexToTrunc));
+        	}
+        	//creates the new face created by the truncation
+        	faceCreated=Utility.createFace(vertsCreated);
+        	//clears the list of points that make up the new face, as they were not "created"
+        	vertsCreated=new ArrayList<Vertex>();
+        	//adds the edges of the new face to the edges created list
+        	edgesCreated=faceCreated.getEdges();
+        	//if the full truncation removed an entire face, this removes those faces, and their edges.
+        	for(Face e:facesToModify)
+        	{
+        		if(e.getEdges().size()>2)
+        		{
+        			facesAfterModify.add(e);
+        		}
+        		else
+        		{
+        			for(Edge k:e.getEdges())
+        			{
+        				edgesCreated.remove(k);
+        			}
+        		}
+        	}
         }
         edges.addAll(edgesCreated);
         faces.addAll(facesAfterModify);
         faces.add(faceCreated);
-        vertexs.addAll(vertsCreated);
-        System.out.println(vertexs.size()+" "+edges.size()+" "+faces.size());
-        
+        vertices.addAll(vertsCreated);*/
     }
     
     public void truncPercent(Edge edgeToTrunc, int percent)
     {
-        //this.edgeTrun(edgeToTrunc, edgeToTrunc.distance() * percent / 100.0);
+    	double truePercent = percent / 100.0;
+    	Vertex[] edgeVertices = edgeToTrunc.getVertices();
+    	Vertex midpoint = edgeToTrunc.getMidpoint();
+    	edgeVertices[0].set(
+    			edgeVertices[0].getX() + (truePercent * (midpoint.getX() - edgeVertices[0].getX())),
+    			edgeVertices[0].getY() + (truePercent * (midpoint.getY() - edgeVertices[0].getY())),
+    			edgeVertices[0].getZ() + (truePercent * (midpoint.getZ() - edgeVertices[0].getZ())));
+    	edgeVertices[1].set(
+    			edgeVertices[1].getX() + (truePercent * (midpoint.getX() - edgeVertices[1].getX())),
+    			edgeVertices[1].getY() + (truePercent * (midpoint.getY() - edgeVertices[1].getY())),
+    			edgeVertices[1].getZ() + (truePercent * (midpoint.getZ() - edgeVertices[1].getZ())));
+    	//TODO //A TO //B causes an infinite loop in Face.getOrderedVertices()
+    	//A
+    	if (edgeVertices[0].roughEquals(edgeVertices[1]))
+		{
+			for (int i = 0; i < edges.size(); i ++)
+			{
+				Edge currentEdge = edges.get(i);
+				if (currentEdge.hasVertex(edgeVertices[1]))
+				{
+					currentEdge.replace(edgeVertices[1], edgeVertices[0]);
+				}
+			}
+			vertices.remove(edgeVertices[1]);
+			edges.remove(edgeToTrunc);
+			for (int j = 0; j < faces.size(); j ++)
+    		{
+				Face currentFace = faces.get(j);
+				if (currentFace.hasEdge(edgeToTrunc))
+				{
+					currentFace.remove(edgeToTrunc);
+				}
+    		}
+			for (int i = 0; i < faces.size(); i ++)
+			{
+	        	Face currentFace = faces.get(i);
+	        	if (currentFace.getNumVertices() < 3)
+	        	{
+	        		faces.remove(currentFace);
+	        	}
+			}
+		}
+    	//B
     }
-    
 
     public boolean hasVertexAtXY(double x, double y)
     {
-        for (Vertex v: vertexs)
+        for (Vertex v: vertices)
         {
             if (Utility.inRange(v.getX(), x) && Utility.inRange(v.getY(), y))
             {
@@ -324,9 +506,9 @@ public class Polyhedron
     {
         Vertex closest= new Vertex();
         double z=-Double.MAX_VALUE; //gets a z coordinate to check against
-        for (int i = 0; i < vertexs.size(); i ++)
+        for (int i = 0; i < vertices.size(); i ++)
         {
-            Vertex v = vertexs.get(i);
+            Vertex v = vertices.get(i);
             if (Utility.inRange(v.getX(), x) && Utility.inRange(v.getY(), y) && v.getZ() > z)
             {
                 closest = v;
@@ -346,8 +528,7 @@ public class Polyhedron
         ArrayList<Vertex> tempPoints = new ArrayList<Vertex>(points);
         ArrayList<Edge> edges = new ArrayList<Edge>();
 
-        do
-        {
+        do {
             for (int i = 0; i < tempPoints.size(); i ++)
             {
                 double length=tempPoints.get(0).distanceTo(tempPoints.get(i));
@@ -357,8 +538,7 @@ public class Polyhedron
                 }
             }
             tempPoints.remove(0);
-        }
-        while (tempPoints.size() > 0);
+        } while (tempPoints.size() > 0);
         return edges;
     }
 
@@ -530,12 +710,12 @@ public class Polyhedron
     
     public void rotate(double a, double b, double c)
     {
-        for (int i = 0; i < vertexs.size(); i ++)
+        for (int i = 0; i < vertices.size(); i ++)
         {
-            double x = vertexs.get(i).getX();
-            double y = vertexs.get(i).getY();
-            double z = vertexs.get(i).getZ();
-            vertexs.get(i).set(x * Math.cos(b) * Math.cos(c) + y * (Math.cos(a) * Math.sin(c) - Math.cos(c) * Math.sin(a) * Math.sin(b)) + z * (Math.cos(a) * Math.cos(c) * Math.sin(b) + Math.sin(a) * Math.sin(c)),
+            double x = vertices.get(i).getX();
+            double y = vertices.get(i).getY();
+            double z = vertices.get(i).getZ();
+            vertices.get(i).set(x * Math.cos(b) * Math.cos(c) + y * (Math.cos(a) * Math.sin(c) - Math.cos(c) * Math.sin(a) * Math.sin(b)) + z * (Math.cos(a) * Math.cos(c) * Math.sin(b) + Math.sin(a) * Math.sin(c)),
                 -x * Math.cos(b) * Math.sin(c) + z * (Math.cos(c) * Math.sin(a) - Math.cos(a) * Math.sin(b) * Math.sin(c)) + y * (Math.cos(a) * Math.cos(c) + Math.sin(a) * Math.sin(b) * Math.sin(c)),
                 z * Math.cos(a) * Math.cos(b) - y * Math.sin(a) * Math.cos(b) - x * Math.sin(b));
         }
@@ -543,6 +723,6 @@ public class Polyhedron
     
     public ArrayList<Vertex> getVertices()
     {
-        return vertexs;
+        return vertices;
     }
 }
