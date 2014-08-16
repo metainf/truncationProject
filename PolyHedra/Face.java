@@ -4,67 +4,52 @@ import java.util.ArrayList;
 
 public class Face
 {
-    private ArrayList<Edge> edges;
-    private ArrayList<Vertex> vertexs;
+	private ArrayList<Edge> edges;
 	
-    public Face(ArrayList<Edge> inputEdges)
-    {
-	edges=new ArrayList<>(inputEdges);
-        vertexs=this.getVertices();
-    }
+	public Face(ArrayList<Edge> inputEdges)
+	{
+		edges=new ArrayList<>(inputEdges);
+	}
 	
-    public ArrayList<Edge> getEdges()
-    {
-    	return new ArrayList(edges);
-    }
+	public ArrayList<Edge> getEdges()
+	{
+		return new ArrayList<Edge>(edges);
+	}
 	
-    public boolean remove(Edge e)
-    {
-	return edges.remove(e);
-    }
-        
-    public boolean remove(Vertex v)
-    {
-	return vertexs.remove(v);
-    }
+	public boolean remove(Edge e)
+	{
+		return edges.remove(e);
+	}
 	
-    public void add(Edge e)
-    {
-	edges.add(e);
-    }
+	public void add(Edge e)
+	{
+		edges.add(e);
+	}
 
     public boolean hasEdge(Edge e)
     {
-        if(edges.contains(e))
-        {
-            return true;
-        }
-            return false;
-        }
-    
-    public boolean hasVertex(Vertex v){
-        if(vertexs.contains(v)){
-            return true;
-        }
-        return false;
-    }
-    
-    @Override
-    public boolean equals(Object obj)
-    {
-    	if(obj==null)
+    	if(edges.contains(e))
     	{
-    		return false;
-    	}
-    	if(obj instanceof Face)
-    	{
-    		return equals((Face)obj);
+    		return true;
     	}
     	return false;
     }
     
-    private boolean equals(Face f)
+    public boolean hasVertex(Vertex v)
     {
+    	if(getVertices().contains(v))
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean sameAs(Face f)
+    {
+    	if (f.edges.size() != this.edges.size())
+    	{
+    		return false;
+    	}
     	for (int i=0;i<this.edges.size();i++)
     	{
     		if (!(f.edges.contains(this.edges.get(i)))) return false;
@@ -100,7 +85,7 @@ public class Face
     
     public ArrayList<Vertex> getOrderedVertices()
     {
-    	/*
+    	///*
     	ArrayList<Edge> tempEdges = new ArrayList<Edge>(edges);
     	Edge e;
     	Vertex a, b;
@@ -109,16 +94,15 @@ public class Face
     	orderedVertices.add(tempEdges.get(0).getVertices()[0]);
     	orderedVertices.add(tempEdges.remove(0).getVertices()[1]);
 
-    	do
-    	{
+    	do {
+    		int startSize = tempEdges.size();
+    		
     		for (int i = 0; i < tempEdges.size(); i ++)
     		{
     			e = tempEdges.get(i);
     			a = e.getVertices()[0];
     			b = e.getVertices()[1];
     			n = orderedVertices.size() - 1;
-    			System.out.println("e = " + e + ", a = " + a + ", b = " + b + ", n = " + n
-    					+ ", orderedVertices.get(n) = " + orderedVertices.get(n));
     			if (orderedVertices.get(n).equals(a))
     			{
     				orderedVertices.add(b);
@@ -132,18 +116,30 @@ public class Face
     				break;
     			}
     		}
-    	}
-    	while (tempEdges.size() > 0);
+    		//TODO FIX INFINITE LOOP (OCCURS WHEN VERTICES COME TOO CLOSE)
+    		
+    		//aborts infinite loops
+    		if (tempEdges.size() == startSize)
+    		{
+    			System.out.print(""
+    					+ "\n!! Infinite loop in Face.getOrderedVertices aborted"
+    					+ "\n!! orderedVertices returned incomplete (tempEdges dumped)"
+    					+ "\n!!     tempEdges.size(): " + tempEdges.size()
+    					+ "\n!!     Face: " + this
+    					+ "\n!!     tempEdges: " + tempEdges
+    					+ "\n");
+    			break;
+    		}
+    		
+    	} while (tempEdges.size() > 0);
     	return orderedVertices;
-         */
-        return this.getOrder();
+        //*/return this.getOrder();
     }
     
     public ArrayList<Vertex> getOrder()
     {
         ArrayList<Vertex> unOrder=new ArrayList<Vertex>(this.getVertices());
         ArrayList<Vertex> out=new ArrayList<Vertex>();
-        Vertex startingVertex=unOrder.get(0);
         Vertex currentVertex=unOrder.get(0);
         Vertex nextVertex=unOrder.get(0);
         unOrder.remove(0);
@@ -151,7 +147,8 @@ public class Face
         double smallestDistance=Double.MAX_VALUE;
         while(unOrder.size()!=0)
         {
-        	for(Vertex testVertex:unOrder){
+        	for(Vertex testVertex:unOrder)
+        	{
         		if(testVertex.distanceTo(currentVertex)<smallestDistance)
         		{
                     smallestDistance=testVertex.distanceTo(currentVertex);
