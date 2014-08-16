@@ -26,7 +26,7 @@ Octahedron:
 
 
 Dodecahedron:
-http://ideone.com/I1ThbB
+https://ideone.com/I1ThbB
 
 0.0 0.0 0.9510565382188727
 0.8506508366990473 0.0 0.42532539650493106
@@ -43,7 +43,7 @@ http://ideone.com/I1ThbB
 
 
 Icosahedron
-http://ideone.com/hsp9ya
+https://ideone.com/hsp9ya
 
 0.8506509438397194 0.0 1.113516704552101
 0.2628655979275623 0.8090171232313879 1.113516704552101
