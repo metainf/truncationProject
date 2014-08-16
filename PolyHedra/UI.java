@@ -2,8 +2,6 @@ package polyhedra;
 
 /**
  * The User Interface for a truncation program
- *
- * @author (Michael Vrablik)
  */
 
 import javax.swing.JComponent;
@@ -21,10 +19,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.Action;
 import javax.swing.AbstractAction;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -69,16 +69,90 @@ public class UI
         displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.PAGE_AXIS));
         displayPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         displayPanel.add(display);
-
-        JButton helpButton = new JButton("Help!");
-        helpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //tells helpButton what to do when pressed
-        helpButton.addActionListener(new ActionListener()
+        
+        final JFrame moreFrame = new JFrame();
+        moreFrame.setSize(new Dimension(400, 400));
+        moreFrame.setResizable(false);
+        moreFrame.setLocationRelativeTo(null);
+        
+        JPanel morePanel = new JPanel();
+        morePanel.setLayout(new BoxLayout(morePanel, BoxLayout.PAGE_AXIS));
+        
+        JPanel moreRBPanel = new JPanel();
+        moreRBPanel.setLayout(new BoxLayout(moreRBPanel, BoxLayout.LINE_AXIS));
+        moreRBPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        moreRBPanel.setMaximumSize(new Dimension(400, 20));
+        
+        final JTextArea moreTextArea = new JTextArea(Utility.INSTRUCTIONS);
+        moreTextArea.setEditable(false);
+        //uncomment if hyperlinks get added to the urls in Utility.CREDITS and Utility.HELP_TEXT
+        //moreTextArea.setHighlighter(null);
+        moreTextArea.setBackground(morePanel.getBackground());
+        moreTextArea.setLineWrap(true);
+        moreTextArea.setWrapStyleWord(true);
+        moreTextArea.setMargin(new Insets(10, 10, 10, 10));
+        moreTextArea.setMaximumSize(new Dimension(400, 370));
+        
+        JRadioButton instructionsRB = new JRadioButton("Instructions", true);
+        instructionsRB.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    JOptionPane.showMessageDialog(null, polyhedra.Utility.HELP_TEXT, "Instructions",
-                        JOptionPane.PLAIN_MESSAGE);
+                	moreTextArea.setText(Utility.INSTRUCTIONS);
+                	moreTextArea.requestFocusInWindow();
+                }
+            }
+        );
+        JRadioButton creditsRB = new JRadioButton("Credits");
+        creditsRB.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent actionEvent)
+                {
+                	moreTextArea.setText(Utility.CREDITS);
+                	moreTextArea.requestFocusInWindow();
+                }
+            }
+        );
+        JRadioButton helpRB = new JRadioButton("I Want to Help!");
+        helpRB.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent actionEvent)
+                {
+                	moreTextArea.setText(Utility.HELP_TEXT);
+                	moreTextArea.requestFocusInWindow();
+                }
+            }
+        );
+        
+        ButtonGroup moreRBGroup = new ButtonGroup(); //allows only one to be selected at a time
+        moreRBGroup.add(instructionsRB);
+        moreRBGroup.add(creditsRB);
+        moreRBGroup.add(helpRB);
+        
+        moreRBPanel.add(Box.createVerticalStrut(0));
+        moreRBPanel.add(instructionsRB);
+        moreRBPanel.add(Box.createVerticalStrut(0));
+        moreRBPanel.add(creditsRB);
+        moreRBPanel.add(Box.createVerticalStrut(0));
+        moreRBPanel.add(helpRB);
+        moreRBPanel.add(Box.createVerticalStrut(0));
+        
+        morePanel.add(Box.createVerticalStrut(10));
+        morePanel.add(moreRBPanel);
+        morePanel.add(moreTextArea);
+        
+        moreFrame.add(morePanel);
+
+        JButton moreButton = new JButton("More");
+        moreButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //tells moreButton what to do when pressed
+        moreButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent actionEvent)
+                {
+                	moreFrame.setLocationRelativeTo(null);
+                	moreFrame.setVisible(true);
+                	moreTextArea.requestFocusInWindow();
                     display.requestFocusInWindow();
                 }
             }
@@ -148,7 +222,6 @@ public class UI
 
         final JCheckBox facesCheckBox = new JCheckBox("Display Faces", true);
         facesCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //facesCheckBox.setSelected(true);
         facesCheckBox.addItemListener(new ItemListener()
             {
                 public void itemStateChanged(ItemEvent itemEvent)
@@ -188,6 +261,7 @@ public class UI
             {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
+                	//uncomment to prevent truncation while rotating
                     /*display.clearSelected();
                 	truncSlider.setEnabled(false);
                 	truncButton.setEnabled(false);
@@ -198,18 +272,16 @@ public class UI
             }
         );
 
-        ButtonGroup rBGroup = new ButtonGroup(); //allows only one to be selected at a time
-        rBGroup.add(selectRB);
-        rBGroup.add(rotateRB);
+        ButtonGroup mainRBGroup = new ButtonGroup(); //allows only one to be selected at a time
+        mainRBGroup.add(selectRB);
+        mainRBGroup.add(rotateRB);
         
         JLabel zoomLabel = new JLabel("- Zoom: +");
         zoomLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JSlider zoomSlider = new JSlider(10, 50);
         zoomSlider.setValue(20);
-        zoomSlider.setMinorTickSpacing(1);
-        zoomSlider.setPaintTicks(true);
-        zoomSlider.setMaximumSize(new Dimension(160, 40));
+        zoomSlider.setMaximumSize(new Dimension(160, 20));
         zoomSlider.setAlignmentX(Component.CENTER_ALIGNMENT);
         zoomSlider.addChangeListener(new ChangeListener()
             {
@@ -300,18 +372,6 @@ public class UI
             }
         );
         
-        /*display.addMouseListener(new MouseInputAdapter()
-        	{
-        		public void mouseExited(MouseEvent mouseEvent)
-        		{
-        			if (rotator[0] != null)
-        			{
-        				rotator[0].stopInput();
-        			}
-        		}
-        	}
-        );*/
-        
         display.addMouseWheelListener(new MouseInputAdapter()
             {
                 public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent)
@@ -382,6 +442,7 @@ public class UI
                 {
                     if (selectRB.isSelected())
                     {
+                    	//uncomment to prevent truncation while rotating
                         /*display.clearSelected();
                         truncSlider.setEnabled(false);
                         truncButton.setEnabled(false);
@@ -427,7 +488,7 @@ public class UI
 
         //populates the user's control panel
         controlPanel.add(Box.createVerticalStrut(20));
-        controlPanel.add(helpButton);
+        controlPanel.add(moreButton);
         controlPanel.add(Box.createVerticalStrut(20));
         controlPanel.add(selectRB);
         controlPanel.add(rotateRB);
@@ -452,8 +513,11 @@ public class UI
 
         display.requestFocusInWindow();
         
-        JOptionPane.showMessageDialog(null, "Truncation is currently nonfunctional."
-        		+ "\n(All other features work normally)", "WARNING",
-                JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null,
+        		"Truncation that results in overly close vertices"
+        		+ "\ncan currently cause extremely abnormal behavior."
+        		+ "\nIf this occurs, restore normal functionality by"
+        		+ "\nresetting the polyhedron using the 'R' key.",
+        		"WARNING", JOptionPane.ERROR_MESSAGE);
     }
 }
