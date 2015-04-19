@@ -2,8 +2,6 @@
 Overview
 ====================
 
-VERSION 2.0 CAN BE FOUND AT: [link to be added soon]
-
 This program allows for the display of, rotation of,
 and repeatable truncation of five regular polyhedra
 (tetrahedron, cube, octahedron, dodecahedron, and
@@ -54,10 +52,6 @@ credit is given to the original authors.
 ====================
 I Want to Help!
 ====================
-
-EDIT: A redone/improved version is in the works! It should
-be done sometime in Spring 2015. This readme will be
-updated with a link when it is released.
 
 This project is no longer being worked on by the original
 developers, but some major issues remain. If you are
